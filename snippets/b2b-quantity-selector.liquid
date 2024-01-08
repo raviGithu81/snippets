@@ -1,0 +1,89 @@
+<price-break>
+    <div class="mb-2" data-b2b-qty-container>
+      <span class="fw-medium text-uppercase fs-sm mb-2 d-inline-block" title="Label {{ 'products.product.quantity.label' | t }}">{{ 'products.product.quantity.label' | t }}</span>
+      <div class="d-flex align-items-center">
+        <div class="quantity-wrapper input-group">
+          <div class="input-group-prepend">
+            <a href="#" class="input-group-text btn min-h-100 disabled" rel="nofollow" aria-label="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}" data-for="decrease" data-qty-btn>
+              <span class="btn-decrease icon-minus"></span>
+              <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+            </a>
+          </div>
+          <input type="text" name="quantity" aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}" value="{{ current_variant.quantity_rule.min }}" inputmode="numeric" data-qty-input class="quantity form-control text-center" readonly>
+          <div class="input-group-append">
+            <a href="#" class="input-group-text btn min-h-100" rel="nofollow" aria-label="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" title="{{ 'products.product.quantity.increase' | t: product: product.title | escape }}" data-for="increase" data-qty-btn>
+              <span class="btn-increase btn-increase d-flex h-100 align-items-center icon-plus"></span>
+              <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+            </a>
+          </div>
+        </div>
+        {%- if product.quantity_price_breaks_configured? -%}
+          <div class="price-per-item fs-sm ms-3" data-price-per-item>
+            {%- liquid
+              assign variant_price = current_variant.price | money
+            -%}
+            <span class="price-per-item--current" data-current-price>{{ 'products.product.volume_pricing.price_at_each' | t: price: variant_price }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  
+    {%- if product.quantity_price_breaks_configured? -%}
+      {%- liquid
+        assign show_quantity_rule = false
+        assign quantity_rule_increment = current_variant.quantity_rule.increment
+        assign quantity_rule_min = current_variant.quantity_rule.min
+        assign quantity_rule_max = current_variant.quantity_rule.max
+        if quantity_rule_increment > 1 or quantity_rule_min > 1 
+          assign show_quantity_rule = true
+        endif     
+      -%}
+      <ul class="align-items-center flex-wrap fs-xs list-unstyled quantity__rules" data-quantity-rule-caption {%- unless show_quantity_rule %} style="display: none;"{%- endunless -%}>
+        {%- if quantity_rule_increment > 1 -%}
+          <li>{{ 'products.product.volume_pricing.multiples_of' | t: quantity: quantity_rule_increment }}</li>
+        {%- endif -%}
+        {%- if quantity_rule_min > 1 -%}
+          <li>{{ 'products.product.volume_pricing.minimum_of' | t: quantity: quantity_rule_min }}</li>
+        {%- endif -%}
+        {%- if quantity_rule_max and maximum_of != blank -%}
+          <li>{{ 'products.product.volume_pricing.maximum_of' | t: quantity: maximum_of }}</li>
+        {%- endif -%}
+      </ul>
+      <div data-volume-price-list-wrapper>
+        <p class="mb-2">{{ 'products.product.volume_pricing.title' | t }}</p>
+        <div class="volume-price-wrappper">
+          <ul class="list-unstyled p-0 volume-price-list" data-volume-price-list>
+            {%- if current_variant.quantity_price_breaks.size > 0 -%}
+              {%- for price_break in current_variant.quantity_price_breaks -%}
+                <li class="d-flex justify-content-between p-2">
+                  <span>{{ 'products.product.volume_pricing.minimum' | t: quantity: price_break.minimum_quantity }}</span>
+                  <span>{{ price_break.price | money }}</span>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          </ul>
+        </div>
+        <script data-price-break-json type="application/json">
+          {%- capture json_string -%}
+            {
+              {%- for variant in product.variants -%}
+                {%- if variant.quantity_price_breaks.size > 0 -%}
+                  "{{ variant.id }}": [
+                      {%- for price_break in variant.quantity_price_breaks -%}
+                        {%- unless forloop.first -%},{%- endunless -%}{
+                          "price": {{ price_break.price }},
+                          "minimum_quantity": {{ price_break.minimum_quantity }}
+                        }
+                      {%- endfor -%}
+                    ]{%- if forloop.last == false -%},{%- endif -%}
+                {%- endif -%} 
+              {%- endfor -%}
+            }
+          {%- endcapture -%}
+          {%- assign json_string = json_string | replace: '}],}', '}]}' -%}
+          {{ json_string }}
+        </script>
+      </div>
+    {%- endif -%}
+</price-break>
+<script src="{{ 'component-price-break.js' | asset_url }}" defer></script>

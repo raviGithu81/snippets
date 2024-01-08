@@ -1,0 +1,292 @@
+{{ 'global-collection-list.css' | asset_url | stylesheet_tag: preload: true }}
+
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}" data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }};">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 text-center mx-auto">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'heading' -%}
+                        <h2 class="mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                        {%- when 'subheading' -%}
+                        <div class="fs-lg fw-bold mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.sub_heading_color }};">{{ block.settings.subheading }}</div> 
+                        {%- when 'text' -%}
+                        <div class="banner__text" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                    {%- endcase -%}    
+                {% endfor %}
+            </div>
+        </div>  
+
+        {% assign collection_blocks = section.blocks | where: 'type', 'collection' %}
+        {% if collection_blocks.size > 0 %}
+            <div class="row">
+                {%- for block in collection_blocks -%}
+                    <div class="{% if section.settings.grid_size == "6" %} col-md-{{ section.settings.grid_size }} col-sm-6 col-12{% elsif section.settings.grid_size == "4" %} col-md-{{ section.settings.grid_size }} col-sm-4 col-12 {% elsif section.settings.grid_size == "3" %} col-md-{{ section.settings.grid_size }} col-sm-6 col-12 {% endif %} mt-3 mt-md-5" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                        <a class="card-collection position-relative d-block {{ section.settings.image_ratio }}" {% if block.settings.collection != blank and block.settings.collection.all_products_count > 0 %} href="{{ block.settings.collection.url }}"{% endif %}>
+                            {% if section.settings.enable_overlay %}<div class="overlay" style="background: {{ section.settings.overlay_bg_color }}; opacity: {{ section.settings.overlay_opacity }};"></div>{% endif %}
+                            {%- if block.settings.collection.image != blank -%}
+                                <img 
+                                srcset="
+                                {%- if block.settings.collection.image.width >= 360 -%}{{ block.settings.collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+                                {%- if block.settings.collection.image.width >= 535 -%}{{ block.settings.collection.image | image_url: width: 535 }} 535w,{%- endif -%}
+                                {%- if block.settings.collection.image.width >= 750 -%}{{ block.settings.collection.image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {{ block.settings.collection.image | image_url }} {{ block.settings.collection.image.width }}w"
+                                src="{{ block.settings.collection.image | image_url: width: 50 }}"
+                                sizes="{% if section.settings.grid_size == "6" %}(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 2 }}px, (min-width: 768px) calc(100vw / 2), 50vw{% else %}(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw{% endif %}"
+                                
+                                alt="{{ block.settings.collection.image.alt | default: block.settings.collection.title | escape }}"
+                                height="{{ block.settings.collection.image.height }}"
+                                width="{{ block.settings.collection.image.width }}"
+                                loading="lazy" >
+                            {%- else -%} 
+                                {%- liquid 
+                                    capture current
+                                        cycle 1, 2, 3
+                                    endcapture
+                                    assign placeholder_image = 'collection-apparel-' | append: current
+                                -%}
+                                {{ placeholder_image | placeholder_svg_tag: 'placeholder-svg' }}   
+                            {%- endif -%}
+
+                            <div class="card-collection-caption ps-4 pe-4 text-start w-100" style="color:{{ block.settings.section_txt_color }}">
+                                <h4 class="fw-medium text-uppercase">
+                                    {%- if block.settings.title != blank -%}
+                                        {{- block.settings.title | escape -}}
+                                    {% elsif block.settings.collection.title != blank %}
+                                        {{- block.settings.collection.title | escape -}}
+                                    {%- endif -%}
+                                </h4>
+                                {%- if block.settings.show_text != blank -%}
+                                    <div class="fs-md mb-0 text-uppercase btn-link">
+                                        {{ block.settings.show_text }}
+                                    </div>
+                                {%- endif -%}
+                            </div>
+                        </a>
+                    </div>
+                {%- endfor -%}
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Collections List",
+        "class": "collections-list",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "Style"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "select",
+                "id": "grid_size",
+                "label": "Grid Size",
+                "options": [
+                    {
+                        "value": "6",
+                        "label": "2 Columns"
+                    },
+                    {
+                        "value": "4",
+                        "label": "3 Columns"
+                    },
+                    {
+                        "value": "3",
+                        "label": "4 Columns"
+                    }
+                ],
+                "default": "3"
+            },
+            {
+                "type": "select",
+                "id": "image_ratio",
+                "options": [
+                    {
+                        "value": "adapt",
+                        "label": "Adapt to image"
+                    },
+                    {
+                        "value": "portrait",
+                        "label": "Portrait"
+                    },
+                    {
+                        "value": "square",
+                        "label": "Square"
+                    },
+                    {
+                        "value": "landscape",
+                        "label": "Landscape"
+                    }
+                ],
+                "default": "square",
+                "label": "Image ratio",
+                "info": "To add images, [edit your collections](https://help.shopify.com/en/manual/products/collections)"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_overlay",
+                "label": "Overlay Enabled?",
+                "default": true
+            },
+            {
+                "type": "color_background",
+                "id": "overlay_bg_color",
+                "label": "Overlay Background Color",
+                "default": "#000000"
+            },
+            {
+                "type": "range",
+                "id": "overlay_opacity",
+                "label": "Overlay Opacity",
+                "min": 0.1,
+                "max": 1,
+                "step": 0.1,
+                "default": 0.5
+            }
+        ],
+        "blocks": [
+            {
+                "type": "collection",
+                "limit": 4,
+                "name": "Collection",
+                "settings": [
+                    {
+                        "type": "collection",
+                        "id": "collection",
+                        "label": "Collection"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "default": "Title"
+                    },
+                    {
+                        "type": "text",
+                        "id": "show_text",
+                        "default": "Shop Now",
+                        "label": "Shop Text"
+                    },
+                    {
+                        "type": "color",
+                        "id": "section_txt_color",
+                        "label": "Text Color"
+                    }
+                ]
+            },
+            {
+                "type": "heading",
+                "limit": 1,
+                "name": "Heading",
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Collections"
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color"
+                    }
+                ]
+            },
+            {
+                "type": "subheading",
+                "limit": 1,
+                "name": "Sub Heading",
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "subheading",
+                        "label": "Sub Heading",
+                        "default": "<p>List of bestseller collections</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"sub_heading_color",
+                        "label":"Sub Heading Color"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "name": "Text",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "Lead Text",
+                        "default": "<p>Customer faviourite collections this week!</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Collections List",
+                "category": "Featured",
+                "blocks": [
+                    {
+                        "type": "collection"
+                    },
+                    {
+                        "type": "collection"
+                    },
+                    {
+                        "type": "collection"
+                    },
+                    {
+                        "type": "collection"
+                    },
+                    {
+                        "type": "heading"                    
+                    },
+                    {
+                        "type": "subheading"
+                    },
+                    {
+                        "type": "text"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

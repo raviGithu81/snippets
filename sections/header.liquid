@@ -1,0 +1,246 @@
+<{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %}>
+
+<header class="site-header {% if section.settings.show_line_separator %}border-bottom{% endif %}" style="background-color: {{ section.settings.header_bg_color }};">
+  {%- comment -%}Desktop Menu{%- endcomment -%}
+  <nav class="navbar navbar-main navbar-expand-lg" role="menubar" aria-label="Main Navigation">
+      <div class="{% if section.settings.fluid_header %}container-fluid{% else %}container px-sm-3 px-2{% endif %}">
+
+          <!-- Dektop Header Logo -->
+              {%- if request.page_type == 'index' -%}
+              <div class="header__heading mb-0 py-2">
+              {%- endif -%}
+                  <a href="{{ routes.root_url }}" class="navbar-brand me-5 d-none d-lg-block" title="{{ shop.name | escape }}" aria-label="{{ shop.name | escape }}" style="width: {{ section.settings.logo_width }}px;">
+                    {%- if section.settings.logo != blank -%}
+                        {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+                        {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
+                        {% capture styles %}max-width: {{ section.settings.logo_width }}px{% endcapture %}
+                        {% capture logo_imgSize %}{{ section.settings.logo_width | times: 2 }}px{% endcapture %}
+                        {{ section.settings.logo | image_url: width: logo_imgSize | image_tag:
+                            class: 'img-fluid',
+                            width: section.settings.logo_width,
+                            height: logo_height,
+                            alt: logo_alt,
+                            style: styles,
+                            sizes: logo_imgSize,
+                            srcset: nil,
+                            preload: true
+                        }} 
+                    {%- else -%}
+                        <span class="h5 text-primary">{{ shop.name }}</span>
+                    {%- endif -%}
+                  </a>
+              {%- if request.page_type == 'index' -%}
+              </div>
+              <h1 class="d-none">{{ shop.name }}</h1>
+              {%- endif -%}
+
+          <div class="collapse navbar-collapse desktop-navbar">
+              {% render 'desktop-navbar' %}
+          </div>
+
+          <div class="nav navbar-mobile w-100 d-flex align-items-center list-unstyled py-3 d-lg-none">
+              <div class="col-4 col-sm-4 px-0 d-flex justify-content-start navbar-icon-links">
+                  <div class="nav-item pe-2">
+                      <a class="nav-link" href="#" id="mobile-menu" title="menu" rel="nofollow" aria-label="Menu" role="button" aria-expanded="false" aria-controls="mobile-menu-drawer">
+                          <span class="icon-menu"></span>
+                      </a>
+                  </div>
+                  <div class="nav-item px-2">
+                      <a href="{{ routes.search_url }}" class="nav-link modal__toggle open-searchform" aria-haspopup="dialog" aria-label="{{ 'general.search.title' | t }}">
+                        <span class="icon-search"></span>
+                      </a>
+                    </div>
+              </div>
+              <div class="col-4 col-sm-4 text-center">
+                  {%- if request.page_type == 'index' -%}
+                  <div class="header__heading mb-0">
+                  {%- endif -%}
+                      <a href="{{ routes.root_url }}" class="navbar-brand nav-item" title="{{ shop.name | escape }}" aria-label="{{ shop.name | escape }}">
+                          {%- if section.settings.logo != blank -%}
+                              <img srcset="{{ section.settings.logo | image_url: width: 500 }}"
+                              src="{{ section.settings.logo | image_url }}"
+                              loading="eager"
+                              class="img-fluid"
+                              width="{{ section.settings.logo.width }}"
+                              height="{{ section.settings.logo.height }}"
+                              alt="{{ section.settings.logo.alt | default: shop.name | escape }}" 
+                              style="max-width: {{ section.settings.logo_width }}px">
+                          {%- else -%}
+                              <span class="h5 text-primary">{{ shop.name }}</span>
+                          {%- endif -%}
+                      </a>
+                  {%- if request.page_type == 'index' -%}
+                  </div>
+                  {%- endif -%}
+              </div>
+              <div class="col-4 col-sm-4 px-0 text-end">
+                  <ul class="align-items-center d-flex justify-content-end list-unstyled mb-0 ms-auto navbar-icon-links">
+                      {% if shop.customer_accounts_enabled %}
+                          <li class="nav-item px-2">
+                              <a class="nav-link" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="account" rel="nofollow" aria-label="Account">
+                                  <span class="icon-user"></span>
+                              </a>
+                          </li>
+                      {% endif %}
+                      
+                      <li class="nav-item px-2">
+                          <a href="{{ routes.cart_url }}" class="nav-link header__icon--cart position-relative" focusable="false" id="cart-icon-mobile" rel="nofollow" title="cart" rel="nofollow" aria-label="Cart">
+                          <span class="icon-cart align-middle"></span>
+                          <span class="visually-hidden">{{ 'templates.cart.title' | t }}</span>
+                          {%- if cart != empty -%}
+                              {%- if cart.item_count < 100 -%}
+                              <span aria-hidden="true" class="cart-count">{{ cart.item_count }}</span>
+                              {%- endif -%}
+                          {%- endif -%}
+                          </a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+
+      </div>
+  </nav>
+</header> 
+</{% if section.settings.sticky_header_type != 'none' %}sticky-header{% else %}div{% endif %}>
+
+{% unless section.settings.sticky_header_type == 'none' %}
+  <script src="{{ 'component-sticky-header.js' | asset_url }}" defer></script>
+{%- endunless -%}
+
+{% comment %} Organization {% endcomment %}
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    {%- if section.settings.logo != blank -%}
+      {%- assign image_size = section.settings.logo.width | append: 'x' -%}
+      "logo": {{ section.settings.logo | image_url: image_size | prepend: "https:" | json }},
+    {%- endif -%}
+    "sameAs": [
+      {%- if settings.social_twitter_link != blank -%}{{ settings.social_twitter_link | json }},{%- endif -%}
+      {%- if settings.social_facebook_link != blank -%}{{ settings.social_facebook_link | json }},{%- endif -%}
+      {%- if settings.social_pinterest_link != blank -%}{{ settings.social_pinterest_link | json }},{%- endif -%}
+      {%- if settings.social_instagram_link != blank -%}{{ settings.social_instagram_link | json }},{%- endif -%}
+      {%- if settings.social_tumblr_link != blank -%}{{ settings.social_tumblr_link | json }},{%- endif -%}
+      {%- if settings.social_snapchat_link != blank -%}{{ settings.social_snapchat_link | json }},{%- endif -%}
+      {%- if settings.social_youtube_link != blank -%}{{ settings.social_youtube_link | json }},{%- endif -%}
+      {%- if settings.social_vimeo_link != blank -%}{{ settings.social_vimeo_link | json }}{%- endif -%}
+    ],
+    "url": {{ shop.url | append: page.url | json }}
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "fluid_header",
+      "label": "Full Width Header?",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "sticky_header_type",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "on-scroll-up",
+          "label": "On Scroll Up"
+        },
+        {
+          "value": "always",
+          "label": "Always"
+        }
+      ],
+      "default": "on-scroll-up",
+      "label": "Sticky header"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "default": false,
+      "label": "Show separator line"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 400,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+      "label": "Custom logo width"
+    },
+    {
+      "type": "header",
+      "content": "Menu Selection"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Main Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "megamenu",
+      "name": "MegaMenu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Menu Title",
+          "info": "Use Exact string as header"
+        },
+        {
+            "type":"image_picker",
+            "id":"image",
+            "label": "Image",
+            "info": "Use 480x480 sized image."
+        },
+        {
+            "type":"text",
+            "id":"link_text",
+            "label":"Link text"
+        },
+        {
+            "type":"url",
+            "id":"link_url",
+            "label":"URL"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

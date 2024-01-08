@@ -1,0 +1,21 @@
+{
+  "wrapper": "section",
+  "sections": {
+    "main": {
+      "type": "template-list-collections",
+      "settings": {
+        "fluid_layout": false,
+        "image": "shopify://shop_images/fluid-banner-016.jpg",
+        "section_bg_color": "#f3f3f3",
+        "section_txt_color": "#121212",
+        "heading": "All Collections",
+        "txt": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>",
+        "banner_height": 350,
+        "items_per_collection": 4
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,397 @@
+{{ 'global-header-slider.css' | asset_url | stylesheet_tag }}
+<section data-section-id="{{ section.id }}" data-type="slider" class="header-slider bg-gray-100 {% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}">
+  {% comment %}Carousel for larger screens {% endcomment %}
+    <slider-element class="d-block" role="tree">
+        <div class="swiper swiper-slider header-slider-desktop {{ section.settings.height }}" data-slider='{
+            "observer": true,
+            "observeParents": true,
+            "loop": false,
+            "grabCursor": true,
+            "navigation": {
+                "nextEl": ".hero-button-next",
+                "prevEl": ".hero-button-prev"
+            },
+            "pagination": {
+                "el": ".swiper-pagination",
+                "clickable": true
+            }
+          }'>
+            <div class="swiper-wrapper">
+                {% for block in section.blocks limit: section.blocks.limit %}
+                    {%- liquid 
+                        assign banner_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
+                        assign banner_alt = block.settings.image.alt | default: block.settings.heading | escape
+                        assign fetch_priority = 'auto'
+                        assign loading = 'lazy'
+                        if forloop.index == 1
+                            assign fetch_priority = 'high'
+                            assign loading = 'eager'
+                        endif
+                        capture current
+                            cycle 1, 2, 3, 4
+                        endcapture
+                    -%}
+                    
+                    {%- if forloop.first -%}
+                        {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+                    {%- endif -%}
+
+                    <div class="swiper-slide d-flex align-items-center slide-{{ block.id }}"
+                        role="treeitem" {{ block.shopify_attributes }}
+                        data-block-id="{{ block.id }}" data-index="{{ forloop.index0 }}"
+                        data-slide-type="image" style="background:{{ block.settings.slide_bg_color }};">
+                            {%- if block.settings.image != blank -%}
+                                <picture>
+                                    {%- if block.settings.image_mobile != blank -%}
+                                        {%- if block.settings.image_mobile.width >= 375 -%}<source media="(max-width: 375px)" srcset="{{ block.settings.image_mobile | image_url: width: 375 }}">{%- endif -%}
+                                        {%- if block.settings.image_mobile.width >= 550 -%}<source media="(max-width: 550px)" srcset="{{ block.settings.image_mobile | image_url: width: 550 }}">{%- endif -%}
+                                        {%- if block.settings.image_mobile.width >= 767 -%}<source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 767 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 3800 -%}<source media="(min-width: 3000px)" srcset="{{ block.settings.image | image_url: width: 3800 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 3000 -%}<source media="(min-width: 2560px)" srcset="{{ block.settings.image | image_url: width: 3000 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 2560 -%}<source media="(min-width: 1901px)" srcset="{{ block.settings.image | image_url: width: 2560 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1920 -%}<source media="(min-width: 1700px)" srcset="{{ block.settings.image | image_url: width: 1920 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1720 -%}<source media="(min-width: 1500px)" srcset="{{ block.settings.image | image_url: width: 1720 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1500 -%}<source media="(min-width: 1200px)" srcset="{{ block.settings.image | image_url: width: 1500 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1200 -%}<source media="(min-width: 991px)" srcset="{{ block.settings.image | image_url: width: 1200 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 991 -%}<source media="(min-width: 768px)" srcset="{{ block.settings.image | image_url: width: 991 }}">{%- endif -%}
+                                    {%- else -%}    
+                                        {%- if block.settings.image.width >= 3800 -%}<source media="(min-width: 3000px)" srcset="{{ block.settings.image | image_url: width: 3800 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 3000 -%}<source media="(min-width: 2560px)" srcset="{{ block.settings.image | image_url: width: 3000 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 2560 -%}<source media="(min-width: 1901px)" srcset="{{ block.settings.image | image_url: width: 2560 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1920 -%}<source media="(min-width: 1700px)" srcset="{{ block.settings.image | image_url: width: 1920 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1720 -%}<source media="(min-width: 1500px)" srcset="{{ block.settings.image | image_url: width: 1720 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1500 -%}<source media="(min-width: 1200px)" srcset="{{ block.settings.image | image_url: width: 1500 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 1200 -%}<source media="(min-width: 991px)" srcset="{{ block.settings.image | image_url: width: 1200 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 991 -%}<source media="(min-width: 768px)" srcset="{{ block.settings.image | image_url: width: 991 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 768 -%}<source media="(min-width: 576px)" srcset="{{ block.settings.image | image_url: width: 768 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 576 -%}<source media="(min-width: 320px)" srcset="{{ block.settings.image | image_url: width: 576 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 320 -%}<source media="(min-width: 250px)" srcset="{{ block.settings.image | image_url: width: 320 }}">{%- endif -%}
+                                        {%- if block.settings.image.width >= 250 -%}<source media="(min-width: 100px)" srcset="{{ block.settings.image | image_url: width: 250 }}">{%- endif -%}
+                                    {%- endif -%}
+                                    {{ block.settings.image | image_url: width: block.settings.image.width, height: banner_height | image_tag: preload: true, alt: banner_alt, fetchpriority: fetch_priority, loading: loading }}
+                                </picture>
+                            {%- else -%}
+                                {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+                        {% if block.settings.heading != blank or block.settings.caption != blank %}
+                            <div class="slider-content w-100">
+                                <div class="container {{ block.settings.alignment }}">
+                                    <div class="row {{ block.settings.caption_alignment }}">
+                                        <div class="col-xl-7 col-lg-8 col-md-9 col-12" style="background:{{ block.settings.caption-bg-color }};">
+                                            <div class="h6 px-4 px-md-0 text-uppercase sub_heading_txt mb-3" style="color: {{ block.settings.heading_txt_color }};">{{ block.settings.sub_heading | escape }}</div>
+                                            <h2 class="fs-display px-4 px-md-0 heading_txt mb-3" style="color: {{ block.settings.heading_txt_color }};">{{ block.settings.heading }}</h2>
+                                            <p class="px-4 px-md-0 caption_txt fw-light mb-4" style="color: {{ block.settings.caption_txt_color }};">{{ block.settings.caption }}</p>
+                                            {% if block.settings.btn_txt != blank %}
+                                                <a {% if block.settings.btn_link %} href="{{ block.settings.btn_link }}" {% endif %} class="btn btn{% if block.settings.btn_type == 'outline' %}-{% endif %}{{ block.settings.btn_type }}-{{ block.settings.btn_variant }} {{ block.settings.btn_size }} mt-3">{{ block.settings.btn_txt }}</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if block.settings.enable_overlay %}
+                            <div class="overlay" style="background-color: {{ block.settings.overlay_bg_color }}!important; opacity: {{ block.settings.overlay_opacity }}!important;"></div>
+                        {% endif %}
+                    </div>
+
+                    {%- if forloop.first -%}
+                        {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+                    {%- endif -%}
+                {% endfor %}
+            </div>
+            {% if section.settings.nav_arrows %}
+                <div class="swiper-button-next hero-button-next icon-arrow-right"></div>
+                <div class="swiper-button-prev hero-button-prev icon-arrow-left"></div>
+            {% endif %}
+            {% if section.settings.nav_dots %}
+                <div class="swiper-pagination"></div>
+            {% endif %}
+        </div>
+    </slider-element>
+</section>
+
+{% schema %}
+{
+    "name": "Header Slider",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "section_top_spacing_enable",
+            "label": "Enable Top Spacing",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "section_bottom_spacing_enable",
+            "label": "Enable bottom Spacing",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Slider Control"
+        },
+        {
+            "type": "checkbox",
+            "id": "nav_arrows",
+            "label": "Arrows Navigation",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "nav_dots",
+            "label": "Dots Navigation",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "height",
+            "label": "Slider Height",
+            "options": [
+                {
+                    "value": "shortheight",
+                    "label": "Short"
+                },
+                {
+                    "value": "tallheight",
+                    "label": "Tall"
+                },
+                {
+                    "value": "fullheight",
+                    "label": "Full Height"
+                }
+            ],
+            "default": "tallheight"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "image",
+            "name": "Image Slide",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Desktop Image",
+                    "info": "For Better Viewing Use Example dimensions: 2030*960 / Aspect Ratio: 2.11"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Mobile Image",
+                    "info": "For Better Viewing Use Example dimensions: 768*1110 / Aspect Ratio: 0.69"
+                },
+                {
+                    "type": "color",
+                    "id": "slide_bg_color",
+                    "label": "Slide Background Color",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "header",
+                    "content": "Overlay"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "enable_overlay",
+                    "label": "Enable Overlay",
+                    "default": true
+                },
+                {
+                    "type": "color_background",
+                    "id": "overlay_bg_color",
+                    "label": "Overlay Background Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "overlay_opacity",
+                    "label": "Overlay Opacity",
+                    "min": 0.1,
+                    "max": 1,
+                    "step": 0.1,
+                    "default": 0.5
+                },
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "select",
+                    "id": "caption_alignment",
+                    "label": "Caption Alignment",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "justify-content-center"
+                },
+                {
+                    "type": "select",
+                    "id": "alignment",
+                    "label": "Text Alignment",
+                    "options": [
+                        {
+                            "value": "text-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "text-center",
+                            "label": "Center"
+                        },
+                        {
+                            "value": "text-end",
+                            "label": "Right"
+                        }
+                    ],
+                    "default": "text-center"
+                },
+                {
+                    "type": "inline_richtext",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "Awsome Heading"
+                },
+                {
+                    "type": "text",
+                    "id": "sub_heading",
+                    "label": "Sub Heading",
+                    "default": "Awsome Sub Heading"
+                },
+                {
+                    "type": "inline_richtext",
+                    "id": "caption",
+                    "label": "Caption",
+                    "default": "Caption Text"
+                },
+                {
+                    "type": "header",
+                    "content": "Styling"
+                },
+                {
+                    "type": "color",
+                    "id": "heading_txt_color",
+                    "label": "Heading Color"
+                },
+                {
+                    "type": "color",
+                    "id": "caption_txt_color",
+                    "label": "Caption Color"
+                },
+                    {
+                    "type": "color_background",
+                    "id": "caption-bg-color",
+                    "label": "Caption Background Color",
+                    "default": "transparent"
+                },
+                {
+                    "type": "header",
+                    "content": "Button"
+                },
+                {
+                    "type": "text",
+                    "id": "btn_txt",
+                    "label": "Button Text"
+                },
+                {
+                    "type": "url",
+                    "id": "btn_link",
+                    "label": "Button Link"
+                },
+                {
+                    "type": "select",
+                    "id": "btn_type",
+                    "label": "Button Type",
+                    "options": [
+                        {
+                            "value": "outline",
+                            "label": "Outline"
+                        },
+                        {
+                            "value": "",
+                            "label": "Solid"
+                        }
+                    ],
+                    "default": ""
+                },
+                {
+                    "type": "select",
+                    "id": "btn_variant",
+                    "label": "Button Variant",
+                    "options": [
+                        {
+                            "value": "primary",
+                            "label": "Primary"
+                        },
+                        {
+                            "value": "secondary",
+                            "label": "Secondary"
+                        },
+                        {
+                            "value": "light",
+                            "label": "Light"
+                        },
+                        {
+                            "value": "dark",
+                            "label": "Dark"
+                        }
+                    ],
+                    "default": "dark"
+                },
+                {
+                    "type": "select",
+                    "id": "btn_size",
+                    "label": "Button Size",
+                    "options": [
+                        {
+                            "value": "btn-sm",
+                            "label": "Small"
+                        },
+                        {
+                            "value": "",
+                            "label": "Default"
+                        },
+                        {
+                            "value": "btn-lg",
+                            "label": "Large"
+                        }
+                    ],
+                    "default": ""
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Index Header Slider",
+            "category": "Content",
+            "blocks": [
+                {
+                    "type": "image"
+                },
+                {
+                    "type": "image"
+                },
+                {
+                    "type": "image"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+

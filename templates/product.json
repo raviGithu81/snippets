@@ -1,0 +1,211 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-product",
+      "blocks": {
+        "76185562-4eb8-429b-a627-624a152e3944": {
+          "type": "vendor",
+          "settings": {
+          }
+        },
+        "f74187b8-c891-42b8-9a6b-2c67a497b018": {
+          "type": "subtitle",
+          "settings": {
+            "subtitle": ""
+          }
+        },
+        "382f30a5-55c7-4fb8-8789-19c803a04b04": {
+          "type": "shopify://apps/yotpo-product-photo-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        },
+        "3b316236-d91e-4dd0-953a-173c1f40bfcf": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "b253ffff-d04d-43a0-9d68-fabdd77b595a": {
+          "type": "product_form",
+          "settings": {
+          }
+        },
+        "e3591e16-1a0d-4b3f-9200-785010092827": {
+          "type": "inventory",
+          "settings": {
+            "inventory_threshold": 10,
+            "show_inventory_quantity": true
+          }
+        },
+        "7c15378b-4310-4ff8-bd82-34e14997d867": {
+          "type": "popup-links",
+          "settings": {
+            "text": "Size Guide",
+            "page": "size"
+          }
+        },
+        "fcbf423b-3c83-4097-901c-ca70b8b80e5c": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "title": "Product Description"
+          }
+        },
+        "ff2efde0-e04b-4414-acf8-9d96a8befaea": {
+          "type": "product_highlights",
+          "settings": {
+            "icon_width": 50,
+            "enable_highlight_1": true,
+            "icon_1": "shopify://shop_images/credit-card.png",
+            "text_1": "100% Secure Checkout",
+            "enable_highlight_2": true,
+            "icon_2": "shopify://shop_images/fast-delivery.png",
+            "text_2": "Same Day Shipping",
+            "enable_highlight_3": true,
+            "icon_3": "shopify://shop_images/guarantee.png",
+            "text_3": "Authenticity Guaranteed",
+            "enable_highlight_4": true,
+            "icon_4": "shopify://shop_images/like.png",
+            "text_4": "60-Day Warranty"
+          }
+        },
+        "e81a6fb9-38d8-4152-83e8-de4a40847187": {
+          "type": "complementary",
+          "settings": {
+            "block_heading": "Pairs well with",
+            "make_collapsible_row": true,
+            "product_list_limit": 5
+          }
+        },
+        "9b44b824-ee8c-48f1-8b33-b90806200e1a": {
+          "type": "collaspible_tab",
+          "settings": {
+            "heading": "Collapsible row 1",
+            "content": "<p>Row Content</p>",
+            "page": ""
+          }
+        },
+        "8766600e-b17f-4f29-83b3-66e93701e2d6": {
+          "type": "collaspible_tab",
+          "settings": {
+            "heading": "Collapsible row 2",
+            "content": "<p>Row Content</p>",
+            "page": ""
+          }
+        },
+        "e53b8574-dd34-4eca-8c40-ac20d2e38598": {
+          "type": "share",
+          "settings": {
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "76185562-4eb8-429b-a627-624a152e3944",
+        "f74187b8-c891-42b8-9a6b-2c67a497b018",
+        "382f30a5-55c7-4fb8-8789-19c803a04b04",
+        "3b316236-d91e-4dd0-953a-173c1f40bfcf",
+        "b253ffff-d04d-43a0-9d68-fabdd77b595a",
+        "e3591e16-1a0d-4b3f-9200-785010092827",
+        "7c15378b-4310-4ff8-bd82-34e14997d867",
+        "fcbf423b-3c83-4097-901c-ca70b8b80e5c",
+        "ff2efde0-e04b-4414-acf8-9d96a8befaea",
+        "e81a6fb9-38d8-4152-83e8-de4a40847187",
+        "9b44b824-ee8c-48f1-8b33-b90806200e1a",
+        "8766600e-b17f-4f29-83b3-66e93701e2d6",
+        "e53b8574-dd34-4eca-8c40-ac20d2e38598"
+      ],
+      "settings": {
+        "template_type": "classic-vertical",
+        "fluid_layout": false,
+        "enable_dynamic_checkout": true,
+        "product_image_feature": "in_image_block"
+      }
+    },
+    "78a93886-419f-471a-a0ed-b4a5f7215973": {
+      "type": "template-product-tabs",
+      "blocks": {
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-description-1": {
+          "type": "description",
+          "settings": {
+            "title": "Description"
+          }
+        },
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-content-1": {
+          "type": "content",
+          "settings": {
+            "title": "Extra Care",
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>"
+          }
+        },
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-page-1": {
+          "type": "page",
+          "settings": {
+            "title": "Return & Exchange",
+            "page": "return-exchange"
+          }
+        }
+      },
+      "block_order": [
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-description-1",
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-content-1",
+        "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-page-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "",
+        "section_txt_color": ""
+      }
+    },
+    "169908505953152fe7": {
+      "type": "apps",
+      "blocks": {
+        "f34edc30-eebc-4b21-8938-2bdc18c4b7c3": {
+          "type": "shopify://apps/yotpo-product-photo-reviews/blocks/reviews/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "settings": {
+            "product": "{{product}}"
+          }
+        }
+      },
+      "block_order": [
+        "f34edc30-eebc-4b21-8938-2bdc18c4b7c3"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "9a3952a6-85e5-4eda-914e-4da9e8d116a3": {
+      "type": "template-product-related",
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "",
+        "section_txt_color": "",
+        "heading": "YOU MAY ALSO LIKE",
+        "recommendation_type": "product-recommendations",
+        "products_to_show": 9
+      }
+    },
+    "6633b1ec-c2b3-4e8f-949c-c38dcde13755": {
+      "type": "template-product-recently-viewed",
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "",
+        "section_txt_color": "",
+        "heading": "RECENTLY VIEWED"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "78a93886-419f-471a-a0ed-b4a5f7215973",
+    "169908505953152fe7",
+    "9a3952a6-85e5-4eda-914e-4da9e8d116a3",
+    "6633b1ec-c2b3-4e8f-949c-c38dcde13755"
+  ]
+}

@@ -1,0 +1,42 @@
+{% comment %}
+  Renders grid item for article listing.
+  Accepts:
+  - article: {Object} article object
+  - placeholder_image: {String} placeholder image title
+
+  Usage:
+  {% render 'card-article-generic', article: article, placeholder_image: placeholder_image %}
+{% endcomment %}
+
+<div class="card bg-white article-card border-0">
+  {% if article.image != blank %}
+    <a href="{{ article.url }}" class="card-img d-block">
+        <img srcset="
+            {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+            {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+            {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+            {{ article.image.src | image_url }} {{ article.image.src.width }}w"
+            src="{{ article.image.src | image_url: width: 50 }}"
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 3 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+            alt="{{ article.image.src.alt | escape }}"
+            class="motion-reduce w-100" loading="lazy"
+            width="{{ article.image.width }}"
+            height="{{ article.image.height }}" >
+    </a>
+    {% else %}
+        <a href="{{ article.url }}" class="card-img d-block">
+            {{ 'blog-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </a>
+    {% endif %}
+
+    <div class="card-body px-0 text-start">
+        <div class="fs-md text-muted mb-2">
+            <time datetime="{{ article.published_at | date: "%a, %b %d, %Y" }}"> {{ article.published_at | date: "%a, %b %d, %Y" }}</time>
+        </div>
+        <h4 class="h6 fw-medium lh-base text-capitalize"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+        <p>{{ article.content | truncate: 150 }}</p>
+    </div>
+    <div class="card-footer bg-transparent border-top-0 px-0 pb-3 text-start pt-0">
+        <a href="{{ article.url }}" class="btn-link btn-link-dark fw-medium">{{ 'general.labels.know_more' | t }}</a>
+    </div>
+</div>

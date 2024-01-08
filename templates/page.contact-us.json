@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-contact-page",
+      "blocks": {
+        "15f6d4b5-5bf4-415b-9dc9-19bb0ac78110": {
+          "type": "address",
+          "settings": {
+            "address_heading": "Store Location",
+            "Address": "203 N La Salle St, Suite 2100, Chicago, IL 60601",
+            "address_txt_color": "#ffffff"
+          }
+        },
+        "f3c9c00f-ed9d-4cd2-9e0c-8d2bac1e6245": {
+          "type": "phone_number",
+          "settings": {
+            "phone_heading": "Phone",
+            "phone_no": "<p><a href=\"tel:0123456789\" target=\"_blank\" title=\"tel:0123456789\">012-345-6789  <br/></a>M-F 8am-5pm CT</p>",
+            "phone_txt_color": "#ffffff"
+          }
+        },
+        "da648e4a-8f26-489d-8f63-dfd4a3a91924": {
+          "type": "email",
+          "settings": {
+            "email_heading": "Email Us",
+            "email_name": "<p><a href=\"mailto:customerservice@praella.com\" target=\"_blank\" title=\"mailto:customerservice@praella.com\">customerservice@hyntbeauty.com</a></p>",
+            "email_txt_color": "#ffffff"
+          }
+        },
+        "d21973e6-b941-4926-b9b6-cd8812ac8201": {
+          "type": "follow_us",
+          "settings": {
+            "social_heading": "Follow Us",
+            "social_icon_facebook": true,
+            "social_icon_pinterest": true,
+            "social_icon_twitter": true,
+            "social_icon_instagram": true,
+            "social_icon_youtube": true,
+            "follow_txt_color": "#ffffff"
+          }
+        },
+        "0122bbd8-9947-4d50-b5e5-ca7e6ec0bbd8": {
+          "type": "contact_form",
+          "settings": {
+            "heading": "Send us a message",
+            "form_text": "<p>Starred (*) fields are required. Please let us know if you prefer phone or email communication.</p>",
+            "heading_color": ""
+          }
+        },
+        "76799f88-84f6-460f-8392-064e8dac6e6a": {
+          "type": "maps",
+          "settings": {
+            "maps_link": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11881.268612429645!2d-87.632065!3d41.8860359!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2daf846c01bd%3A0xe966f0a6b2bce4ac!2sPraella%20-%20eCommerce%20Agency!5e0!3m2!1sen!2sin!4v1698219843939!5m2!1sen!2sin"
+          }
+        }
+      },
+      "block_order": [
+        "15f6d4b5-5bf4-415b-9dc9-19bb0ac78110",
+        "f3c9c00f-ed9d-4cd2-9e0c-8d2bac1e6245",
+        "da648e4a-8f26-489d-8f63-dfd4a3a91924",
+        "d21973e6-b941-4926-b9b6-cd8812ac8201",
+        "0122bbd8-9947-4d50-b5e5-ca7e6ec0bbd8",
+        "76799f88-84f6-460f-8392-064e8dac6e6a"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "image": "shopify://shop_images/fluid-banner-015.jpg",
+        "section_bg_color": "#f3f3f3",
+        "section_txt_color": "#121212",
+        "heading": "Contact Us",
+        "txt": "<p>Please fill out the form below to email your questions and comments to us 24 hours a day. A representative will respond to you via email or phone as soon as possible.</p>",
+        "banner_height": 420
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,42 @@
+
+<custom-accordion class="bg-white d-block pb-10" {{ block.shopify_attributes }} data-accordionType="multiple">
+  <div class="{% if block.settings.product_tabs_fluid_layout %}container-fluid{% else %}container{% endif %}">
+    <div id="productAccordion" data-product-accordion>
+      {% if block.settings.enable_descripion_tab and product.description != blank %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ 'products.product.description' | t }}" rel="nofollow" aria-label="Open {{ 'products.product.description' | t }}" role="button" aria-expanded="false" aria-controls="accordion_description">
+            <span>{{ 'products.product.description' | t }}</span>
+            <span class="icon-arrow-down ms-auto fs-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_description" data-type="content">
+            {{ product.description }}
+          </div>
+        </div>
+      {% endif %}
+
+      {% if block.settings.enable_custom_tab_1 %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ block.settings.tab_1_title }}" rel="nofollow" aria-label="Open {{ block.settings.tab_1_title }}" role="button" aria-expanded="false" aria-controls="accordion_customTab1">
+            <span>{{ block.settings.tab_1_title }}</span>
+            <span class="icon-arrow-down ms-auto fs-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_customTab1" data-type="content">
+            <div class="rte pt-5">{{ pages[block.settings.tab_1_content].content }}</div>
+          </div>
+        </div>
+      {% endif %}
+      
+      {% if block.settings.enable_custom_tab_2 %}
+        <div class="accordion__container py-3 border-bottom">
+          <a class="accordion__toggle d-flex h6 text-uppercase mb-0" href="#" title="Open {{ block.settings.tab_2_title }}" rel="nofollow" aria-label="Open {{ block.settings.tab_2_title }}" role="button" aria-expanded="false" aria-controls="accordion_customTab2">
+            <span>{{ block.settings.tab_2_title }}</span>
+            <span class="icon-arrow-down ms-auto fs-lg lh-1"></span>
+          </a>
+          <div class="accordion__block toggle-content" id="accordion_customTab2" data-type="content">
+            <div class="rpt-5">{{ block.settings.tab_2_content }}</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</custom-accordion>

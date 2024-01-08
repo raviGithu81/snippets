@@ -1,0 +1,735 @@
+<div data-section-id="{{ section.id }}" data-template="product" class="{% if product.has_only_default_variant %}only-default-variant{% endif %}">
+  {%- liquid 
+    assign template_type = section.settings.template_type
+    assign current_variant = product.selected_or_first_available_variant
+    assign featured_image = current_variant.featured_image | default: product.featured_image
+    assign zoom_image_type = section.settings.product_image_feature
+
+    capture current
+      cycle 1, 2
+    endcapture
+  -%}
+  <section class="section-content pt-6" data-product-container>
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="mb-3">
+            {% render 'breadcrumbs' %}
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="product-images-wrapper pr-lg-4 text-center">
+                    {% if template_type == 'classic-vertical' %}
+                        <div class="row">
+                    {% endif %}
+                    {% if featured_image != blank %}
+                        <a class="skip-to-content-link button d-none" href="#ProductInfo-{{ section.id }}">
+                          {{ "accessibility.skip_to_product_info" | t }}
+                        </a>
+                        <slider-element class="swiper-container{% if template_type == 'classic-vertical' %} col-md-10 order-md-2 {% endif %}" data-main-slider>
+                            <div class="swiper swiper-slider product-carousel pdp-carousel" data-nav="product-thumbnails" data-slider='{
+                                    "loop": false,
+                                    "effect": "fade",
+                                    "slidesPerView": "1",                                    
+                                    "spaceBetween": 15,
+                                    "grabCursor": true,
+                                    "navigation": {
+                                        "nextEl": ".swiper-button-next",
+                                        "prevEl": ".swiper-button-prev"
+                                    },
+                                    "pagination": {
+                                        "el": ".swiper-pagination",
+                                        "clickable": true
+                                    }
+                                }' role="tree">
+                                <div class="swiper-wrapper">
+                                  {% for media in product.media %}
+                                    <div class="swiper-slide d-flex align-items-center product--media" data-mediaID="{{ media.id }}" role="treeitem">
+                                    {% if media.media_type == 'image' %}
+                                      {% assign image = media %}
+                                      <img srcset="
+                                          {%- if image.src.width >= 350 -%}{{ image.src | image_url: width: 350 }} 350w,{%- endif -%}
+                                          {%- if image.src.width >= 550 -%}{{ image.src | image_url: width: 550 }} 550w,{%- endif -%}
+                                          {%- if image.src.width >= 750 -%}{{ image.src | image_url: width: 750 }} 750w,{%- endif -%}
+                                          {%- if image.src.width >= 991 -%}{{ image.src | image_url: width: 991 }} 991w,{%- endif -%}
+                                          {%- if image.src.width >= 1200 -%}{{ image.src | image_url: width: 1200 }} 1200w,{%- endif -%} 
+                                          {%- if image.src.width >= 1500 -%}{{ image.src | image_url: width: 1500 }} 1500w,{%- endif -%} 
+                                          {{ image.src | image_url }} {{ image.src.width }}w"
+                                          src="{{ image.src | image_url: width: 50 }}" 
+                                          {% if forloop.index != 1 %} loading="lazy" {% else %} preload="true" fetchpriority="high" {% endif %}
+                                          data-variant-title="{{ image.alt | escape }}"
+                                          sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                                          alt="{{ image.alt | escape }}"
+                                          width="{{ image.src.width }}"
+                                          height="{{ image.src.width | divided_by: image.src.aspect_ratio | round }}"
+                                          class="{% if zoom_image_type == 'in_image_block' %} image-magnify-hover {% endif %}"
+                                      >
+                                    {% elsif media.media_type == 'external_video' or media.media_type == 'video' %}
+                                      {%- render 'media', media: media -%}                                        
+                                    {% endif %}
+                                    </div>
+                                  {% endfor %}
+                                </div>
+                                <div class="swiper-button-next icon-arrow-right" {% if product.images.size <= 1 %}style="display: none !important;"{% endif %}></div>
+                                <div class="swiper-button-prev icon-arrow-left" {% if product.images.size <= 1 %}style="display: none !important;"{% endif %}></div>
+                            </div>    
+                        </slider-element>
+
+                        <!-- Nav Slider functionality is not available directly. Custom Set up for Nav -->
+                        {% if product.images.size > 1 %}
+                          <div class="swiper-container {% if template_type == 'classic-vertical' %}col-md-2 order-md-1 mt-0 classic-vertical {% else %}  mt-2 classic-horizontal{% endif %}" data-thumbSlider>
+                              <div class="swiper swiper-slider product-thumbnails" data-slider='{
+                                      "direction":"horizontal",
+                                      "slidesPerView": "5",
+                                      "spaceBetween": 10,
+                                      "grabCursor": true,
+                                      "slideToClickedSlide": true,
+                                      "watchSlidesVisibility": true,
+                                      "watchSlidesProgress": true,
+                                      "navigation": {
+                                        "nextEl": ".product-thumbnails-next",
+                                        "prevEl": ".product-thumbnails-prev"
+                                      },
+                                      "breakpoints": {
+                                        "768": {
+                                          "direction":"{% if template_type == 'classic-vertical' %}vertical{%else%}horizontal{% endif %}",
+                                          "slidesPerView": "6",
+                                          "spaceBetween": 15
+                                        }
+                                    }
+                                  }' role="tree">
+                                  <div class="swiper-wrapper">
+                                    {% for media in product.media %}
+                                      {% if media.media_type == 'image' %}
+                                        {% assign image = media %}
+                                        <div class="swiper-slide product-thumb--image" data-index="{{ forloop.index }}" data-mediaID="{{ image.id }}" role="treeitem">
+                                          <img class="img-fluid"
+                                          src="{{ image.src | image_url }}"
+                                          srcset="{{ image.src | image_url: width: 250 }}"
+                                          sizes="250px"  
+                                          loading="lazy"
+                                          width="{{ image.width }}"
+                                          height="{{ image.width | divided_by: image.aspect_ratio | round }}" 
+                                          alt="{{ image.alt | default: product.title | escape }}"/>
+                                        </div>
+                                      {% elsif media.media_type == 'external_video' or media.media_type == 'video' %}
+                                        <div class="swiper-slide product-thumb--image media--video" data-index="{{ forloop.index }}" data-mediaID="{{ media.id }}" role="treeitem">
+                                          <img class="img-fluid"
+                                              src="{{ media.preview_image.src | image_url }}"
+                                              srcset="{{ media.preview_image.src | image_url: width: 250 }}"
+                                              sizes="250px"  
+                                              loading="lazy"
+                                              width="{{ media.preview_image.width }}"
+                                              height="{{ media.preview_image.width | divided_by: media.preview_image.aspect_ratio | round }}" 
+                                              alt="{{ media.alt | default: product.title | escape }}"/>
+                                              <span class="icon-play position-absolute"></span>
+                                        </div>
+                                      {% endif %}
+                                    {% endfor %}
+                                  </div>
+                                  <div class="swiper-button-next product-thumbnails-next icon-arrow-right" {% if product.images.size <= 1 %}style="display: none !important;"{% endif %}></div>
+                                <div class="swiper-button-prev product-thumbnails-prev icon-arrow-left" {% if product.images.size <= 1 %}style="display: none !important;"{% endif %}></div>
+                              </div>
+                          </div>
+                        {% endif %}
+                    {% else %}
+                      {{ 'detailed-apparel-1' | placeholder_svg_tag }}
+                    {% endif %}
+                    {% if template_type == 'classic-vertical' %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-5" id="ProductInfo-{{ section.id }}">
+                <div class="product-details-wrapper mt-5 mt-lg-0">
+                  <h1>{{ product.title }}</h1>
+
+                  {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                      {%- when '@app' -%}
+                          {% render block %}
+                      {%- when 'subtitle' -%}
+                        {% if block.settings.subtitle != blank %}
+                          <div class="align-items-center mt-2">
+                              {{ block.settings.subtitle }}
+                          </div>
+                          {% endif %}
+                      {%- when 'vendor' -%}
+                        {% if product.vendor != blank %}
+                          <div class="align-items-center">
+                            <span class="my-0">{{ product.vendor }}</span>
+                          </div>
+                        {% endif %}
+                      {%- when 'price' -%}
+                        {%- if product.quantity_price_breaks_configured? -%}
+                          <div class="price-wrapper mt-3 d-flex align-items-center">
+                            {%- unless product.price_varies == false and product.compare_at_price_varies %}
+                              {%- if current_variant.compare_at_price > current_variant.price -%}<s class="h6 text-gray-600 me-2 money mb-0" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+                            {%- endunless -%}
+                            <span class="h5 actual-price money mb-0">{{ product.price_min | money }} - {{ product.price_max | money }}</span>
+                          </div>
+                          <div class="volume-pricing-note fs-xs">
+                            <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+                          </div>
+                        {%- else -%}
+                          <div class="price-wrapper mt-3 d-flex align-items-center">
+                              {%- if current_variant.compare_at_price > current_variant.price -%}<s class="h6 text-gray-600 me-2 money mb-0" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>{%- endif -%}
+                              <span class="h5 actual-price money mb-0" data-currentPrice>{{ current_variant.price | money }}</span>
+                          </div>
+                        {%- endif -%}
+
+                        {%- form 'product', product, data-productid: product.id, id: 'product-form-installment', class: 'installment caption-large mt-4' -%}
+                            <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}">
+                            {{ form | payment_terms }}
+                        {%- endform -%}
+                      {%- when 'description' -%}
+                          {% if product.description != blank %}  
+                          <div class="product-description">                    
+                            {% assign block_title = block.settings.title %}
+                            <h5 class="mt-5 mb-2">{% if block_title != blank %}{{ block_title }}{% else%}{{ 'products.product.description' | t }}{% endif %}</h5>
+                            <div class="rte">
+                                {{ product.description }}
+                            </div>
+                          </div>
+                          {% endif %}
+                      {%- when 'product_form' -%}
+                        {%- liquid 
+                          unless product.tags contains settings.product_exclude_tag_text
+                            render 'form-product', format: 'product-page'
+                          endunless
+                        -%}
+                      {%- when 'volumn_pricing' -%}
+                        <div>
+                          {% assign block_title = 'products.product.volume_pricing.title' | t %}
+                          <p class="mb-2">{{ block.settings.title | default: block_title }}</p>
+                          <div class="volume-price-wrappper">
+                            <ul class="list-unstyled p-0 volume-price-list">
+                              {%- if current_variant.quantity_price_breaks.size > 0 -%}
+                                {%- for price_break in current_variant.quantity_price_breaks -%}
+                                  <li class="d-flex justify-content-between p-2">
+                                    <span>{{ 'products.product.volume_pricing.minimum' | t: quantity: price_break.minimum_quantity }}</span>
+                                    <span>{{ price_break.price | money }}</span>
+                                  </li>
+                                {%- endfor -%}
+                              {%- endif -%}
+                            </ul>
+                          </div>
+                        </div>
+                      {%- when 'inventory' -%}
+                        <p class="product__inventory mt-5 mb-0" {{ block.shopify_attributes }} id="Inventory-{{ product.id }}" role="status">
+                          {%- if current_variant.inventory_management == 'shopify' -%}
+                            {%- if current_variant.inventory_quantity > 0 -%}
+                              {%- if current_variant.inventory_quantity <= block.settings.inventory_threshold -%}
+                                <svg width="15" height="15" aria-hidden="true" class="me-2">
+                                  <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(238,148,65, 0.3)"/>
+                                  <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(238,148,65)"/>
+                                </svg>
+                                {%- if block.settings.show_inventory_quantity -%}
+                                  {{- 'products.product.inventory_low_stock_show_count' | t: quantity: current_variant.inventory_quantity -}}
+                                {%- else -%}
+                                  {{- 'products.product.inventory_low_stock' | t -}}
+                                {%- endif -%}
+                              {%- else -%}
+                                <svg width="15" height="15" aria-hidden="true">
+                                  <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(62,214,96, 0.3)"/>
+                                  <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(62,214,96)"/>
+                                </svg>
+                                {%- if block.settings.show_inventory_quantity -%}
+                                  {{- 'products.product.inventory_in_stock_show_count' | t: quantity: current_variant.inventory_quantity -}}
+                                {%- else -%}
+                                    {{- 'products.product.inventory_in_stock' | t -}}
+                                {%- endif -%}
+                              {%- endif -%}
+                            {%- else -%}
+                              {%- if current_variant.inventory_policy == 'continue' -%}
+                                <svg width="15" height="15" aria-hidden="true">
+                                  <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(62,214,96, 0.3)"/>
+                                  <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(62,214,96)"/>
+                                </svg>
+                                {{- 'products.product.inventory_out_of_stock_continue_selling' | t -}}
+                              {%- else -%}
+                                <svg width="15" height="15" aria-hidden="true">
+                                  <circle cx="7.5" cy="7.5" r="7.5" fill="rgb(200,200,200, 0.3)"/>
+                                  <circle cx="7.5" cy="7.5" r="5" stroke="rgb(255, 255, 255)" stroke-width="1" fill="rgb(200,200,200)"/>
+                                </svg>
+                                {{- 'products.product.inventory_out_of_stock' | t -}}
+                              {%- endif -%}
+                            {%- endif -%}
+                          {%- endif -%}
+                        </p>
+                      {%- when 'share' -%}
+                        {% assign block_title = block.settings.title %}
+                        <div class="d-flex align-items-center mt-5">
+                          <p class="me-2 mb-0">{% if block_title != blank %}{{ block_title }}{% else%}{{ 'products.product.share' | t }}{% endif %}</p>
+                          {% render 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+                        </div>
+                      {%- when 'popup-links' -%}
+                        <a href="#" rel="nofollow" class="btn-link btn-link-dark mt-5" data-modal-opener="ProductPopup-{{ block.id }}">
+                          {{ block.settings.text | default: block.settings.page.title }}
+                        </a>
+                      {%- when 'custom_liquid' -%}
+                        {{ block.settings.custom_liquid }}
+                      {%- when 'product_highlights' -%}                        
+                        <div class="d-none d-lg-block mt-5">
+                          <div class="pdp-qualities">
+                            <div class="row" style="--bs-container-padding: 10px;">
+                              {% for index in (1..4) %}
+                                {% liquid 
+                                  assign enable =  'enable_highlight_' | append: index
+                                  assign icon =  'icon_' | append: index
+                                  assign text =  'text_' | append: index
+                                %}
+                                {% if block.settings[enable] and block.settings[icon] != blank or block.settings[text] != blank %}
+                                <div class="col-6 col-xl-3 mb-3 mb-xl-0">
+                                    <div class="feature d-flex flex-column align-items-center text-center">
+                                      <div class="text-center mb-3 feature-img" style="width: {{ block.settings.icon_width }}px;">
+                                        <img src="{{ block.settings[icon] | image_url: width: 150, height: 150 }}" class="img-fluid" alt="{{ block.settings[text] | escape }}"
+                                          width="150" height="150" loading="lazy"/>
+                                      </div>
+                                      <p class="fs-xl fw-semibold lh-sm">{{ block.settings[text] }}</p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                              {% endfor %}
+                            </div>
+                          </div>
+                        </div>
+
+                      {%- when 'collaspible_tab' -%}
+                        <div class="collaspible_tab tab_container border-bottom border-top mt-4" is="collaspsibleTab">                         
+                          <h2 class="tab_toggle d-flex align-items-center fs-lg text-uppercase fw-normal mb-0 pt-3 pb-3">
+                            {{ block.settings.heading | default: block.settings.page.title }}
+                            <span class="icon-plus ms-auto fs-lg lh-1"></span>
+                          </h2>                        
+                          <div class="toggle-content" data-type="content" style="">
+                            {{ block.settings.content }}
+                            {{ block.settings.page.content }}        
+                          </div>
+                        </div>
+                      {%- when 'complementary' -%}
+                          <div {% if block.settings.make_collapsible_row %}class="collaspible_tab tab_container border-bottom border-top mt-4 d-none" is="collaspsibleTab"{% else %}class="complementry-products"{% endif %} data-complementaryItems>                         
+                            <h2 class="tab_toggle d-flex align-items-center fs-lg text-uppercase fw-normal mb-0 pt-3 pb-3">
+                              {{ block.settings.heading }}
+                              {% if block.settings.make_collapsible_row %}<span class="icon-plus ms-auto fs-lg lh-1"></span>{% endif %}
+                            </h2>
+                            <div class="{% if block.settings.make_collapsible_row %}toggle-content{% endif %}" data-type="content" style="">
+                              <product-recommendations data-count="{{ recommendations.products_count }}" class="complementary-items pb-3 d-block" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ block.settings.product_list_limit }}&intent=complementary">
+                                {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                                  <div class="row mx-n2">
+                                    {%- for product in recommendations.products -%}
+                                      <div class="col-4 px-2">
+                                        {% render 'card-product-plain', product: product %}
+                                      </div>
+                                    {%- endfor -%}
+                                  </div>
+                                {% endif %}
+                              </product-recommendations>
+                            </div>
+                          </div>
+                    {%- endcase -%}
+                  {%- endfor -%}
+                </div>
+
+            </div>
+        </div>
+    </div>
+  </section>
+</div>
+
+{% assign popups = section.blocks | where: 'type', 'popup-links' %}
+{%- for block in popups -%}
+  <modal-dialog id="ProductPopup-{{ block.id }}" {{ block.shopify_attributes }}
+    role="dialog"
+    aria-label="{{ block.settings.text }}"
+    aria-modal="true"
+    tabindex="-1"
+  >
+    <div class="modal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" data-customVideoPopup>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="h5 mb-0">{{ block.settings.page.title }}</h5>
+              <button type="button" class="close btn p-1 text-black d-flex align-items-center" id="ModalClose-ProductPopup-{{ block.id }}" aria-label="{{ 'sections.video-with-text.close_video' | t }}">
+                <span class="icon-close icon-size-18"></span>
+              </button>
+            </div>
+            <div class="modal-body text-dark pt-3">             
+              {{ block.settings.page.content }}
+            </div>
+          </div>
+        </div>
+    </div>
+  </modal-dialog>
+{%- endfor -%}
+
+<script type="application/json" data-productMedia>
+  {{ product.media | json }}
+</script>
+
+{% schema %}
+{
+  "name": "Product Detail Page",
+  "tag": "section",
+  "class": "template-product-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Template"
+    },
+    {
+      "type": "select",
+      "id": "template_type",
+      "label": "Template Type",
+      "options": [
+        {
+          "value": "classic-horizontal",
+          "label": "Classic: Horizontal Thumbs"
+        },
+        {
+          "value": "classic-vertical",
+          "label": "Classic: Vertical Thumbs"
+        }
+      ],
+      "default": "classic-horizontal"
+    },
+    {
+      "type": "paragraph",
+      "content": "Classic Horizontal Thumbs: Product Thumbnails below."
+    },
+    {
+      "type": "paragraph",
+      "content": "Classic Vertical Thumbs: Product Thumbnails on Left."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "fluid_layout",
+      "label": "Full Width Layout",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_dynamic_checkout",
+      "label": "Enable Dynamic checkout Buttons?",
+      "default": false,
+      "info": "Using the payment methods available on your store, customers see their preferred option, like PayPal or Apple Pay. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)"
+    },
+    {
+      "type": "header",
+      "content": "Zoom Image Feature"
+    },
+    {
+      "type": "select",
+      "id": "product_image_feature",
+      "label": "Product Image Feture",
+      "options": [
+        {
+          "value": "no_zoom",
+          "label": "No zoom Effect"
+        },
+        {
+          "value": "in_image_block",
+          "label": "Click & hover"
+        }
+      ],
+      "default": "no_zoom"
+    }
+  ],
+  "blocks": [   
+    {
+      "type": "vendor",
+      "name": "Vendor",
+      "limit": 1,
+      "settings": [
+      ]
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "subtitle",
+      "name": "Short Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Short Description"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "product_form",
+      "name": "Product Form",
+      "limit": 1
+    },
+    {
+      "type": "volumn_pricing",
+      "name": "Volume Pricing(For B2B)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Setup [volume pricing](https://help.shopify.com/en/manual/b2b/catalogs/quantity-pricing#scripts-limitations) through shopify [B2B catalogs](https://help.shopify.com/en/manual/b2b/catalogs) setup."
+        },
+        {
+          "type": "paragraph",
+          "content": "This block should only be used when there is no variation in volume pricing between variants of the same product."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Heading"
+        }
+      ]
+    },
+    {
+      "type": "share",
+      "name": "Share",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "paragraph",
+          "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)."
+        },
+        {
+          "type": "paragraph",
+          "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)."
+        }
+      ]
+    },
+    {
+      "type": "collaspible_tab",
+      "name": "Collaspible Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Collapsible row",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Row content"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Row content from page"
+        }
+      ]
+    },
+    {
+      "type": "popup-links",
+      "name": "Popup",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "default": "Pop-up link text",
+          "label": "Link label"
+        },
+        {
+          "id": "page",
+          "type": "page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Custom Liquid",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Liquid code",
+          "info": "Add app snippets or other code to create advanced customizations. [Learn more](https://shopify.dev/docs/api/liquid)"
+        }
+      ]
+    },
+    {
+      "type": "product_highlights",
+      "name": "Product Highlights",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product Highlights Styling"
+        },
+        {
+            "type": "range",
+            "id": "icon_width",
+            "min": 20,
+            "max": 500,
+            "step": 5,
+            "unit": "px",
+            "label": "Icon width",
+            "default": 50
+        },
+        {
+          "type": "header",
+          "content": "First block"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_highlight_1",
+          "label": "Enable"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Second block"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_highlight_2",
+          "label": "Enable"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Third block"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_highlight_3",
+          "label": "Enable"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Text"
+        },
+        {
+          "type": "header",
+          "content": "Fourth block"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_highlight_4",
+          "label": "Enable"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Text"
+        }                
+      ]
+    },
+    {
+      "type": "inventory",
+      "name": "Inventory status",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "inventory_threshold",
+          "label": "Low inventory threshold",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "info": "Choose 0 to always show in stock if available.",
+          "default": 10
+        },
+        {
+          "type": "checkbox",
+          "id": "show_inventory_quantity",
+          "label": "Show inventory count",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "complementary",
+      "name": "complementary Products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To select complementary products, add the Search & Discovery app. [Learn more](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Pairs well with",
+          "label": "Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "make_collapsible_row",
+          "default": false,
+          "label": "Show as collapsible row"
+        },
+        {
+          "type": "range",
+          "id": "product_list_limit",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 10,
+          "label": "Maximum products to show"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

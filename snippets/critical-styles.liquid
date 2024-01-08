@@ -1,0 +1,31 @@
+{%- liquid  
+    render 'theme-style'
+-%}
+
+{% comment %} Global css {% endcomment %}
+{{ 'global.css' | asset_url | stylesheet_tag }}
+{{ 'utilities.css' | asset_url | stylesheet_tag }}
+{{ 'grid-spacing.css' | asset_url | stylesheet_tag }}
+
+{{ 'button-color.css' | asset_url | stylesheet_tag }}
+
+{{ 'global-header.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% comment %} Individual Page css {% endcomment %}
+{%- if template.name == 'list-collections' or template.name == 'collection' -%}
+    {{ 'card.css' | asset_url | stylesheet_tag }}
+{%- elsif template.name == 'product' -%}
+    {{ 'template-product.css' | asset_url | stylesheet_tag }}
+{%- elsif template.name == 'blog' or template.name == 'article' -%}
+    {{ 'template-blog.css' | asset_url | stylesheet_tag }}
+{%- elsif template.name == 'cart' -%}
+    {{ 'template-cart.css' | asset_url | stylesheet_tag }}
+{%- elsif template.directory == 'customers' -%}
+    {{ 'template-account.css' | asset_url | stylesheet_tag }}
+{%- elsif page.handle == 'faq' -%}
+    {{ 'template-faq.css' | asset_url | stylesheet_tag }}
+{%- elsif page.handle == 'contact' -%}
+    {{ 'template-contact.css' | asset_url | stylesheet_tag }}
+{%- endif -%}

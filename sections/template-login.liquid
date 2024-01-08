@@ -1,0 +1,74 @@
+<section data-account-pages class="section-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-6 col-lg-6 col-xl-6 mx-auto">
+        <custom-tabs class="bg-white d-block pe-6 ps-6 pt-6 pb-6 rounded-3">
+          <ul class="d-flex account-tabs list-unstyled justify-content-center" role="tablist">
+            <li class="nav-item tablink open account-login">
+              <a
+                class="nav-link"
+                role="tab"
+                data-toggle="tab"
+                href="#login"
+                data-tabcontent="#login"
+                aria-expanded="false"
+                title="{{- 'customer.login_page.title' | t -}}"
+                aria-labelledby="{{- 'customer.login_page.title' | t -}}"
+              >
+                <span class="login-label">{{- 'customer.login_page.title' | t -}}</span>
+                <span class="reset-label">{{- 'customer.login_page.reset_password' | t -}}</span>
+              </a>
+            </li>
+            <li class="nav-item tablink">
+              <a
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                href="#register"
+                data-tabcontent="#register"
+                aria-expanded="true"
+                title="{{- 'customer.register.title' | t -}}"
+                aria-labelledby="{{- 'customer.register.title' | t -}}"
+              >
+                {{- 'customer.register.title' | t -}}
+              </a>
+            </li>
+          </ul>
+          <div id="accountTabs">
+            <div class="tab-content text-start" id="accountTabsContent">
+              <div class="tab-pane tabcontent open" id="login" role="tabpanel">
+                <div class="pt-3">
+                  {% render 'form-account-login' %}
+                  {%- if shop.checkout.guest_login -%}
+                    <div>
+                      <hr>
+                      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
+
+                      {%- form 'guest_login' -%}
+                        <button type="submit" class="btn btn-primary">
+                          {{ 'customer.login_page.guest_continue' | t }}
+                        </button>
+                      {%- endform -%}
+                    </div>
+                  {%- endif -%}
+
+                  {% render 'form-account-recover' %}
+                </div>
+              </div>
+              <div class="tab-pane tabcontent" id="register" role="tabpanel">
+                <div class="pt-5">{% render 'form-account-register' %}</div>
+              </div>
+            </div>
+          </div>
+        </custom-tabs>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login",
+  "class": "section-login"
+}
+{% endschema %}

@@ -1,0 +1,160 @@
+{% comment %}
+  Generic product grid layout (includes options listing / quickview).
+  Accepts:
+  - product: {Object} product object
+  - loopIndex: {Integer} product loop index
+  - placeholder_image: {String} placeholder image title
+
+  Usage:
+  {% render 'card-product-generic', product: product, loopIndex: loopIndex, placeholder_image: placeholder_image %}
+{% endcomment %}
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="card card-product card-product-style-1 text-start rounded-0 border-0" data-product-grid>
+  <span class="badges">
+    {%- liquid
+      assign onSale = false
+      assign soldOut = false
+
+      if settings.show_sale_badge and current_variant and current_variant.compare_at_price > current_variant.price
+        assign onSale = true
+      endif 
+      if settings.show_soldout_badge and product.available == false
+        assign soldOut = true
+      endif 
+
+      assign productBadges = settings.custom_badges | newline_to_br | split: '<br />'
+    -%}
+  
+    {%- for badge in productBadges -%}
+      {%- assign badgeData = badge | strip | split: ':' -%}
+      {%- assign badgeLabel = badgeData[1] | strip -%}
+      {%- if product.tags contains badgeData[0] -%}
+        <span class="badge badge-accent-1" >
+          {{ badgeLabel }}
+        </span>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if onSale -%}
+      <span class="badge badge-accent-2" >
+        {{ 'products.product.on_sale' | t | escape }}
+      </span>
+    {%- endif -%}
+
+    {%- if soldOut -%}
+      <span class="badge badge-accent-2">
+        {{ 'products.product.sold_out' | t | escape }}
+      </span>
+    {%- endif -%}
+  </span>
+
+  <div class="card-img text-center {% if product.featured_image.size == 0 %}bg-gray-300{% endif %}" >
+    {%- liquid 
+      capture current
+        cycle 1, 2, 3, 4, 5, 6
+      endcapture
+
+      assign card_title = product.title
+      if current_variant and current_variant.image 
+        assign card_image = current_variant.image
+        assign secondary_image = product.featured_image
+        assign card_title = current_variant.title
+      elsif product.featured_image.size > 0
+        assign card_image = product.featured_image
+        assign secondary_image = product.images[1]
+      endif
+    -%}
+
+    {%- if card_image != blank -%}
+      <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+        <img srcset="{%- if card_image.width >= 360 -%}{{ card_image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if card_image.width >= 533 -%}{{ card_image | image_url: width: 533 }} 533w,{%- endif -%}"
+            src="{{ card_image | image_url: width: 50 }}"
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+            {% if loopIndex > 2 %}loading="lazy"{% else %}loading="eager"{% endif %}
+            data-feauredImage
+            alt="{{ card_image.alt | default: card_title | escape }}"
+            width="{{ card_image.width }}"
+            height="{{ card_image.width | divided_by: card_image.aspect_ratio | round }}"
+          > 
+        {%- if settings.show_secondary_image and secondary_image -%}
+        <img 
+            srcset="{%- if secondary_image.width >= 360 -%}{{ secondary_image | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if secondary_image.width >= 533 -%}{{ secondary_image | image_url: width: 533 }} 533w,{%- endif -%}"
+            src="{{ secondary_image | image_url: width: 50 }}"
+            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+            loading="lazy"
+            class="w-100"
+            data-hoverImage
+            alt="{{ secondary_image.alt | default: card_title | escape }}"
+            width="{{ secondary_image.width }}"
+            height="{{ secondary_image.width | divided_by: secondary_image.aspect_ratio | round }}" >
+        {%- endif -%}
+      </a>
+    {%- else -%}
+      <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+        {{ placeholder_image | default: 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      </a>
+    {%- endif -%}
+  </div>
+
+  <div class="card-body px-0">
+    <div class="row no-gutter">
+        <div class="col-12">
+            <h6 class="card-title m-0 font-family-base">
+                <a class="product-link lh-base" role="button" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+            </h6>
+        </div>
+        <div class="col-12 text-start">
+          {%- if current_variant and current_variant.compare_at_price > current_variant.price -%}
+            <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>
+          {%- elsif product.compare_at_price > product.price -%}
+            <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ product.compare_at_price | money }}</s>
+          {%- endif -%}
+          <span class="price m-0 p-0 money" data-currentPrice>
+            {%- if product.selected_variant != blank -%}
+              {{ current_variant.price | money }}
+            {%- elsif product.price_varies -%}
+              {%-  liquid
+                assign minPrice = product.price_min | money
+                assign maxPrice = product.price_max | money 
+              -%}
+              {{- 'products.product.price_range' | t: min: minPrice, max: maxPrice | escape -}}
+              {%- if product.quantity_price_breaks_configured? -%}
+                <div class="volume-pricing-note fs-xs">
+                  <span>{{ 'products.product.volume_pricing.note' | t }}</span>
+                </div>
+              {%- endif -%}
+            {%- else -%}
+              {{- product.price | money -}}
+            {%- endif -%}
+          </span>
+        </div>
+        <div class="review">
+          <div
+            class="yotpo bottomLine mb-2 mt-05 mt-lg-0"
+            data-appkey="6U459plOzasuG6FcOyZgjOH8fhd1v6FpVJJEivtV"
+            data-domain="{{ shop.permanent_domain | escape }}"
+            data-product-id="{{ product.id }}"
+            data-product-models="{{ product.id }}"
+            data-name="{{ product.title | escape }}"
+            data-url="{{ shop.url }}{{ product.url }}"
+            data-image-url="{{ product.featured_image | image_url: 'large' | replace: '?', '%3F' | replace: '&', '%26' }}"
+            data-description="{{ product.description | escape }}"
+            data-bread-crumbs="{% for tag in product.tags %}{{ tag | escape }};{% endfor %}"
+          ></div>
+        </div>
+    </div>
+    
+    {%- if settings.show_vendor -%}
+      <p>{{ product.vendor }}</p>
+    {%- endif -%}
+  </div>
+  
+  {%- if settings.enable_quick_add -%}
+    <div class="card-footer bg-transparent border-0 p-0">
+      {%- render 'form-product-grid', product: product, current_variant: current_variant -%}
+    </div>
+  {%- endif -%}
+</div>

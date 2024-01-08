@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "cart-items": {
+      "type": "template-cart",
+      "settings": {
+        "heading": "Cart",
+        "enable_note": true
+      }
+    },
+    "79f02e93-823b-4744-bd69-c74d3d1fb46a": {
+      "type": "upsell-products",
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "",
+        "section_txt_color": "",
+        "heading": "Frequently Bought Together",
+        "upsell_collection": "all",
+        "products_to_show": 9
+      }
+    }
+  },
+  "order": [
+    "cart-items",
+    "79f02e93-823b-4744-bd69-c74d3d1fb46a"
+  ]
+}

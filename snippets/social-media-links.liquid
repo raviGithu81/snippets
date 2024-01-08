@@ -1,0 +1,33 @@
+<ul class="list-unstyled social-sharing mb-0">
+    {% if section.settings.social_icon_facebook %}
+    <li class="d-inline-block">
+        <a href="{{ settings.social_facebook_link }}" target="_blank" title="Facebook" rel="nofollow" aria-label="Facebook">
+            <span class="icon-facebook"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_twitter %}
+    <li class="d-inline-block">
+        <a href="{{ settings.social_twitter_link }}" target="_blank" title="Twitter" rel="nofollow" aria-label="Twitter">
+            <span class="icon-twitter"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_instagram %}
+    <li class="d-inline-block">
+        <a href="{{ settings.social_instagram_link }}" target="_blank" title="Instagram" rel="nofollow" aria-label="Instagram">
+            <span class="icon-instagram"></span>
+        </a>
+    </li>
+    {% endif %}
+
+    {% if section.settings.social_icon_youtube %}
+    <li class="d-inline-block">
+        <a href="{{ settings.social_youtube_link }}" target="_blank" title="YouTube" rel="nofollow" aria-label="YouTube">
+            <span class="icon-youtube"></span>
+        </a>
+    </li>
+    {% endif %}
+</ul>

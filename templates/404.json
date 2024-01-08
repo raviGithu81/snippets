@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-404",
+      "blocks": {
+        "55027d2c-4c9b-411e-af3f-29ab7fb74e2e": {
+          "type": "heading",
+          "settings": {
+            "heading": "404",
+            "heading_font_size": 15,
+            "heading_color": ""
+          }
+        },
+        "33333d28-6861-4364-88e1-e925b4b6fae2": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Page not found",
+            "sub_heading_color": ""
+          }
+        },
+        "69060015-ee3e-45dc-89a2-461a954ccac2": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Show now from our bestsellers!</p>",
+            "txt_color": ""
+          }
+        },
+        "39b94ba9-f357-4e22-ba5e-7d17a529e145": {
+          "type": "button",
+          "settings": {
+            "btn_txt": "Shop Now",
+            "btn_link": "shopify://collections",
+            "btn_type": "",
+            "btn_variant": "primary",
+            "btn_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "55027d2c-4c9b-411e-af3f-29ab7fb74e2e",
+        "33333d28-6861-4364-88e1-e925b4b6fae2",
+        "69060015-ee3e-45dc-89a2-461a954ccac2",
+        "39b94ba9-f357-4e22-ba5e-7d17a529e145"
+      ],
+      "settings": {
+        "body_bg_color": "#ffffff",
+        "txt_color": "#121212"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

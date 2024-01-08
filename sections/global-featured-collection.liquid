@@ -1,0 +1,245 @@
+<!-- <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'"> -->
+
+{% comment %}<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript>{% endcomment %}
+{% liquid 
+  assign collection_grid_type = section.settings.collection_grid_type
+  assign productExcludeTag = settings.product_exclude_tag_text
+  assign featured_collection = collections[section.settings.featured_collection] 
+%}
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}" data-section-id="{{ section.id }}" data-grid-type="{{ collection_grid_type }}" style="background-color: {{ section.settings.section_bg_color }};">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}" {% if collection_grid_type == 'grid' %}data-type="slider"{% endif %}>
+        <div class="row">
+            <div class="col-12 text-center mb-md-4 mb-3">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                        {%- when 'heading' -%}
+                        <h2 class="mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                        {%- when 'subheading' -%}
+                        <div class="fs-lg fw-bold mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.sub_heading_color }};">{{ block.settings.subheading }}</div> 
+                        {%- when 'text' -%}
+                        <div class="banner__text" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                    {%- endcase -%}    
+                {% endfor %}
+            </div>
+        </div>
+
+      {% if section.settings.featured_collection == blank or featured_collection == empty or featured_collection.products_count == 0 %}
+        {%- liquid 
+          unless emptyState
+            assign emptyState = true
+          endunless
+
+          render 'onboarding-featured-products'
+        -%}
+      {% else %}
+        {% if collection_grid_type == 'collage' %}
+          <div class="row justify-content-center">
+            {% for product in featured_collection.products limit: 8 %}
+              {% unless product.tags contains productExcludeTag %}
+                {%- liquid 
+                  capture current
+                    cycle 1, 2, 3, 4
+                  endcapture
+                  assign placeholder_image = 'product-apparel-' | append: current
+                -%}
+                <div class="{% if forloop.index <= 3 %}col-lg-4{% endif %} {% if forloop.index > 3 %}col-lg-3{% endif %} col-sm-6 my-3 d-flex align-items-stretch justify-content-around">
+                  {% render 'card-product-generic', 
+                    product: product, 
+                    placeholder_image: placeholder_image %}
+                </div>
+              {% endunless %}
+            {% endfor %}
+          </div>
+        {% else %}
+            <slider-element class="swiper-container carousel d-block position-relative arrow-outside">
+                <div class="swiper swiper-slider featured-collection-slider card-carousel" data-slider='{
+                      "loop": false,
+                      "shortSwipes": false,
+                      "slidesPerView": "1",
+                      "spaceBetween": 15,
+                      "grabCursor": true,
+                      "navigation": {
+                          "nextEl": ".product-button-next",
+                          "prevEl": ".product-button-prev"
+                      },
+                      "pagination": {
+                          "el": ".swiper-pagination",
+                          "clickable": true
+                      },
+                      "breakpoints": {
+                        "560": {
+                          "slidesPerView": 2,
+                          "spaceBetween": 20
+                        },
+                        "768": {
+                          "slidesPerView": 3,
+                          "spaceBetween": 30
+                        },
+                        "992": {
+                          "slidesPerView": 4,
+                          "spaceBetween": 30
+                        }
+                     }
+                  }'>
+                    <div class="swiper-wrapper">
+                        {% for product in featured_collection.products limit: 8 %}
+                          {% unless product.tags contains productExcludeTag %}
+                            {%- liquid 
+                              capture current
+                                cycle 1, 2, 3, 4
+                              endcapture
+                              assign placeholder_image = 'product-apparel-' | append: current
+                            -%}
+                            <div class="swiper-slide">
+                                {% render 'card-product-generic', 
+                                  product: product,
+                                  placeholder_image: placeholder_image %}
+                            </div>
+                          {% endunless %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="swiper-button-next product-button-next icon-arrow-right"></div>
+                <div class="swiper-button-prev product-button-prev icon-arrow-left"></div>
+            </slider-element>
+        {% endif %}
+      {% endif %}
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Featured Collection",
+        "class": "featured-collection-products",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            }, 
+            {
+                "type": "select",
+                "id": "collection_grid_type",
+                "label": "Grid Type",
+                "options": [
+                    {
+                        "value": "collage",
+                        "label": "Collage"
+                    },
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    }
+                ],
+                "default": "grid"
+            },
+            {
+                "type": "header",
+                "content": "Collection"
+            },
+            {
+                "type": "collection",
+                "id": "featured_collection",
+                "label": "Select Collection"
+            },
+            {
+                "type": "header",
+                "content": "Styling"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color"
+            }
+        ],
+        "blocks": [
+          {
+            "type": "heading",
+            "name": "Heading",
+            "limit": 1,
+            "settings": [
+              {
+                "type": "inline_richtext",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Featured Collection"
+              },
+              {
+                  "type":"color",
+                  "id":"heading_color",
+                  "label":"Heading Color"
+              }
+            ]
+          },
+          {
+            "type": "subheading",
+            "name": "Sub Heading",
+            "limit": 1,
+            "settings": [
+              {
+                "type": "richtext",
+                "id": "subheading",
+                "label": "Sub Heading",
+                "default": "<p>List of products from featured collection</p>"
+              },
+              {
+                "type":"color",
+                "id":"sub_heading_color",
+                "label":"Sub Heading Color"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "name": "Text",
+            "limit": 1,
+            "settings": [
+              {
+                "type": "richtext",
+                "id": "text",
+                "label": "Lead Text"
+              },
+              {
+                  "type":"color",
+                  "id":"txt_color",
+                  "label":"Text Color"
+              }
+            ]
+          }
+        ],
+        "presets": [
+            {
+              "name": "Featured Collection",
+              "category": "Featured",
+              "blocks": [
+                {
+                  "type": "heading"                  
+                },
+                {
+                  "type": "subheading"
+                },
+                {
+                    "type": "text" 
+                }
+              ]
+            }
+        ]
+    }
+{% endschema %}

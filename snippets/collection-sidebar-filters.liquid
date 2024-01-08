@@ -1,0 +1,80 @@
+{% liquid
+    assign activeEntries = collection.filters | map: 'active_values' | compact 
+%}
+<div class="col-12">
+    <div class="row mb-lg-4 mb-3 align-items-center">
+
+        <div class="col-2 d-lg-flex d-none">
+            <p class="mb-0 fw-medium h4">{{ 'templates.collection.filter_lable' | t }}</p>
+        </div>
+
+        {% if section.settings.enable_product_result %}
+            <div class="col-lg-3 text-lg-start text-start">
+                <div class="total-products" data-totalProducts>
+                    <p class="m-0">{{ collection.products_count }} {{ 'templates.collection.results_found' | t }}</p>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if section.settings.enable_filtering %}
+            <div data-activeFilters class="col-lg-5 active-filters active-filters-desktop d-flex flex-wrap mt-lg-0 mt-3">
+                {% if activeEntries.size > 0 or maxValue != filter.range_max and maxValue != 0 %}
+                <a href="{{ collection.url }}{% if sort_by != blank %}?sort_by={{ sort_by }}{% endif %}" data-reset-filters class="filter-option-clear bg-gray-700 text-white lh-1 py-1 px-2 mb-2 fs-sm">{{ 'sections.collection_template.clear_all' | t }}</a>
+                {% endif %}
+                {%- for value in activeEntries -%}
+                    <a class="filter-option-clear lh-1 py-1 px-2 mb-2 fs-sm bg-gray-200" href="{{ value.url_to_remove }}">
+                        {{ value.label | escape }}<span class="icon-close ms-2 icon-size-10"></span>
+                    </a>
+                {%- endfor -%}
+                {%- for filter in collection.filters -%}
+                    {%- case filter.type -%}
+                        {%- when 'price_range' -%}
+                            {% assign maxValue = filter.max_value.value | plus: 0 %}
+                            {%- if maxValue != filter.range_max and maxValue != 0 -%}
+                                <a class="filter-option-clear lh-1 py-1 px-2 mb-2 fs-sm bg-gray-200" href="{{ filter.url_to_remove }}">
+                                    {%- if filter.min_value.value -%}{{ filter.min_value.value | money }}{%- else -%}{{ 0 | money }}{%- endif -%}-{%- if filter.max_value.value -%}{{ filter.max_value.value | money }}{%- else -%}{{ filter.range_max | money }}{%- endif -%}
+                                    <span class="icon-close ms-2 icon-size-10"></span>
+                                </a>
+                            {%- endif -%}
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
+        {%- endif -%}
+
+
+        {% if section.settings.pagination_type == 'numbers' %}
+            <div class="col-lg-2 col-3 ms-auto d-none d-lg-flex align-items-center">
+                {% render 'products-per-page' %}                
+            </div>
+        {% endif %}
+
+        {%- if section.settings.enable_sorting -%}
+            <div class="col-xl-3 col-3 ms-auto d-none d-lg-block">
+                {%- render 'products-sorting' -%}
+            </div>
+        {%- endif -%}
+
+        {% if section.settings.enable_filtering or section.settings.enable_sorting %}
+            <div class="{% if section.settings.enable_sorting %}col-12{% else %} col-6 {% endif %} d-lg-none">
+                <div class="d-flex justify-content-between">
+                    {% if section.settings.enable_filtering %}
+                        <a href="#" class="btn btn-primary" data-openFilterDrawer id="filter-drawer" name="{{ 'templates.collection.filter_lable' | t }}" title="{{ 'templates.collection.filter_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.filter_lable' | t }}" role="button" aria-expanded="false" aria-controls="collectionFilters">
+                            <span class="icon-filters icon-size-20 me-1 align-middle"></span> {{ 'templates.collection.filter_lable' | t }}
+                        </a>
+                    {% endif %}
+                    {% if section.settings.enable_sorting %}
+                        <a href="#" class="btn btn-primary" data-openFilterDrawer id="sortby-drawer" name="{{ 'templates.collection.sortby_lable' | t }}" title="{{ 'templates.collection.sortby_lable' | t }}" rel="nofollow" aria-label="{{ 'templates.collection.sortby_lable' | t }}" role="button" aria-expanded="false" aria-controls="collectionFilters">
+                            {{ 'templates.collection.sortby_lable' | t }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% if section.settings.enable_filtering %}
+    <div class="col-lg-3 d-lg-block d-none" id="collectionFilters">
+        {%- render 'product-filter-blocks' -%}
+    </div>
+{% endif %}

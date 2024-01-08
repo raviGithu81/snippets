@@ -1,0 +1,40 @@
+.accordion__container.open .icon-plus-minus::before{
+    display:none;
+}
+.accordion__toggle h6 p{
+    margin-bottom:0;
+}
+
+#title-color ul li.faq-listing a.active {
+    color: #111111;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #111111;
+}
+.faq-Banner{
+    height: 55vh;
+    min-height: 510px;
+    position: relative;
+}
+.accordion__container.open i::before{
+    content: "\66";
+    transition: all 0.3s;
+}
+.faq-sidebar ul{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: auto;
+    white-space: nowrap;
+}
+#title-color ul li.faq-listing{
+    padding: 7px 12px;
+}
+@media (min-width: 992px) {
+    .faq-sidebar ul{
+        display: block;
+        overflow: visible;
+        white-space: wrap;
+    }
+    #title-color ul li.faq-listing{
+        padding: 7px 0;
+    }
+}

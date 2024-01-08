@@ -1,0 +1,71 @@
+{% comment %}
+  Renders grid item for product.
+  Accepts:
+  - loopIndex: {Integer} product loop index
+  - promoBlocks: {Array} Array of promo blocks from customisation
+
+  Usage:
+  {% render 'card-collection-promo', loopIndex: loopIndex, promoBlocks: promoBlocks %}
+{% endcomment %}
+
+{% liquid 
+    assign totalProducts = collection.products.count
+    assign promoBlock = blank
+    assign showPromoBlock = false
+    for block in promoBlocks
+        if block.settings.enable == true
+            assign currentIndex = block.settings.block_index | strip | plus: 0
+            if currentIndex > totalProducts or currentIndex == loopIndex
+                assign promoBlock = block.settings
+                break
+            endif
+        endif
+    endfor
+
+    if promoBlock != blank
+        if loopIndex == totalProducts and currentIndex > totalProducts
+            assign showPromoBlock = true
+        elsif currentIndex == loopIndex
+            assign showPromoBlock = true
+        endif
+    endif
+%}
+
+{%- if promoBlock != blank and showPromoBlock == true -%}
+    <div class="col-lg-{{ section.settings.product_per_row }} col-md-4 col-sm-6 mb-5 d-flex align-items-stretch justify-content-around">
+        <div class="card card-product card-product-promo border-0">
+            <div class="card-img">               
+                <a {% if promoBlock.link != blank %}href="{{ promoBlock.link }}"{% endif %} class="d-block">
+                    {% if promoBlock.image != blank %}
+                        <img src="{{ promoBlock.image | image_url: width: 50 }}"
+                            srcset="
+                            {%- if promoBlock.image.width >= 360 -%}{{ promoBlock.image | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if promoBlock.image.width >= 533 -%}{{ promoBlock.image | image_url: width: 533 }} 533w,{%- endif -%}
+                            {{ promoBlock.image | image_url }} {{ promoBlock.image.width }}w"
+                            sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 100 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"
+                            loading="lazy"
+                            class="w-100"
+                            alt="{{ promoBlock.image.alt | default: collection.title | escape }}"
+                            width="{{ promoBlock.image.width }}"
+                            height="{{ promoBlock.image.width | divided_by: promoBlock.image.aspect_ratio | round }}" >
+                    {% else %}
+                        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                </a>
+            </div>
+            <div class="card-body px-0">
+                <div class="row no-gutter">
+                    <div class="col-12">
+                        {% if promoBlock.heading != blank %}<h6 class="card-title mb-2 font-family-base">{{ promoBlock.heading }}</h6>{% endif %}
+                        {% if promoBlock.subheading != blank %}<div class="cm-0 font-family-base">{{ promoBlock.subheading }}</div>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% if promoBlock.btn_text != blank %}
+            <div class="card-footer bg-transparent border-0 p-0">
+                <a {% if promoBlock.link != blank %}href="{{ promoBlock.link }}"{% endif %} class="btn btn-outline-dark btn-sm flex-grow-1 w-100">{{ promoBlock.btn_text }}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{%- endif -%}

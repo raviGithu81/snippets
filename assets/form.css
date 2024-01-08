@@ -1,0 +1,433 @@
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-group{
+    margin-bottom: 1rem;
+}
+
+.form-control, .form-select {
+    display: block;
+    width: 100%;
+    padding: var(--bs-y-padding-input) var(--bs-x-padding-input);
+    font-family: var(--bs-font-family-input);
+    font-size: var(--bs-font-size-input);
+    font-weight: var(--bs-font-weight-input);
+    line-height: var(--bs-line-height-input);
+    color: var(--bs-input-text-color);
+    background-color: var(--bs-input-bg-color);
+    background-clip: padding-box;
+    border: var(--bs-input-border-width) solid var(--bs-input-border-color);
+    border-radius: var(--bs-border-radius-input);
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;    
+    -webkit-transition: border-color 0.15s ease-in-out;
+            transition: border-color 0.15s ease-in-out;
+            transition: border-color 0.15s ease-in-out;
+            transition: border-color 0.15s ease-in-out;
+  }
+
+.form-select {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");   
+    padding: var(--bs-y-padding-input) 2.25rem var(--bs-y-padding-input) var(--bs-x-padding-input);
+    background-color: var(--bs-input-bg-color);
+    background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+  
+@media (prefers-reduced-motion: reduce) {
+    .form-select , .form-control {
+        -webkit-transition: none;
+        transition: none;
+    }
+}
+
+.form-select:focus , .form-control:focus {
+    color: var(--bs-input-text-color);
+    background-color: var(--bs-input-bg-color);
+    border-color: var(--bs-input-focus-border-color);
+    outline: 0;
+}
+
+
+.form-control[type="file"] {
+    overflow: hidden;
+}
+
+.form-control[type="file"]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+
+.form-control::-webkit-date-and-time-value {
+    min-width: 85px;
+    height: 1.5em;
+    margin: 0;
+}
+
+.form-control::-webkit-datetime-edit {
+    display: block;
+    padding: 0;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: var(--bs-input-ph-text-color);
+    opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+    color: var(--bs-input-ph-text-color);
+    opacity: 1;
+}
+
+.form-control::-ms-input-placeholder {
+    color: var(--bs-input-ph-text-color);
+    opacity: 1;
+}
+
+.form-control::placeholder {
+    color: var(--bs-input-ph-text-color);
+    letter-spacing: 0.05em;
+    opacity: 1;
+}
+
+.form-control:disabled {
+    opacity:0.65;
+}
+
+.form-control-sm, .form-select-sm {
+    padding: var(--bs-y-padding-input-sm) var(--bs-x-padding-input-sm);
+    font-size: var(--bs-font-size-input-sm);
+}
+
+.form-control-lg, .form-select-lg {
+    padding: var(--bs-y-padding-input-lg) var(--bs-x-padding-input-lg);
+    font-size: var(--bs-font-size-input-lg);
+}
+
+.form-select-sm{
+    padding-right: 1.5rem;
+}
+
+.form-select-lg {
+    padding-right: 1.5rem;
+}
+
+
+textarea.form-control {
+    min-height: calc(1.5em + 0.75rem + calc(var(--bs-border-width) * 2));
+}
+
+textarea.form-control-sm {
+    min-height: calc(1.5em + 0.5rem + calc(var(--bs-border-width) * 2));
+}
+
+textarea.form-control-lg {
+    min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
+}
+
+.form-select[multiple], .form-select[size]:not([size="1"]) {
+    padding-right: 0.75rem;
+    background-image: none;
+}
+
+.form-select:disabled {
+    opacity: 0.65;
+}
+
+
+
+
+.form-check {
+    --bs-form-check-bg: var(--bs-body-bg);
+    --bs-form-check-width:18px;
+    --bs-form-check-height:18px;
+    --bs-form-check-border-radius:4px;
+    --bs-form-check-line-height:var(--bs-line-height-input);
+
+    display: block;
+    padding-left: calc(var(--bs-form-check-width) + 10px);
+    margin-bottom: 0.5rem;
+    font-size: var(--bs-font-size-input);
+    font-weight: var(--bs-font-weight-input);
+    line-height: var(--bs-form-check-line-height);
+}
+
+.form-check .form-check-input {
+    float: left;
+    margin-left: calc((var(--bs-form-check-width) + 10px) * -1);
+}
+
+.form-check-input {
+    width: var(--bs-form-check-width);
+    height: var(--bs-form-check-height);
+    /* margin-top: 0.25em; */
+    margin-top: calc((var(--bs-form-check-line-height) - var(--bs-form-check-height)) / 2);
+    vertical-align: top;
+    background-color: var(--bs-form-check-bg);
+    background-image: var(--bs-form-checked-bg-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: var(--bs-input-border-width) solid var(--bs-input-border-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+            appearance: none;
+    print-color-adjust: exact;
+}
+
+.form-check-input[type="checkbox"] {
+    border-radius: var(--bs-form-check-border-radius);
+}
+
+.form-check-input[type="radio"] {
+    border-radius: 50%;
+}
+
+.form-check-input:active {
+    -webkit-filter: brightness(90%);
+            filter: brightness(90%);
+}
+
+.form-check-input:focus {
+    outline: 0;
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-input-checked-bg);
+    border-color: var(--bs-input-checked-bg);
+}
+
+.form-check-input:checked[type="checkbox"] {
+    --bs-form-checked-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.form-check-input:checked[type="radio"] {
+    --bs-form-checked-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.form-check-input[type="checkbox"]:indeterminate {
+    background-color: var(--bs-input-checked-bg);
+    border-color: var(--bs-input-checked-bg);
+    --bs-form-checked-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+}
+
+.form-check-input:disabled {
+    pointer-events: none;
+    -webkit-filter: none;
+            filter: none;
+    opacity: 0.5;
+}
+
+.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+    cursor: default;
+    opacity: 0.5;
+}
+
+
+
+
+.form-floating {
+    position: relative;
+}
+
+
+.form-floating > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    font-size: var(--bs-floating-label-font-size);
+    padding:var(--bs-y-padding-input) var(--bs-x-padding-input);
+    color: var(--bs-input-text-color);
+    line-height: calc(var(--bs-line-height-input) + var(--bs-input-border-width) + var(--bs-input-border-width));
+    overflow: hidden;
+    text-align: start;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+    border: var(--bs-border-width) solid transparent;
+    -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+    -webkit-transition: font-size 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
+    transition: font-size 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
+    transition: font-size 0.15s ease-in-out, transform 0.15s ease-in-out;
+    transition: font-size 0.15s ease-in-out, transform 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .form-floating > label {
+        -webkit-transition: none;
+        transition: none;
+    }
+}
+
+.form-floating > .form-control {
+    padding:var(--bs-y-padding-input) var(--bs-x-padding-input);
+}
+
+.form-floating > .form-control::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control:-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control::-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control::placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown){
+    padding-top:var(--bs-floating-input-padding-top);
+    padding-bottom:var(--bs-floating-input-padding-bottom);
+}
+
+.form-floating > .form-control:-webkit-autofill{
+    padding-top:var(--bs-floating-input-padding-top);
+    padding-bottom:var(--bs-floating-input-padding-bottom);
+    background-color: var(--bs-input-bg-color);
+}
+
+.form-floating > .form-select {
+    padding-top:var(--bs-floating-input-padding-top);
+    padding-bottom:var(--bs-floating-input-padding-bottom);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    font-size: var(--bs-float-label-font-size);
+    -webkit-transform: translateY(var(--bs-floating-label-top-position));
+            transform: translateY(var(--bs-floating-label-top-position));
+}
+
+.form-floating > .form-control:focus ~ label::after,
+.form-floating > .form-control:not(:placeholder-shown) ~ label::after,
+.form-floating > .form-select ~ label::after {
+    position: absolute;
+    inset: 1rem 0.375rem;
+    z-index: -1;
+    height: 1.5em;
+    content: "";
+    background-color: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius);
+}
+
+.form-floating > .form-control:-webkit-autofill ~ label {
+    font-size: var(--bs-float-label-font-size);
+    -webkit-transform: translateY(var(--bs-floating-label-top-position));
+            transform: translateY(var(--bs-floating-label-top-position));
+}
+
+.form-floating > :disabled ~ label {
+    color: #6c757d;
+}
+
+.form-floating > :disabled ~ label::after {
+    background-color: var(--bs-secondary-bg);
+}
+
+
+
+.input-group {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    
+        flex-wrap: wrap;
+    -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+            align-items: stretch;
+    width: 100%;
+}
+
+.input-group > .form-control,
+.input-group > .form-select,
+.input-group > .form-floating {
+    position: relative;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+}
+
+.input-group > .form-control:focus,
+.input-group > .form-select:focus,
+.input-group > .form-floating:focus-within {
+    z-index: 5;
+}
+
+.input-group .btn {
+    position: relative;
+    z-index: 2;
+}
+
+.input-group .btn:focus {
+    z-index: 5;
+}
+
+.input-group-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    text-align: center;
+    white-space: nowrap;
+    background-color: var(--bs-tertiary-bg);
+    border: var(--bs-input-border-width) solid var(--bs-input-border-color);
+    border-radius: var(--bs-input-border-radius);
+}
+
+.input-group-lg > .form-control,
+.input-group-lg > .form-select,
+.input-group-lg > .input-group-text,
+.input-group-lg > .btn {
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    border-radius: var(--bs-border-radius-lg);
+}
+
+.input-group-sm > .form-control,
+.input-group-sm > .form-select,
+.input-group-sm > .input-group-text,
+.input-group-sm > .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: var(--bs-border-radius-sm);
+}
+
+.input-group-lg > .form-select,
+.input-group-sm > .form-select {
+    padding-right: 3rem;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu) {
+    margin-left: calc(var(--bs-input-border-width) * -1);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3), 
+.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-control, 
+.input-group:not(.has-validation)>.form-floating:not(:last-child)>.form-select, 
+.input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+

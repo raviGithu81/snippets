@@ -1,0 +1,193 @@
+<!-- <link rel="stylesheet" href="{{ 'component-card.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'component-card.css' | asset_url | stylesheet_tag }}</noscript> -->
+
+{% assign productExcludeTag = settings.product_exclude_tag_text %}
+{% assign itemLimit = section.settings.items_per_collection %}
+
+<div class="content-header-banner py-3 d-flex" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};min-height:{{ section.settings.banner_height }}px;">
+    {%- if section.settings.image != blank -%}
+        <div class="header-banner-img">
+            <img
+                srcset="
+                {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                {%- if section.settings.image.width >= 520 -%}{{ section.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                {%- if section.settings.image.width >= 650 -%}{{ section.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                {%- if section.settings.image.width >= 780 -%}{{ section.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                {%- if section.settings.image.width >= 900 -%}{{ section.settings.image | image_url: width: 900 }} 990w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1700 }} 1700w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1920 }} 1920w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 2560 }} 2560w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3800 }} 3800w,{%- endif -%}"
+                src="{{ section.settings.image | image_url: width: 50 }}"
+                sizes="100vw"
+                alt="{{ section.settings.image.alt | escape }}"
+                class="w-100"
+                loading="lazy"
+                width="{{ section.settings.image.width | divided_by: 3 }}"
+                height="{{ section.settings.image.height | divided_by: 3 }}"
+            >
+        </div>
+    {%- endif -%}
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} position-relative min-h-100">
+        <div class="position-absolute">
+            {% render 'breadcrumbs' %}
+        </div>
+        <div class="d-flex align-items-center min-h-100">
+            <div class="py-5 py-lg-7 text-center w-100">
+                {% if section.settings.heading != blank %}<h1 class="mb-3">{{ section.settings.heading | default: 'All Collections' }}</h1>{% endif %}
+                {% if section.settings.txt != blank %}<div class="col-xl-6 col-lg-8 mx-auto">{{ section.settings.txt }}</div>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="section-content">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+    {%- paginate collections by 12 -%}
+        {% for collection in collections %}
+            {% if collection.products.count > 0 %}
+                <div class="row no-gutters my-5">
+                <div class="col" data-type="slider">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-5">
+                        <h3>{{ collection.title }}</h3>
+                        <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection.title }}">
+                        {{ 'templates.list-collection.view-all' | t }} <span class="icon-arrow-next ms-1 fs-lg"></span>
+                        </a>
+                    </div>
+
+                    <slider-element class="swiper-container carousel d-block position-relative arrow-outside">
+                        <div class="swiper swiper-slider featured-collection-slider card-carousel" data-slider='{
+                                "loop": false,
+                                "shortSwipes": false,
+                                "slidesPerView": "1",
+                                "spaceBetween": 15,
+                                "grabCursor": true,
+                                "navigation": {
+                                    "nextEl": ".categories-button-next-{{ forloop.index }}",
+                                    "prevEl": ".categories-button-prev-{{ forloop.index }}"
+                                },
+                                "pagination": {
+                                    "el": ".swiper-pagination",
+                                    "clickable": true
+                                },
+                                "breakpoints": {
+                                "560": {
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 20
+                                },
+                                "768": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 30
+                                },
+                                "992": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 30
+                                }
+                            }
+                        }'>
+                            <div class="swiper-wrapper">
+                                {% for product in collection.products limit: itemLimit %}
+                                    {% unless product.tags contains productExcludeTag %}
+                                        <div class="swiper-slide">
+                                            {% render 'card-product-plain', product: product %}
+                                        </div>
+                                    {% endunless %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="swiper-button-next categories-button-next-{{ forloop.index }} icon-arrow-right"></div>
+                        <div class="swiper-button-prev categories-button-prev-{{ forloop.index }} icon-arrow-left"></div>
+                    </slider-element>
+                </div>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {%- render 'pagination', paginate: paginate -%}
+    {%- endpaginate -%}
+    </div>
+</section>
+
+{% schema %}
+    {
+    "name": "List Collections",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type":"header",
+            "content":"Header Banner"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Banner Image"
+        },
+        {
+            "type":"paragraph",
+            "content":"styling"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#f3f3f3"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#121212"
+        },
+        {
+            "type":"paragraph",
+            "content":"content"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "Heading",
+            "default": "All Collections"
+        },
+        {
+            "type": "richtext",
+            "id": "txt",
+            "label": "Lead Text",
+            "default": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>"
+        },
+        {
+            "type": "range",
+            "id": "banner_height",
+            "min": 100,
+            "max": 750,
+            "step": 10,
+            "default": 350,
+            "unit": "px",
+            "label": "Header Banner Height"
+        },
+        {
+            "type": "range",
+            "id": "items_per_collection",
+            "label": "Products Per Collection",
+            "min": 1,
+            "max": 12,
+            "step":1,
+            "default": 6
+        }
+    ]
+}
+{% endschema %}

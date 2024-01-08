@@ -1,0 +1,387 @@
+{% style %}
+.image-with-text__media--placeholder>svg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+.image-with-text__media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+.image-with-text__media--adapt.image-with-text__media--placeholder>svg {
+    position:relative;
+    left: 0;
+    top: 0;
+    transform: none;
+}
+.image-with-text__media--large{
+    height:700px;
+}
+.image-with-text__media--medium{
+    height:460px;
+}
+.image-with-text__media--small{
+    height:380px;
+}
+.image-with-text__content, .image-with-text__grid--reverse .image-with-text__content{
+    padding:1rem 0 2rem;
+}
+@media screen and (min-width: 768px){
+    .image-with-text__grid--reverse{
+        flex-direction: row-reverse;
+    }
+    .image-with-text__content{
+        padding:1.5rem 0 1.5rem 2rem;
+    }
+    
+    .image-with-text__grid--reverse .image-with-text__content{
+        padding:1.5rem 2rem 1.5rem 0;
+    }
+}
+{% endstyle %}
+
+{%- liquid
+    if section.settings.image_layout contains 'right'
+      assign odd_class = ' image-with-text__grid--reverse'
+    else
+      assign even_class = ' image-with-text__grid--reverse'
+    endif
+-%}
+
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %} image-with-text"  data-section-id="{{ section.id }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        {%- for block in section.blocks -%}
+            <div class="row no-gutter{% if section.settings.image_layout contains 'alternate' %}{% cycle odd_class, even_class %}{% else %}{{ odd_class }}{% endif %}">
+                <div class="{{ section.settings.desktop_image_width }} col-lg-6">
+                    <div class="image-with-text__media position-relative image-with-text__media--{{ section.settings.image_height }} gradient color-{{ section.settings.row_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
+                    {% if section.settings.image_height == 'adapt' and block.settings.image != blank %}
+                        style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
+                    {% endif %}
+                    >
+                        {%- if block.settings.image != blank -%}
+                            <img srcset="
+                                {%- if block.settings.image.width >= 350 -%}{{ block.settings.image | image_url: width: 350 }} 350w,{%- endif -%}
+                                {%- if block.settings.image.width >= 550 -%}{{ block.settings.image | image_url: width: 550 }} 550w,{%- endif -%}
+                                {%- if block.settings.image.width >= 750 -%}{{ block.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+                                {%- if block.settings.image.width >= 991 -%}{{ block.settings.image | image_url: width: 991 }} 991w,{%- endif -%}
+                                {%- if block.settings.image.width >= 1200 -%}{{ block.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                                {%- if block.settings.image.width >= 1500 -%}{{ block.settings.image | image_url: width: 1500 }} 1500w{%- endif -%}"
+                                src="{{ block.settings.image | image_url: width: 50 }}" loading="lazy"
+                                sizes="(min-width: {{ settings.container_width }}px) {{ settings.container_width | minus: 100 | divided_by: 2 }}px,
+                                (min-width: 750px) calc((100vw - 130px) / 2), calc(100vw - 50px)"
+                                alt="{{ block.settings.image.alt | default: section.settings.title | escape }}"
+                                width="{{ block.settings.image.width }}"
+                                height="{{ block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round }}"
+                            >
+                        {%- else -%}
+                            {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {%- endif -%}
+                    </div>
+                </div>
+                <div class="col {{ section.settings.desktop_content_position }} d-flex">
+                    <div class="image-with-text__content text-md-{{ section.settings.desktop_content_alignment }}">
+                        {%- if block.settings.subheading -%}
+                          <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
+                            {{ block.settings.subheading }}
+                          </p>
+                        {%- endif -%}
+                        {%- if block.settings.heading -%}
+                          <h2 class="image-with-text__heading {{ section.settings.heading_size }} rte">
+                            {{ block.settings.heading }}
+                          </h2>
+                        {%- endif -%}
+                        {%- if block.settings.text -%}
+                          <div class="image-with-text__text rte {{ section.settings.text_style }}">{{ block.settings.text }}</div>
+                        {%- endif -%}
+                        {%- if block.settings.button_label != blank -%}
+                          <a {% if block.settings.button_link == blank %} role="link" aria-disabled="true" {% else %} href="{{ block.settings.button_link }}" {% endif %} class="btn btn{% if section.settings.btn_type == 'outline' %}-{% endif %}{{ section.settings.btn_type }}-{{ section.settings.btn_variant }} {{ section.settings.btn_size }}">
+                            {{ block.settings.button_label | escape }}
+                          </a>
+                        {%- endif -%}
+                    </div>
+                </div>
+            </div>
+        {%- endfor -%}
+    </div>
+</div>            
+
+
+{% schema %}
+    {
+        "name": "t:sections.multirow.name",
+        "class": "section",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            }, 
+            {
+                "type": "select",
+                "id": "image_layout",
+                "options": [
+                    {
+                        "value": "alternate-left",
+                        "label": "Alternative from left"
+                    },
+                    {
+                        "value": "alternate-right",
+                        "label": "Alternative from right"
+                    },
+                    {
+                        "value": "align-left",
+                        "label": "Aligned left"
+                    },
+                    {
+                        "value": "align-right",
+                        "label": "Aligned right"
+                    }
+                ],
+                "default": "alternate-left",
+                "label": "Image placement",
+                "info": "Placement is automatically optimized for mobile"
+            },
+            {
+                "type": "header",
+                "content": "Image controls"
+            },
+            {
+                "type": "select",
+                "id": "image_height",
+                "options": [
+                    {
+                        "value": "adapt",
+                        "label": "Adapt to Image"
+                    },
+                    {
+                        "value": "small",
+                        "label": "Small"
+                    },
+                    {
+                        "value": "medium",
+                        "label": "Medium"
+                    },
+                    {
+                        "value": "large",
+                        "label": "Large"
+                    }
+                ],
+                "default": "medium",
+                "label": "Image height"
+            },
+            {
+                "type": "select",
+                "id": "desktop_image_width",
+                "options": [
+                    {
+                        "value": "col-lg-4 col-md-3",
+                        "label": "Small"
+                    },
+                    {
+                        "value": "col-md-6",
+                        "label": "Medium"
+                    },
+                    {
+                        "value": "col-lg-8 col-md-7",
+                        "label": "Large"
+                    }
+                ],
+                "default": "col-md-6",
+                "label": "Desktop image width",
+                "info": "Image is automatically optimized for mobile"
+            },
+            {
+                "type": "header",
+                "content": "Content placement"
+            },
+            {
+                "type": "select",
+                "id": "desktop_content_position",
+                "options": [
+                    {
+                        "value": "align-items-start",
+                        "label": "Top"
+                    },
+                    {
+                        "value": "align-items-center",
+                        "label": "Middle"
+                    },
+                    {
+                        "value": "align-items-end",
+                        "label": "Bottom"
+                    }
+                ],
+                "default": "align-items-center",
+                "label": "Desktop content position",
+                "info": "Position is automatically optimized for mobile."
+            },
+            {
+                "type": "select",
+                "id": "desktop_content_alignment",
+                "options": [
+                    {
+                        "value": "start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "start",
+                "label": "Desktop content alignment"
+            },
+            {
+                "type": "header",
+                "content": "Button"
+            },
+            {
+                "type": "select",
+                "id": "btn_type",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "Solid"
+                    },
+                    {
+                        "value": "outline",
+                        "label": "Outline"
+                    }
+                ],
+                "default": "outline",
+                "label": "Button Type"
+            },
+            {
+                "type": "select",
+                "id": "btn_variant",
+                "label": "Button Variant",
+                "options": [
+                    {
+                        "value": "primary",
+                        "label": "Primary"
+                    },
+                    {
+                        "value": "secondary",
+                        "label": "Secondary"
+                    },
+                    {
+                        "value": "light",
+                        "label": "Light"
+                    },
+                    {
+                        "value": "dark",
+                        "label": "Dark"
+                    }
+                ],
+                "default": "primary"
+            },
+            {
+                "type": "select",
+                "id": "btn_size",
+                "options": [
+                    {
+                        "value": "btn-sm",
+                        "label": "Small"
+                    },
+                    {
+                        "value": "",
+                        "label": "Default"
+                    },
+                    {
+                        "value": "btn-lg",
+                        "label": "Large"
+                    }
+                ],
+                "default": "",
+                "label": "Button Size"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "row",
+                "name": "Row",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "inline_richtext",
+                        "id": "subheading",
+                        "default": "Caption",
+                        "label": "Sub Heading"
+                    },
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "default": "Row",
+                        "label": "Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "default": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+                        "label": "Lead Text"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_label",
+                        "default": "Button label",
+                        "label": "Button Text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "button_link",
+                        "label": "Button Link"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Multirow",
+                "blocks": [
+                    {
+                        "type": "row"
+                    },
+                    {
+                        "type": "row"
+                    },
+                    {
+                        "type": "row"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

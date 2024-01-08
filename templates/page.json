@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-page",
+      "settings": {
+        "fluid_layout": false,
+        "image": "shopify://shop_images/fluid-banner-016.jpg",
+        "section_bg_color": "#f3f3f3",
+        "section_txt_color": "#121212",
+        "heading": "",
+        "txt": "",
+        "banner_height": 420
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

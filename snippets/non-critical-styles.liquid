@@ -1,0 +1,20 @@
+{% unless template.name == 'list-collections' and template.name == 'collection' %}
+    {{ 'card.css' | asset_url | stylesheet_tag }}
+{% endunless %}
+
+{{ 'form.css' | asset_url | stylesheet_tag }}
+
+{% comment %} Collection Page css {% endcomment %}
+{%- if template.name == 'collection' or template == 'search' -%} 
+    {{ 'component-filter.css' | asset_url | stylesheet_tag: preload: true }}
+{%- endif -%}
+
+<link {% unless request.design_mode %}data-{% endunless %}href="{{ 'mobile-nav-drawer.css' | asset_url }}" class="lazyload-asset" rel="stylesheet" />
+
+{{ 'component-search.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'component-modal.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'snotify-toast.css' | asset_url | stylesheet_tag: preload: true }}
+
+{{ 'spinners.css' | asset_url | stylesheet_tag: preload: true }}

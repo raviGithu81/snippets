@@ -1,0 +1,19 @@
+{
+  "parent": "index.json",
+  "context": {
+    "b2b": true
+  },
+  "sections": {
+    "8d81db4b-0432-4d26-8cde-2c103a3cefd4": {
+      "settings": {
+      },
+      "blocks": {
+        "3335b5f5-c0ff-4b2d-9d66-b609b264d22a": {
+          "settings": {
+            "heading": "Wholesale Purchase"
+          }
+        }
+      }
+    }
+  }
+}

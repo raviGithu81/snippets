@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "4dc3267e-3fb0-4f26-a867-4f32b0b36645": {
+      "type": "global-image-with-text",
+      "settings": {
+        "fluid_layout": false,
+        "section_bg_color": "#FAFAF7",
+        "alignment": "text-start",
+        "image_alignment": "left"
+      }
+    }
+  },
+  "order": [
+    "4dc3267e-3fb0-4f26-a867-4f32b0b36645"
+  ]
+}

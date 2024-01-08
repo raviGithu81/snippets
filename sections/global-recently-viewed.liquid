@@ -1,0 +1,93 @@
+<div class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %} recently-viewed-main {% unless request.design_mode %}d-none{% endunless %}" data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row">
+            <div class="col text-center">
+
+                {% if section.settings.heading != blank %}
+                    <h2 class="section-title mb-4">{{ section.settings.heading }}</h2>
+                {% endif %}
+
+                <recently-products class="row justify-content-center">
+                    {% for i in (1..4) %}
+                        <div class="col-12 col-lg-3 col-md-4 col-sm-6 mb-5 d-flex align-items-stretch justify-content-around">
+                          <div class="card card-product text-start bg-gray-300">
+                            <div class="card-img text-center border-0">
+                                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'img-fluid' }}
+                            </div>
+                            <div class="card-body d-flex align-items-center justify-content-between bg-white">
+                              <div>
+                                <h6 class="card-title m-0">Example Product Title</h6>
+                                <span class="price m-0 p-0">$19.99</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    {% endfor %}
+                </recently-products>
+            </div>
+        </div>  
+    </div>
+</div>
+<script src="{{ 'product-recently-viewed.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Recently Viewed Products",
+  "tag": "section",
+  "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "section_top_spacing_enable",
+            "label": "Enable Top Spacing",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "section_bottom_spacing_enable",
+            "label": "Enable bottom Spacing",
+            "default": true
+        },
+        {
+            "type":"header",
+            "content":"styling"
+        },
+        {
+            "type": "color_background",
+            "id": "section_bg_color",
+            "label": "Background Color"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color"
+        },
+        {
+            "type": "header",
+            "content": "Content"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "heading",
+            "default": "YOU MAY ALSO LIKE"
+        }
+    ],
+    "presets": [{
+        "name": "Recently Viewed Products",
+        "settings": {
+            "heading": "Recently Viewed"
+        }       
+    }]
+}
+{% endschema %}

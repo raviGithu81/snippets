@@ -1,0 +1,231 @@
+{{ 'global-testimonial.css' | asset_url | stylesheet_tag: preload: true }}
+
+<section class="position-relative {% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}" data-section-id="{{ section.id }}" style="background: {{ section.settings.section_bg_color }};">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row mb-6">
+            <div class="col-12 text-center">
+                {%- for block in section.blocks -%}
+                    {%- case block.type -%}
+                    {%- when 'heading' -%}
+                        <h2 style="color:{{ block.settings.heading_color }}">{{ block.settings.heading }}</h2>
+                    {%- when 'text' -%}
+                        <div class="fs-lg fw-bold mb-3" style="color:{{ block.settings.text_color }}"> {{ block.settings.text }} </div>
+                    {%- endcase -%}    
+                {% endfor %}
+            </div>
+        </div>
+        {% assign review_blocks = section.blocks | where: "type", "testimonial" %}
+        {% if review_blocks.size > 0 %}
+            <slider-element class="swiper-container carousel">
+                <div class="swiper swiper-slider testimonial-list pb-7" data-slider='{
+                    "loop": false,
+                    "slidesPerView": 1,
+                    "spaceBetween": 30,
+                    "grabCursor": true,
+                    "navigation": {
+                        "nextEl": ".testimonial-button-next",
+                        "prevEl": ".testimonial-button-prev"
+                    },
+                    "pagination": {
+                        "el": ".swiper-pagination",
+                        "clickable": true
+                    }
+                }'>
+                    <div class="swiper-wrapper">
+                        {% for block in review_blocks %}
+                            <div class="{{ block.settings.alignment }} swiper-slide" data-block-id="{{ block.id }}"> 
+                                {% if block.settings.title != blank %}
+                                    <div class="col-xl-7 col-lg-8 col-md-10 px-0 mx-auto">    
+                                        <div class="mb-0 h5 fw-normal lh-base">{{ block.settings.title }}</div> 
+                                        {% if block.settings.author_name != blank %}<p class="fs-xl font-italic fw-medium mb-0 mt-3">{{ block.settings.author_name }}</p>{% endif %}
+                                    </div>     
+                                {% endif %}
+                                {% if block.settings.image != blank %} 
+                                    <div class="testimonial-logo-img pt-5 pt-lg-6 d-flex align-items-center justify-content-center">
+                                        <img src="{{ block.settings.image | image_url }}" class="mw-100" alt="{{ block.settings.image.alt | escape }}" 
+                                        width="150" height="150" loading="lazy"/>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}     
+                    </div>
+                    {% if section.settings.nav_arrows %}
+                        <div class="swiper-button-next testimonial-button-next icon-next"></div>
+                        <div class="swiper-button-prev testimonial-button-prev icon-previous"></div> 
+                    {% endif %}
+                    {% if section.settings.nav_dots %}
+                        <div class="swiper-pagination w-100"></div>
+                    {% endif %}
+                </div>
+            </slider-element>
+        {% endif %} 
+    </div>
+</section>
+
+
+{% schema %}
+    {
+        "name": "Customer Testimonial",
+        "class": "customer-testimonial",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "Styling"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#f3f3f3"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Option"
+            },
+            {
+                "type": "checkbox", 
+                "id": "nav_arrows",
+                "label": "Arrows Navigation",
+                "default": true 
+            },
+            {
+                "type": "checkbox",
+                "id": "nav_dots",
+                "label": "Dots Navigation",
+                "default": true
+            }
+        ],
+        "blocks": [
+            {
+                "type": "heading",
+                "limit": 1,
+                "name": "Heading",
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Customer Testimonials"                        
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "limit": 1,
+                "name": "Text",
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "Lead Text",
+                        "default": "<p>Customer Reviews in detail</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"text_color",
+                        "label":"Text Color"
+                    }
+                ]
+            },
+            {
+                "type": "testimonial",
+                "name": "Testimonial Slide",
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Content"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "title",
+                        "label": "Text",
+                        "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam pulvinar ac tortor imperdiet commodo.</p>"
+                    },
+                    {
+                        "type": "text",
+                        "id": "author_name",
+                        "label": "Author Name",
+                        "default": "Author"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Styling"
+                    },
+                    {
+                        "type": "select",
+                        "id": "alignment",
+                        "label": "Alignment",
+                        "options": [
+                            {
+                                "value": "text-start",
+                                "label": "Left"
+                            },
+                            {
+                                "value": "text-center",
+                                "label": "Center"
+                            },
+                            {
+                                "value": "text-end",
+                                "label": "Right"
+                            }
+                        ],
+                        "default": "text-center"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Customer Testimonial",
+                "category": "Content",
+                "blocks": [
+                    {
+                        "type": "heading"
+                    },
+                    {
+                        "type": "text"
+                    },
+                    {
+                        "type": "testimonial"
+                    },
+                    {
+                        "type": "testimonial"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

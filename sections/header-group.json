@@ -1,0 +1,74 @@
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "top-header": {
+      "type": "top-header",
+      "settings": {
+        "topbar_enabled": true,
+        "topbar_text": "SAME DAY SHIPPING! ORDER BY 2PM (EASTERN TIME)",
+        "topbar_bg_color": "#121212",
+        "topbar_text_color": "#ffffff",
+        "topbar_height": 40,
+        "topbar_font_size": "15px"
+      }
+    },
+    "header": {
+      "type": "header",
+      "class": "test",
+      "blocks": {
+        "5f1e41a7-b8fe-460b-a63e-25715cc8ff62": {
+          "type": "megamenu",
+          "settings": {
+            "title": "Sections",
+            "image": "shopify://shop_images/fluid-collections-2.webp",
+            "link_text": "New Collections",
+            "link_url": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "5f1e41a7-b8fe-460b-a63e-25715cc8ff62"
+      ],
+      "settings": {
+        "fluid_header": false,
+        "enable_sticky_header": true,
+        "header_bg_color": "#ffffff",
+        "show_line_separator": false,
+        "logo": "shopify://shop_images/fluid-logo-v-0.2.svg",
+        "logo_width": 150,
+        "menu": "fluid-nav"
+      }
+    },
+    "mobile-nav-drawer": {
+      "type": "mobile-nav-drawer",
+      "settings": {
+        "logo": "shopify://shop_images/fluid-logo-v-0.2.svg",
+        "logo_width": 100,
+        "main_menu_linklist": "main-menu",
+        "secondary_menu_linklist": "company",
+        "mobilemenu_style": "slide-submenu",
+        "mobile_nav_show_social_links": true,
+        "social_icon_facebook": true,
+        "social_icon_twitter": true,
+        "social_icon_instagram": true
+      }
+    },
+    "search-layer": {
+      "type": "search-layer",
+      "settings": {
+        "enable_search": true,
+        "enable_search_product": true,
+        "enable_search_article": true,
+        "enable_search_page": true,
+        "search_type": "predictive"
+      }
+    }
+  },
+  "order": [
+    "top-header",
+    "header",
+    "mobile-nav-drawer",
+    "search-layer"
+  ]
+}

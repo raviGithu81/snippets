@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-blog",
+      "blocks": {
+        "a0873dee-7fae-4757-9d09-955429b4139b": {
+          "type": "search",
+          "settings": {
+          }
+        },
+        "recent-articles": {
+          "type": "recent-articles",
+          "settings": {
+            "heading": "Recent Articles",
+            "total_recent_articles": 5
+          }
+        },
+        "tags": {
+          "type": "tags",
+          "settings": {
+            "heading": "Tags"
+          }
+        },
+        "social_sharing": {
+          "type": "socials",
+          "settings": {
+            "socials_title": "Connect with Us",
+            "social_icon_facebook": true,
+            "social_icon_twitter": true,
+            "social_icon_googleplus": true,
+            "social_icon_instagram": true
+          }
+        }
+      },
+      "block_order": [
+        "a0873dee-7fae-4757-9d09-955429b4139b",
+        "recent-articles",
+        "tags",
+        "social_sharing"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "items_per_page": 5,
+        "section_bg_color": "#f3f3f3",
+        "section_txt_color": "#121212",
+        "heading": "",
+        "txt": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>",
+        "banner_height": 420,
+        "enable_featured": true,
+        "featured_preference": "custom",
+        "featured_article": "news/introducing-stormi",
+        "enable_sidebar": true,
+        "sidebar_is_sticky": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

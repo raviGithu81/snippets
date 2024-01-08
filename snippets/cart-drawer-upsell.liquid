@@ -1,0 +1,29 @@
+{% comment %}
+  Renders cart drawer upsell block.
+  Accepts:
+  - block: {Object} customizations block.
+
+  Usage:
+  {% render 'cart-drawer-upsell', block: block %}
+{% endcomment %}
+
+{% liquid
+    assign upsellCollection = collections[block.settings.upsell_collection]
+    assign total_items = block.settings.products_to_show | plus: 0 
+%}
+
+{% if upsellCollection.products_count > 0 %}
+    {% if block.settings.heading != blank %}
+        <div class="cart_related_title h6 fw-bold mb-3 text-uppercase">
+            <span>{{ block.settings.heading }}</span>
+        </div>
+    {% endif %}
+
+    <div class="cart-related_items">
+        {% for product in upsellCollection.products limit: total_items %}
+            <div class="cart-related_item h-auto d-flex {% unless forloop.last == true %}mb-3 pb-3 border-bottom{% endunless %}">
+                {%- render 'card-product-upsell', product: product -%}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

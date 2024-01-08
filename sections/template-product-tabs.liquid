@@ -1,0 +1,162 @@
+<div class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %} image-with-text"  data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <custom-tabs class="d-block">
+            <div id="productTabs" data-product-tabs>
+                <ul class="tabs d-flex list-unstyled text-uppercase fw-medium mb-0" role="tablist">
+                    {% for block in section.blocks %}
+                        <li class="tablink{% if forloop.first %} open{% endif %}" role="tab">
+                            <a class="nav-link" data-toggle="tab" href="#product-tab-{{ forloop.index }}" data-tabcontent="#product-tab-{{ forloop.index }}" aria-expanded="true">{{ block.settings.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+        
+                <div class="tab-content text-start" id="productTabsContent">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'description' %}
+                                <div class="tab-pane tabcontent{% if forloop.first %} open{% endif %}" id="product-tab-{{ forloop.index }}" role="tabpanel">
+                                    <div class="rte pt-md-5 pt-3 px-lg-6">{{ product.description }}</div>
+                                </div>
+                            {% when 'page' %}
+                                <div class="tab-pane tabcontent{% if forloop.first %} open{% endif %}" id="product-tab-{{ forloop.index }}" role="tabpanel">
+                                    <div class="page-content rte pt-5">{{ pages[block.settings.page].content }}</div>
+                                </div>
+                            {% when 'content' %}
+                                <div class="tab-pane tabcontent{% if forloop.first %} open{% endif %}" id="product-tab-{{ forloop.index }}" role="tabpanel">
+                                    <div class="block-content rte pt-5">{{ block.settings.content }}</div>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
+                </div>
+            </div>
+        </custom-tabs>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Detail Tabs",
+  "tag": "section",
+  "class": "product-tabs-section",
+  "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "section_top_spacing_enable",
+            "label": "Enable Top Spacing",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "section_bottom_spacing_enable",
+            "label": "Enable bottom Spacing",
+            "default": true
+        },
+        {
+            "type":"header",
+            "content":"styling"
+        },
+        {
+            "type": "color_background",
+            "id": "section_bg_color",
+            "label": "Background Color"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "@app"
+        },
+        {
+            "type": "content",
+            "name": "Content",
+            "settings": [     
+                {
+                    "type": "header",
+                    "content": "Content"
+                },  
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Heading",
+                    "default": "Product Detail"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                }
+            ]
+        },
+        {
+            "type": "description",
+            "name": "Product Description",
+            "limit": 1,
+            "settings": [       
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Description"
+            }
+            ]
+        },
+        {
+            "type": "page",
+            "name": "Page",
+            "settings": [     
+            {
+                "type": "header",
+                "content": "Content"
+            },  
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Page Title"
+            },
+            {
+                "type": "page",
+                "id": "page",
+                "label": "Select Page"
+            }
+            ]
+        }
+    ],
+    "presets": [{
+        "name": "Product Detail Tabs",
+        "category": "Product Content",
+        "blocks": [
+            {
+              "type": "description"
+            },
+            {
+                "type": "content"
+            },
+            {
+              "type": "page"
+            }
+        ]        
+    }],
+    "enabled_on": {
+        "templates": ["product"]
+    }
+}
+{% endschema %}

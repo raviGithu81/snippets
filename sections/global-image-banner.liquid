@@ -1,0 +1,596 @@
+{{ 'global-image-banner.css' | asset_url | stylesheet_tag: preload: true }}
+
+{%- liquid
+    assign mobileImage = section.settings.image
+    if section.settings.image_mobile != blank
+        assign mobileImage =  section.settings.image_mobile
+    endif
+-%}
+
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}"  data-section-id="{{ section.id }}">
+    <div id="Banner-{{ section.id }}" class="banner-section position-relative {{ section.settings.height }}">
+        {%- if section.settings.image != blank -%}
+            <div class="banner__media">
+                {% if section.settings.image_mobile != blank %}
+                    <picture>
+                        {%- if mobileImage.width >= 375 -%}<source media="(max-width: 375px)" srcset="{{ mobileImage | image_url: width: 375 }}">{%- endif -%}
+                        {%- if mobileImage.width >= 550 -%}<source media="(max-width: 550px)" srcset="{{ mobileImage | image_url: width: 550 }}">{%- endif -%}
+                        {%- if mobileImage.width >= 767 -%}<source media="(max-width: 767px)" srcset="{{ mobileImage | image_url: width: 767 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 3800 -%}<source media="(min-width: 3000px)" srcset="{{ section.settings.image | image_url: width: 3800 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 3000 -%}<source media="(min-width: 2560px)" srcset="{{ section.settings.image | image_url: width: 3000 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 2560 -%}<source media="(min-width: 1901px)" srcset="{{ section.settings.image | image_url: width: 2560 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1920 -%}<source media="(min-width: 1700px)" srcset="{{ section.settings.image | image_url: width: 1920 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1720 -%}<source media="(min-width: 1500px)" srcset="{{ section.settings.image | image_url: width: 1720 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1500 -%}<source media="(min-width: 1200px)" srcset="{{ section.settings.image | image_url: width: 1500 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1200 -%}<source media="(min-width: 991px)" srcset="{{ section.settings.image | image_url: width: 1200 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 991 -%}<source media="(min-width: 768px)" srcset="{{ section.settings.image | image_url: width: 991 }}">{%- endif -%}
+                        <img src="{{ section.settings.image | image_url: width: 50 }}" loading="lazy"
+                        alt="{{ section.settings.image.alt | default: block.settings.heading | escape }}"
+                        width="{{ section.settings.image.width }}"
+                        height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round }}"
+                        >
+                    </picture>
+                {% else %}
+                    <picture>
+                        {%- if section.settings.image.width >= 3800 -%}<source media="(min-width: 3000px)" srcset="{{ section.settings.image | image_url: width: 3800 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 3000 -%}<source media="(min-width: 2560px)" srcset="{{ section.settings.image | image_url: width: 3000 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 2560 -%}<source media="(min-width: 1901px)" srcset="{{ section.settings.image | image_url: width: 2560 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1920 -%}<source media="(min-width: 1700px)" srcset="{{ section.settings.image | image_url: width: 1920 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1720 -%}<source media="(min-width: 1500px)" srcset="{{ section.settings.image | image_url: width: 1720 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1500 -%}<source media="(min-width: 1200px)" srcset="{{ section.settings.image | image_url: width: 1500 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 1200 -%}<source media="(min-width: 991px)" srcset="{{ section.settings.image | image_url: width: 1200 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 991 -%}<source media="(min-width: 768px)" srcset="{{ section.settings.image | image_url: width: 991 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 768 -%}<source media="(min-width: 576px)" srcset="{{ section.settings.image | image_url: width: 768 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 576 -%}<source media="(min-width: 320px)" srcset="{{ section.settings.image | image_url: width: 576 }}">{%- endif -%}
+                        {%- if section.settings.image.width >= 320 -%}<source media="(min-width: 200px)" srcset="{{ section.settings.image | image_url: width: 320 }}">{%- endif -%}
+                        <img src="{{ section.settings.image | image_url: width: 50 }}" loading="lazy"
+                        alt="{{ section.settings.image.alt | default: block.settings.heading | escape }}"
+                        width="{{ section.settings.image.width }}"
+                        height="{{ section.settings.image.width | divided_by: section.settings.image.aspect_ratio | round }}"
+                        >
+                    </picture>        
+                {% endif %}
+                {% if section.settings.enable_overlay %}
+                    <div class="overlay" style="background-color: {{ section.settings.overlay_bg_color }}!important; opacity: {{ section.settings.overlay_opacity }}!important;"></div>
+                {% endif %}
+            </div>
+        {%- else -%}
+            <div class="banner__media placeholder">
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+        {%- endif -%}
+
+        <div class="banner__content container py-md-11 {{ section.settings.text_caption_align }}" style="align-items: {{ section.settings.desktop_text_box_position }};">
+            <div class="col-xl-5 col-lg-6 col-md-7 px-0 {{ section.settings.text_align }}" style="background:{{ section.settings.txt-bg-color }};">
+                {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when 'heading' -%}
+                    <h2 class="h1 mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                    {%- when 'subheading' -%}
+                    <h3 class="fs-lg mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.subheading_color }};">{{ block.settings.subheading }}</h3> 
+                    {%- when 'text' -%}
+                    <div class="banner__text" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                    {%- when 'countdown' -%}
+                        {%- if block.settings.countdown_enable -%}
+                            {%- assign currentDate = 'now' | date: "%s" -%}
+                            {%- assign settingsDate = block.settings.countdown_text | date: "%s" -%}
+                            <custom-countdown class="mb-4" data-section_timer="{{ block.settings.countdown_text }}">
+                                {% if block.settings.countdown_enable and settingsDate > currentDate %}
+                                    {% if block.settings.countdown_pretext != blank %}
+                                        <p class="text-uppercase fw-bold fs-md mb-3" style="color: {{ block.settings.caption_txt_color }};">{{ block.settings.countdown_pretext }}</p>
+                                    {% endif %}
+                                    <div class="d-inline-flex">
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-day_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-day_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="fw-normal fs-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">days</div>
+                                        </div>
+                                        <div>
+                                            <p class="px-2 mb-0 d-flex align-items-center time-box-sep" style="color: {{ block.settings.caption_txt_color }};">:</p>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-hour_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-hour_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="fw-normal fs-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">Hours</div>
+                                        </div>
+                                        <div>
+                                            <p class="px-2 mb-0 d-flex align-items-center time-box-sep" style="color: {{ block.settings.caption_txt_color }};">:</p>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-min_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-min_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="fw-normal fs-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">Mins</div>
+                                        </div>
+                                        <div>
+                                            <p class="px-2 mb-0 d-flex align-items-center time-box-sep" style="color: {{ block.settings.caption_txt_color }};">:</p>
+                                        </div>
+                                        <div class="time-box-wrapper d-flex align-items-center flex-wrap">
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-sec_1 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="time-box" {% if block.settings.countdown_bg_color != blank %}style="background: {{block.settings.countdown_bg_color}}"{% endif %}>
+                                                <p class="fw-normal mb-0" data-sec_2 {% if block.settings.countdown_text_color != blank %}style="color: {{block.settings.countdown_text_color}}"{% endif %}>0</p>
+                                            </div>
+                                            <div class="fw-normal fs-lg font-family-base text-uppercase text-center my-2 w-100" style="color: {{ block.settings.caption_txt_color }};">sec</div>
+                                        </div>
+                                    </div>
+                                    <script src="{{ 'component-countdown.js' | asset_url }}" defer></script>
+                                {% endif %}
+                            </custom-countdown>
+                        {%- endif -%}
+                    {%- when 'buttons' -%}
+                        <div class="mt-4 mt-md-4" {{ block.shopify_attributes }} data-block-id="{{ block.id }}">
+                            {%- if block.settings.button_label_1 != blank -%}
+                                <a href="{{ block.settings.button_link_1 }}" class="btn btn{% if block.settings.btn_type_1 == 'outline' %}-{% endif %}{{ block.settings.btn_type_1 }}-{{ block.settings.btn_variant_1 }} {{ block.settings.btn_size_1 }}">{{ block.settings.button_label_1 | escape }}</a>
+                            {%- endif -%}
+                            {%- if block.settings.button_label_2 != blank -%}
+                                <a href="{{ block.settings.button_link_2 }}" class="btn btn{% if block.settings.btn_type_2 == 'outline' %}-{% endif %}{{ block.settings.btn_type_2 }}-{{ block.settings.btn_variant_2 }} {{ block.settings.btn_size_2 }} ms-3">{{ block.settings.button_label_2 | escape }}</a>
+                            {%- endif -%}
+                        </div>
+                    {%- endcase -%}
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Image Banner",
+        "class": "spaced-section--full-width",
+        "settings": [
+                {
+                    "type": "header",
+                    "content": "Layout"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "fluid_layout",
+                    "label": "Full Width Layou",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "section_top_spacing_enable",
+                    "label": "Enable Top Spacing",
+                    "default": false
+                },
+                {
+                    "type": "checkbox",
+                    "id": "section_bottom_spacing_enable",
+                    "label": "Enable bottom Spacing",
+                    "default": false
+                }, 
+                {
+                    "type": "header",
+                    "content": "Content"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Desktop Image",
+                    "info": "For Better Viewing Use Example dimensions: 2030*960 / Aspect Ratio: 2.11"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image_mobile",
+                    "label": "Mobile Image",
+                    "info": "For Better Viewing Use Example dimensions: 768*1110 / Aspect Ratio: 0.69"
+                },
+                {
+                    "type": "header",
+                    "content": "Overlay"
+                },
+                {
+                    "type": "checkbox",
+                    "id": "enable_overlay",
+                    "label": "Enable Overlay",
+                    "default": true
+                },
+                {
+                    "type": "color_background",
+                    "id": "overlay_bg_color",
+                    "label": "Overlay Background Color",
+                    "default": "#000000"
+                },
+                {
+                    "type": "range",
+                    "id": "overlay_opacity",
+                    "label": "Overlay Opacity",
+                    "min": 0.1,
+                    "max": 1,
+                    "step": 0.1,
+                    "default": 0.5
+                },
+                {
+                    "type": "header",
+                    "content": "Section Style"
+                },
+                {
+                    "type": "select",
+                    "id": "height",
+                    "label": "Section Height",
+                    "options": [
+                        {
+                            "value": "shortheight",
+                            "label": "Short"
+                        },
+                        {
+                            "value": "tallheight",
+                            "label": "Tall"
+                        },
+                        {
+                            "value": "fullheight",
+                            "label": "Full Height"
+                        }
+                    ],
+                    "default": "tallheight"
+                },
+                {
+                    "type": "select",
+                    "id": "desktop_text_box_position",
+                    "options": [
+                        {
+                            "value": "flex-start",
+                            "label": "Top"
+                        },
+                        {
+                            "value": "center",
+                            "label": "center"
+                        },
+                        {
+                            "value": "flex-end",
+                            "label": "Bottom"
+                        }
+                    ],
+                    "default": "center",
+                    "label": "Caption Vertical Position"
+                },
+                {
+                    "type": "select",
+                    "id": "text_caption_align",
+                    "options": [
+                        {
+                            "value": "justify-content-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "justify-content-center",
+                            "label": "center"
+                        },
+                        {
+                            "value": "justify-content-end",
+                            "label": "right"
+                        }
+                    ],
+                    "default": "justify-content-center",
+                    "label": "Caption Horizontal Alignment"
+                },
+                {
+                    "type": "select",
+                    "id": "text_align",
+                    "options": [
+                        {
+                            "value": "text-start",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "text-center",
+                            "label": "center"
+                        },
+                        {
+                            "value": "text-end",
+                            "label": "right"
+                        }
+                    ],
+                    "default": "text-center",
+                    "label": "Text Alignment"
+                },
+                {
+                    "type":"color_background",
+                    "id":"txt-bg-color",
+                    "label":"Caption Background Color",
+                    "default":"transparent"
+                }
+        ],
+        "blocks": [
+            {
+                "type": "heading",
+                "name": "Heading",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "default": "Image banner",
+                        "label": "Heading"
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "subheading",
+                "name": "Sub Heading",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "subheading",
+                        "default": "Image banner",
+                        "label": "Sub Heading"
+                    },
+                    {
+                        "type":"color",
+                        "id":"subheading_color",
+                        "label":"Sub Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "name": "Text",
+                "limit": 1,
+                "settings": [
+                    {
+                    "type": "richtext",
+                    "id": "text",
+                    "default": "<p>Give customers details about the banner image(s) or content on the template.</p>",
+                    "label": "Lead Text"
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color",
+                        "default": "#5b5b5b"
+                    }
+                ]
+            },
+            {
+                "type": "buttons",
+                "name": "Button",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "First Button"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_label_1",
+                        "default": "Button label",
+                        "label": "Button Text",
+                        "info": "Leave the label blank to hide the button."
+                    },
+                    {
+                        "type": "url",
+                        "id": "button_link_1",
+                        "label": "Button Link"
+                    },      
+                    {
+                        "type": "select",
+                        "id": "btn_type_1",
+                        "label": "Button Type",
+                        "options": [
+                            {
+                                "value": "outline",
+                                "label": "Outline"
+                            },
+                            {
+                                "value": "",
+                                "label": "Solid"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_variant_1",
+                        "label": "Button Variant",
+                        "options": [
+                            {
+                                "value": "primary",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "light",
+                                "label": "Light"
+                            },
+                            {
+                                "value": "dark",
+                                "label": "Dark"
+                            }
+                        ],
+                        "default": "primary"
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_size_1",
+                        "label": "Button Size",
+                        "options": [
+                            {
+                                "value": "btn-sm",
+                                "label": "Small"
+                            },
+                            {
+                                "value": "",
+                                "label": "Default"
+                            },
+                            {
+                                "value": "btn-lg",
+                                "label": "Large"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "header",
+                        "content": "Second Button"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_label_2",
+                        "default": "Button label",
+                        "label": "Button Text",
+                        "info": "Leave the label blank to hide the button."
+                    },
+                    {
+                        "type": "url",
+                        "id": "button_link_2",
+                        "label": "Button Link"
+                    },      
+                    {
+                        "type": "select",
+                        "id": "btn_type_2",
+                        "label": "Button Type",
+                        "options": [
+                            {
+                                "value": "outline",
+                                "label": "Outline"
+                            },
+                            {
+                                "value": "",
+                                "label": "Solid"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_variant_2",
+                        "label": "Button Variant",
+                        "options": [
+                            {
+                                "value": "primary",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "light",
+                                "label": "Light"
+                            },
+                            {
+                                "value": "dark",
+                                "label": "Dark"
+                            }
+                        ],
+                        "default": "primary"
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_size_2",
+                        "label": "Button Size",
+                        "options": [
+                            {
+                                "value": "btn-sm",
+                                "label": "Small"
+                            },
+                            {
+                                "value": "",
+                                "label": "Default"
+                            },
+                            {
+                                "value": "btn-lg",
+                                "label": "Large"
+                            }
+                        ],
+                        "default": ""
+                    }
+                ]
+            },
+            {
+                "type": "countdown",
+                "name": "Countdown",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Countdown Settings"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "countdown_enable",
+                        "label": "Enable",
+                        "default": true
+                    },
+                    {
+                        "type": "text",
+                        "id": "countdown_pretext",
+                        "label": "countdown Lable",
+                        "default": "Time Running Out"
+                    },
+                    {
+                        "type": "text",
+                        "id": "countdown_text",
+                        "label": "End Date",
+                        "info":"Oct 20, 2023 23:59",
+                        "default": "Oct 20, 2023 23:59"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Stlying"
+                    },
+                    {
+                        "type": "color",
+                        "id": "countdown_bg_color",
+                        "label": "Countdown BG color",
+                        "default": "#222b45"
+                    },
+                    {
+                        "type": "color",
+                        "id": "countdown_text_color",
+                        "label": "Countdown Text color",
+                        "default": "#ffffff"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Image Banner",
+                "category": "Banners",
+                "blocks": [
+                    {
+                        "type": "heading"
+                    },
+                    {
+                        "type": "subheading"
+                    },
+                    {
+                        "type": "text"
+                    },
+                    {
+                        "type": "countdown"
+                    },
+                    {
+                        "type": "buttons"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

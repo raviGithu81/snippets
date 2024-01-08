@@ -1,0 +1,111 @@
+{{ 'global-auto-slider.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% if section.blocks.size > 0 %}
+    <section class="marquee_marquee {% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}" data-section-id="{{ section.id }}" style="background: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }};">
+        <div class="marquee-container pt-3 pb-3">
+            <div class="marquee" id="marquee" style="--play:running; --direction:normal; --duration:{{ section.settings.scroll_speed }}s; --delay:0s; --iteration-count:infinite;">
+                {% for block in section.blocks %}
+                    {% if block.settings.content != blank %}
+                        <div class="marquee_item">
+                            <span class="marquee_text px-5"> {{ block.settings.content }} </span>
+                        </div>
+                    {% endif %} 
+                {% endfor %}    
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+<script type="text/javascript" defer>
+    let ele = document.querySelector('#marquee');
+    let subject = ele.innerHTML;
+    for(var i=0; i <=4; i++){
+        ele.insertAdjacentHTML('beforeend', subject);
+    }
+
+    let perentEle = document.querySelector('.marquee-container');
+    let perentSubject = perentEle.innerHTML;
+    perentEle.insertAdjacentHTML('beforeend', perentSubject);
+</script>
+
+{% schema %}
+    {
+        "name": "Marquee Text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": false
+            }, 
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#f3f3f3"
+            },
+            {
+                "type": "color",
+                "id": "section_txt_color",
+                "label": "Text Color"
+            },
+            {
+                "type": "range",
+                "id": "scroll_speed",
+                "min": 10,
+                "max": 100,
+                "step": 10,
+                "label": "Scroll Speed",
+                "default": 50
+            }
+        ],
+        "blocks": [
+            {
+                "type": "content",
+                "name": "Content",
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "content",
+                        "label": "Text",
+                        "default": "Marquee Text"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Marquee Text",
+                "category": "Content",
+                "blocks": [
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

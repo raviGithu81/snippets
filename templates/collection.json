@@ -1,0 +1,75 @@
+{
+  "wrapper": "section",
+  "sections": {
+    "banner": {
+      "type": "template-collection-banner",
+      "settings": {
+        "fluid_layout": false,
+        "show_collection_description": false,
+        "section_bg_color": "#f2f2f2",
+        "txt_color": "#121212",
+        "alignment": "text-center",
+        "caption_alignment": "mx-auto"
+      }
+    },
+    "template-collection": {
+      "type": "template-collection",
+      "blocks": {
+        "76bc1f14-318b-4055-9732-31a3ebb49e78": {
+          "type": "promo-blocks",
+          "settings": {
+            "enable": true,
+            "block_index": "5",
+            "image": "shopify://shop_images/bag-desk2.jpg",
+            "heading": "Luxury Bags",
+            "subheading": "<p>Luxury Bags Experience the elegance of our luxury bags, meticulously designed for discerning individuals.</p>",
+            "btn_text": "Shop here",
+            "link": "shopify://collections/flex-bag"
+          }
+        },
+        "849060e4-89ba-4703-877d-d55e26313a29": {
+          "type": "promo-blocks",
+          "settings": {
+            "enable": true,
+            "block_index": "12",
+            "image": "shopify://shop_images/hero-banner-01.jpg",
+            "heading": "Trendy Bags",
+            "subheading": "<p>Trendy Bags Discover the latest trends in bags with our exquisite collection of Trendy Bags. Designed to make a state.</p>",
+            "btn_text": "Shop Now",
+            "link": "shopify://collections/flex-bag"
+          }
+        }
+      },
+      "block_order": [
+        "76bc1f14-318b-4055-9732-31a3ebb49e78",
+        "849060e4-89ba-4703-877d-d55e26313a29"
+      ],
+      "settings": {
+        "product_per_row": "4",
+        "products_per_page": 12,
+        "pagination_type": "numbers",
+        "products_per_page_values": "12\n24\n36",
+        "enable_sorting": true,
+        "enable_product_result": false,
+        "enable_sub_collections": true,
+        "sub_collections": [
+          "all",
+          "boots",
+          "flex-bag",
+          "handbag",
+          "helix-bag",
+          "crossbody",
+          "shoe"
+        ],
+        "enable_filtering": true,
+        "filter_type": "default",
+        "price_filter_layout": "range_slider",
+        "price_filter_values": ""
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "template-collection"
+  ]
+}

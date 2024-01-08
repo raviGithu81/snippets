@@ -1,0 +1,74 @@
+{% comment %}
+  Plain product grid layout
+  Accepts:
+  - product: {Object} product object
+
+  Usage:
+  {% render 'card-product-plain', product: product %}
+{% endcomment %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<div class="card card-product card-product-style-2 text-start rounded-0 border-0" data-product-grid>
+
+    <div class="card-img text-center {% if product.featured_image.size == 0 %}bg-gray-300{% endif %}" >
+        {%- liquid 
+        capture current
+            cycle 1, 2, 3, 4, 5, 6
+        endcapture
+
+        assign card_title = product.title
+        if current_variant and current_variant.image 
+            assign card_image = current_variant.image
+            assign card_title = current_variant.title
+        elsif product.featured_image.size > 0
+            assign card_image = product.featured_image
+        endif
+        -%}
+
+        {%- if card_image != blank -%}
+            <a href="{{ product.url | within: collection }}" class="d-block product-link" >
+                <img srcset="{%- if card_image.width >= 360 -%}{{ card_image | image_url: width: 360 }} 360w,{%- endif -%}
+                            {%- if card_image.width >= 533 -%}{{ card_image | image_url: width: 533 }} 533w,{%- endif -%}"
+                    src="{{ card_image | image_url: width: 50 }}"
+                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | minus: 150 | divided_by: 4 }}px, (min-width: 768px) calc((100vw - 130px) / 2), 50vw"                
+                    loading="lazy"
+                    data-feauredImage
+                    alt="{{ card_image.alt | default: card_title | escape }}"
+                    width="{{ card_image.width }}"
+                    height="{{ card_image.width | divided_by: card_image.aspect_ratio | round }}"
+                > 
+            </a>
+        {%- else -%}
+            {{ placeholder_image | default: 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+    </div>
+
+    <div class="card-body px-0 pb-0">
+        <div class="row no-gutter">
+            <div class="col-12">
+                <h6 class="card-title mb-1 font-family-base">
+                    <a class="product-link lh-base" role="button" href="{{ product.url | within: collection }}">{{ product.title }}</a>
+                </h6>
+            </div>
+            <div class="col-12 text-start">
+                {%- if current_variant and current_variant.compare_at_price > current_variant.price -%}
+                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ current_variant.compare_at_price | money }}</s>
+                {%- elsif product.compare_at_price > product.price -%}
+                    <s class="price small m-0 p-0 text-gray-600 me-1 money" data-comparePrice>{{ product.compare_at_price | money }}</s>
+                {%- endif -%}
+                <span class="price m-0 p-0 money" data-currentPrice>
+                    {%- if current_variant -%}
+                    {{ current_variant.price | money }}
+                    {%- elsif product.price_varies -%}
+                    {%- assign minPrice = product.price_min | money -%}
+                    {%- assign maxPrice = product.price_max | money -%}
+                    {{- 'products.product.price_range' | t: min: minPrice, max: maxPrice | escape -}}
+                    {%- else -%}
+                    {{- product.price | money -}}
+                    {%- endif -%}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

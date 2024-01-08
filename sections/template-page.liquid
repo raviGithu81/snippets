@@ -1,0 +1,109 @@
+<div class="content-header-banner py-3 d-flex" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};min-height:{{ section.settings.banner_height }}px;">
+    {%- if section.settings.image != blank -%}
+        <div class="header-banner-img">
+            <img
+                srcset="
+                {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                {%- if section.settings.image.width >= 520 -%}{{ section.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                {%- if section.settings.image.width >= 650 -%}{{ section.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                {%- if section.settings.image.width >= 780 -%}{{ section.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                {%- if section.settings.image.width >= 900 -%}{{ section.settings.image | image_url: width: 900 }} 990w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1700 }} 1700w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1920 }} 1920w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 2560 }} 2560w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3800 }} 3800w,{%- endif -%}"
+                src="{{ section.settings.image | image_url: width: 50 }}"
+                sizes="100vw"
+                alt="{{ section.settings.image.alt | escape }}"
+                class="w-100"
+                loading="lazy"
+                width="{{ section.settings.image.width | divided_by: 3 }}"
+                height="{{ section.settings.image.height | divided_by: 3 }}"
+            >
+        </div>
+    {%- endif -%}
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} position-relative min-h-100">
+        <div class="position-absolute">
+            {% render 'breadcrumbs' %}
+        </div>
+        <div class="d-flex align-items-center min-h-100">
+            <div class="py-5 py-lg-7 text-center w-100">
+                <h1 class="mb-3">{% if section.settings.heading != blank %}{{ section.settings.heading }}{% else %}{{ page.title }}{% endif %}</h1>
+                {% if section.settings.txt != blank %}<p class="col-xl-5 col-lg-8 mx-auto mb-0">{{ section.settings.txt }}</p>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>   
+
+<section class="section-content content-pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="rte">{{ page.content }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type":"header",
+            "content":"Header Banner"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Banner Image"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#f3f3f3"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#121212"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "Heading Text"
+        },
+        {
+            "type": "richtext",
+            "id": "txt",
+            "label": "Lead Text",
+            "default": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>"
+        },
+        {
+            "type": "range",
+            "id": "banner_height",
+            "min": 100,
+            "max": 750,
+            "step": 10,
+            "default": 350,
+            "unit": "px",
+            "label": "Content Header Banner Height"
+        }
+    ]
+}
+{% endschema %}

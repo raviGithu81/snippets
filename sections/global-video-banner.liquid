@@ -1,0 +1,489 @@
+{{ 'global-video-with-text.css' | asset_url | stylesheet_tag: preload: true }}
+
+{% liquid 
+    assign videoURL = section.settings.video_url
+    if section.settings.video_type == 'local'
+        assign videoObj = section.settings.video_local.sources | where: "format", "mp4"
+        assign videoURL = videoObj[0].url
+    endif
+%}
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %} video-with-text" style="background-color: {{ section.settings.bg_color }};" data-section-id="{{ section.id }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="custom-video-container full-video-layout position-relative">
+            <div class="px-0">
+                <custom-video class="video-with--text position-relative d-block placement--{{ section.settings.placement }}" 
+                    data-loop="{{ section.settings.video_loop }}" data-autoplay="true" data-controls="{{ section.settings.video_controls }}" data-muted="{{ section.settings.video_muted }}"
+                    data-video-type="{{ section.settings.video_type }}"  data-placement="{{ section.settings.placement }}"
+                    data-video-id="{{ videoURL }}">
+                    <div class="content-section">
+                        <div class="poster-image {{ section.settings.height }}">
+                            {% liquid 
+                                assign posterImage = section.settings.poster_video_local | image_url: width: 600
+                                assign videoObj = section.settings.poster_video_local.sources | where: "format", "mp4"
+                                assign videoURL = videoObj[0].url
+                            %}
+                           
+                            {%- if section.settings.poster_type == 'video' and videoURL != blank -%}
+                                <video data-posterVideo preload="true" playsinline muted loop 
+                                    poster="{{ posterImage }}" data-src="{{ videoURL }}">
+                                </video>
+                            {%- elsif section.settings.poster_image != blank -%}
+                                <img srcset="
+                                    {%- if section.settings.poster_image.width >= 350 -%}{{ section.settings.poster_image | image_url: width: 350 }} 350w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 550 -%}{{ section.settings.poster_image | image_url: width: 550 }} 550w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 750 -%}{{ section.settings.poster_image | image_url: width: 750 }} 750w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 991 -%}{{ section.settings.poster_image | image_url: width: 991 }} 991w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 1200 -%}{{ section.settings.poster_image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                                    {%- if section.settings.poster_image.width >= 1500 -%}{{ section.settings.poster_image | image_url: width: 1500 }} 1500w{%- endif -%}"
+                                    src="{{ section.settings.poster_image | image_url: width: 50 }}" loading="lazy"
+                                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width }}, 100vw"
+                                    alt="{{ section.settings.poster_image.alt | default: section.settings.title | escape }}"
+                                    width="{{ section.settings.poster_image.width }}"
+                                    height="{{ section.settings.poster_image.width | divided_by: section.settings.poster_image.aspect_ratio | round }}"
+                                >
+                            {%- else -%}
+                                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    {%- if section.settings.placement == 'grid' -%}
+                        <div class="video-section {{ section.settings.height }}" tabindex="0"></div>
+                    {%- endif -%}
+                </custom-video>
+            </div>
+            <div class="position-absolute full-video-caption text-center">
+                <div class="inside-block {{ section.settings.alignment }} d-flex {{ section.settings.video_alignment }}" style="color:{{ section.settings.section_text_color }}">
+                    <div class="col-xl-6 col-lg-7 col-md-8 px-md-0"> 
+                        {%- for block in section.blocks -%}
+                            {%- case block.type -%}
+                                {%- when 'heading' -%}
+                                    <h2 class="mb-2" {% if block.settings.heading_color %}style="color: {{ block.settings.heading_color }};"{% endif %}>
+                                        {{ block.settings.heading }}
+                                    </h2>
+                                {%- when 'text' -%}
+                                    <div class="mb-3 mb-lg-5" {% if block.settings.txt_color %}style="color: {{ block.settings.txt_color }};"{% endif %}>
+                                        {{ block.settings.text }}
+                                    </div>
+                                {%- when 'buttons' -%}
+                                    <div>
+                                        <button data-trigger-video data-type="fullwidth--video" class="btn btn{% if block.settings.play_btn_type == 'outline' %}-{% endif %}{{ block.settings.play_btn_type }}-{{ block.settings.play_btn_variant }} {{ block.settings.play_btn_size }}" aria-label="{{ block.settings.play_button_label | escape }}">{{ block.settings.play_button_label | escape }}</button>
+                                        {%- if block.settings.button_label != blank -%}
+                                            <a href="{{ block.settings.button_link }}" class="btn btn{% if block.settings.btn_type == 'outline' %}-{% endif %}{{ block.settings.btn_type }}-{{ block.settings.btn_variant }} {{ block.settings.btn_size }} ms-3">{{ block.settings.button_label | escape }}</a>
+                                        {%- endif -%}
+                                    </div>
+                            {%- endcase -%}
+                        {%- endfor -%}   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Video Banner",
+        "class": "image-video-style video-banner",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": false
+            },
+            {
+                "type": "color_background",
+                "id": "bg_color",
+                "label": "Background Color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": false
+            }, 
+            {
+                "type": "header",
+                "content": "Video playback settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "video_muted",
+                "label": "Video Muted",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "video_controls",
+                "label": "Video Controls",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "video_loop",
+                "label": "Loop Video",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "Poster Video/Image"
+            },
+            {
+                "type": "select",
+                "id": "poster_type",
+                "label": "Poster Type",
+                "options": [
+                    {
+                        "value": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "value": "video",
+                        "label": "Video"
+                    }
+                ],
+                "default": "image"
+            },
+            {
+                "type": "paragraph",
+                "content": "Video"
+            },
+            {
+                "type": "video",
+                "id": "poster_video_local",
+                "label": "Poster Video(Local)",
+                "info": "[Learn more about Autoplay policies.](https://developer.chrome.com/blog/autoplay/#new-behaviors)"
+            },
+            {
+                "type": "paragraph",
+                "content": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "poster_image",
+                "label": "Select Image",
+                "info": "For Better Viewing Use Example dimensions: 1350*765 / Aspect Ratio: 1.76"
+            },
+            {
+                "type": "header",
+                "content": "Video"
+            },
+            {
+                "type": "select",
+                "id": "video_type",
+                "label": "Video Type",
+                "options": [
+                    {
+                        "value": "local",
+                        "label": "Local Video"
+                    },
+                    {
+                        "value": "youtube",
+                        "label": "Youtube"
+                    },
+                    {
+                        "value": "vimeo",
+                        "label": "Vimeo"
+                    }                    
+                ],
+                "default": "youtube"
+            },
+            {
+                "type": "select",
+                "id": "placement",
+                "label": "Placement",
+                "options": [
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    },
+                    {
+                        "value": "popup",
+                        "label": "Modal"
+                    }
+                ],
+                "default": "grid"
+            },
+            {
+                "type": "video",
+                "id": "video_local",
+                "label": "Local Video",
+                "info": "Use this to select/upload local video."
+            },
+            {
+                "type": "video_url",
+                "id": "video_url",
+                "label": "Video URL",
+                "accept": [
+                    "youtube",
+                    "vimeo"
+                ],
+                "info": "Use this to add Youtube/Vimeo video. Youtube link [example](https://www.youtube.com/watch?v=rgZU5pDf6mw). Vimeo link [example](https://vimeo.com/347119375)."
+            },
+            {
+                "type": "select",
+                "id": "alignment",
+                "label": "Text Alignment",
+                "options": [
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "text-center"
+            },
+            {
+                "type": "select",
+                "id": "video_alignment",
+                "label": "Caption Alignment",
+                "options": [
+                    {
+                        "value": "justify-content-start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "justify-content-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "justify-content-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "justify-content-center"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "heading",
+                "name": "Heading",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "default": "Video banner",
+                        "label": "Heading"
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "name": "Lead Text",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "default": "<p>Give customers details about the banner video or content on the section.</p>",
+                        "label": "Lead Text"
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color",
+                        "default": "#5b5b5b"
+                    }
+                ]
+            },
+            {
+                "type": "buttons",
+                "name": "Button",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "header",
+                        "content": "Play Button"
+                    },
+                    {
+                        "type": "text",
+                        "id": "play_button_label",
+                        "default": "Play Video",
+                        "label": "Button Text"
+                    },   
+                    {
+                        "type": "select",
+                        "id": "play_btn_type",
+                        "label": "Button Type",
+                        "options": [
+                            {
+                                "value": "outline",
+                                "label": "Outline"
+                            },
+                            {
+                                "value": "",
+                                "label": "Solid"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "select",
+                        "id": "play_btn_variant",
+                        "label": "Button Variant",
+                        "options": [
+                            {
+                                "value": "primary",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "light",
+                                "label": "Light"
+                            },
+                            {
+                                "value": "dark",
+                                "label": "Dark"
+                            }
+                        ],
+                        "default": "primary"
+                    },
+                    {
+                        "type": "select",
+                        "id": "play_btn_size",
+                        "label": "Button Size",
+                        "options": [
+                            {
+                                "value": "",
+                                "label": "Default"
+                            },
+                            {
+                                "value": "btn-sm",
+                                "label": "Small"
+                            },
+                            {
+                                "value": "btn-lg",
+                                "label": "Large"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "header",
+                        "content": "CTA Button"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_label",
+                        "default": "Button label",
+                        "label": "Button Text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "button_link",
+                        "label": "Button Link"
+                    },      
+                    {
+                        "type": "select",
+                        "id": "btn_type",
+                        "label": "Button Type",
+                        "options": [
+                            {
+                                "value": "outline",
+                                "label": "Outline"
+                            },
+                            {
+                                "value": "",
+                                "label": "Solid"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_variant",
+                        "label": "Button Variant",
+                        "options": [
+                            {
+                                "value": "primary",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "light",
+                                "label": "Light"
+                            },
+                            {
+                                "value": "dark",
+                                "label": "Dark"
+                            }
+                        ],
+                        "default": "primary"
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_size",
+                        "label": "Button Size",
+                        "options": [
+                            {
+                                "value": "",
+                                "label": "Default"
+                            },
+                            {
+                                "value": "btn-sm",
+                                "label": "Small"
+                            },
+                            {
+                                "value": "btn-lg",
+                                "label": "Large"
+                            }
+                        ],
+                        "default": ""
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Video Banner",
+                "category": "Banner",
+                "settings": {
+                    "video_type": "video_url",
+                    "video_url": "https://www.youtube.com/watch?v=rgZU5pDf6mw"
+                },
+                "blocks": [
+                    {
+                        "type": "heading"
+                    },
+                    {
+                        "type": "text"
+                    },
+                    {
+                        "type": "buttons"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

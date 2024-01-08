@@ -1,0 +1,62 @@
+<section data-account-pages class="section-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-md-6 col-lg-5 mx-auto">
+        <custom-tabs class="section-content bg-white">
+          <ul class="d-flex account-tabs list-unstyled justify-content-center" role="tablist">
+            <li class="nav-item tablink open">
+              <a
+                class="nav-link"
+                data-toggle="tab"
+                role="tab"
+                href="#register"
+                data-tabcontent="#register"
+                aria-expanded="true"
+                aria-labelledby="{{- 'customer.register.title' | t -}}"
+                title="{{- 'customer.register.title' | t -}}"
+              >
+                {{- 'customer.register.title' | t -}}
+              </a>
+            </li>
+            <li class="nav-item tablink account-login">
+              <a
+                class="nav-link"
+                role="tab"
+                data-toggle="tab"
+                href="#login"
+                data-tabcontent="#login"
+                aria-expanded="false"
+                aria-labelledby="{{- 'customer.login_page.title' | t -}}"
+                title="{{- 'customer.login_page.title' | t -}}"
+              >
+                {{- 'customer.login_page.title' | t -}}
+                <span class="login-label">{{- 'customer.login_page.title' | t -}}</span>
+                <span class="reset-label">{{- 'customer.login_page.reset_password' | t -}}</span>
+              </a>
+            </li>
+          </ul>
+          <div id="accountTabs">
+            <div class="tab-content text-start" id="accountTabsContent">
+              <div class="tab-pane tabcontent open" id="register" role="tabpanel">
+                <div class="pt-5">{% render 'form-account-register' %}</div>
+              </div>
+              <div class="tab-pane tabcontent" id="login" role="tabpanel">
+                <div class="pt-5">
+                  {% render 'form-account-login' %}
+                  {% render 'form-account-recover' %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </custom-tabs>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Registration",
+  "class": "section-registration"
+}
+{% endschema %}

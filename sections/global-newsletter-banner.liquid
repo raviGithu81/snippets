@@ -1,0 +1,155 @@
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}">
+    <div class="pt-10 pb-10" style="background-color:{{ section.settings.newsletter_bg__color }};">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 col-md-7 mx-auto text-center">
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                            {%- when 'heading' -%}
+                            <h2 class="h1 mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                            {%- when 'text' -%}
+                            <div class="banner__text" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                            {%- when 'form' -%}                            
+                            {% form 'customer', id: 'NewsletterPopUp' %}
+                                {% if form.errors %}
+                                    <div class="alert alert-warning">{{ form.errors | default_errors }}</div>
+                                {% endif %}
+                
+                                {% if form.posted_successfully? %}                
+                                    <p class="mt-3" style="color: {{ section.settings.msg_txt_color }};">{{ 'general.social.newsletter_form.newsletter_confirmation' | t }}</p>
+                                {% endif %}
+
+                                <div class="input-group mx-auto mt-4">
+                                    <input type="email" name="contact[email]" aria-label="email" id="newsletterPopupEmail" class="form-control" placeholder="{{ 'general.social.newsletter_form.newsletter_email' | t }}" value="{% if customer %}{{ customer.email }}{% endif %}" autocorrect="off" autocapitalize="off" required>
+                                    <input type="hidden" name="contact[tags]" value="newsletter">
+                                    <button type="submit" name="commit" class="btn btn-sm btn-primary" >{{ block.settings.button_text }}</button>
+                                </div>                        
+                            {% endform %}                                
+                        {%- endcase -%}    
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 
+
+{% schema %}
+  {
+    "name": "Signup Banner",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "section_top_spacing_enable",
+            "label": "Enable Top Spacing",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "section_bottom_spacing_enable",
+            "label": "Enable bottom Spacing",
+            "default": false
+        }, 
+        {
+            "type": "header",
+            "content": "Styling"
+        },
+        {
+            "type": "color_background",
+            "id": "newsletter_bg__color",
+            "label": "Background Color",
+            "default": "#e5e5e5"
+        },
+        {
+            "type": "color",
+            "id": "msg_txt_color",
+            "label": "Thanks Message Text Color",
+            "default": "#121212"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "heading",
+            "name": "Heading",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "inline_richtext",
+                    "id": "heading",
+                    "default": "Sign up and save",
+                    "label": "Heading"
+                },
+                {
+                    "type":"color",
+                    "id":"heading_color",
+                    "label":"Heading Color",
+                    "default": "#121212"
+                }
+            ]
+        },
+        {
+            "type": "text",
+            "name": "Text",
+            "limit": 1,
+            "settings": [
+                {
+                "type": "richtext",
+                "id": "text",
+                "default": "<p>Get first access to special offers, free giveaways, and insider releases.</p>",
+                "label": "Lead Text"
+                },
+                {
+                    "type":"color",
+                    "id":"txt_color",
+                    "label":"Text Color",
+                    "default": "#5b5b5b"
+                }
+            ]
+        },
+        {
+            "type": "form",
+            "name": "Sign up form",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "header",
+                    "content": "Button"
+                },
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "Button Text",
+                    "default": "Subscribe"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Signup Banner",
+            "category": "Sign up",
+            "blocks": [
+                {
+                    "type": "heading"
+                },
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "form"
+                }
+            ]
+        }
+    ]
+  }
+{% endschema %}
+  

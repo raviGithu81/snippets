@@ -1,0 +1,34 @@
+{%- comment -%}Pre-connects{%- endcomment -%}
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
+
+
+{{ 'Sintony.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'Sintony-Bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-Regular.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-Medium.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-SemiBold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-Bold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-ExtraBold.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'PublicSans-Black.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+
+
+{%- comment -%}Preload crucial render blocking assets{%- endcomment -%}
+{{ 'global.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'utilities.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'grid-spacing.css' | asset_url | stylesheet_tag: preload: true }}
+{{ 'button-color.css' | asset_url | stylesheet_tag: preload: true }}
+{% if template == 'collection' %}
+    {{ 'component-filter.css' | asset_url | stylesheet_tag: preload: true }}
+{% elsif template == 'product' %}
+    {{ 'template-product.css' | asset_url | stylesheet_tag: preload: true }}
+{% endif %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% comment %} Preload images for LCP {% endcomment %}
+<link rel="preload" as="image" href="https://fluid-framework-2-0.myshopify.com/cdn/shop/files/tote-launch.jpg">
+{% if template == 'collection' %}
+    {{ collection.products[0].featured_image | image_url | preload_tag: as: image }}
+{% elsif template == 'product' %}
+    {{ current_variant.featured_image | image_url | preload_tag: as: image }}
+{% endif %}

@@ -1,0 +1,194 @@
+{
+  "current": {
+    "body_bg_color": "#ffffff",
+    "type_header_font": "Public Sans",
+    "type_secondary_font": "Public Sans",
+    "type_body_font": "Sintony",
+    "type_body_font_weight": "400",
+    "type_button_font": "Sintony",
+    "button_border-width": "1px",
+    "type_input_font": "Sintony",
+    "type_input_font_weight": "300",
+    "favicon": "shopify:\/\/shop_images\/favicon.jpg",
+    "social_facebook_link": "https:\/\/facebook.com\/shopify",
+    "social_twitter_link": "https:\/\/twitter.com\/shopify",
+    "social_instagram_link": "http:\/\/instagram.com\/shopify",
+    "enable_swatches": "pills",
+    "product_exclude_tag_text": "hidden",
+    "enable_quickshop": true,
+    "enable_cart_drawer": true,
+    "enable_shipping_bar": true,
+    "free_shipping_txt": "Congratulations! You get free shipping.",
+    "free_shipping_left": "You are  ${leftAmount} away from free shipping!",
+    "checkout_logo_image": "shopify:\/\/shop_images\/logo-fluid.png",
+    "checkout_accent_color": "#000000",
+    "checkout_button_color": "#000000",
+    "main_logo_socials": "shopify:\/\/shop_images\/wp3850825-4k-pc-wallpapers.jpg",
+    "enable_custom_accrodion": true,
+    "enable_custom_tabify": true,
+    "enable_login": true,
+    "sections": {
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "72531854-f78e-478c-976b-9755ebe32b5d": {
+            "type": "logo",
+            "settings": {
+              "footer_logo": "shopify:\/\/shop_images\/fluid-logo-v-0.2.svg",
+              "logo_max_width": 180,
+              "text": "<p>Designed in a silhouette inspired by Art-Deco style, our Business Bag packs a ton of features.<\/p>"
+            }
+          },
+          "cd6458c2-4aec-4775-88e0-14a49701029d": {
+            "type": "menu",
+            "settings": {
+              "enable_nav_1": true,
+              "heading_1": "CUSTOMER CARE",
+              "linklist_1": "customer-support",
+              "enable_nav_2": true,
+              "heading_2": "MAIN MENU",
+              "linklist_2": "main-menu",
+              "enable_nav_3": true,
+              "heading_3": "COMPANY",
+              "linklist_3": "company"
+            }
+          },
+          "06d18634-2000-4597-9536-f85312c4e885": {
+            "type": "newsletter",
+            "settings": {
+              "heading": "STAY IN TOUCH",
+              "text": "Get monthly updates and free resources.",
+              "show_newsletter": true,
+              "show_social_links": true,
+              "social_heading": "Connect with Us",
+              "social_icon_facebook": true,
+              "social_icon_twitter": true,
+              "social_icon_instagram": true,
+              "social_icon_youtube": true,
+              "bottom_footer_linklist": "",
+              "show_payment_icons": true,
+              "payment_icon_visa": true,
+              "payment_icon_mastercard": true,
+              "payment_icon_ae": true,
+              "payment_icon_diners": true,
+              "payment_icon_paypal": true,
+              "payment_icon_applepay": true,
+              "payment_icon_amazonpay": true
+            }
+          }
+        },
+        "block_order": [
+          "72531854-f78e-478c-976b-9755ebe32b5d",
+          "cd6458c2-4aec-4775-88e0-14a49701029d",
+          "06d18634-2000-4597-9536-f85312c4e885"
+        ],
+        "settings": {
+          "fluid_footer": false,
+          "footer_top_bg_color": "#f3f3f3",
+          "footer_top_txt_color": "#5b5b5b",
+          "footer_top_link_color": "#5b5b5b",
+          "footer_bottom_bg_color": "#f3f3f3",
+          "footer_bottom_txt_color": "#5b5b5b"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "enabled": false,
+          "popup_delay": 1,
+          "popup_period_until": 7,
+          "heading": "Subscribe to Newsletter",
+          "text": "<p>Subscribe and get exclusive offers!<\/p>",
+          "footer_notes": "<p>No SPAM! We not share your email to any 3rd part companies!<\/p>",
+          "btn_txt": "Subscribe",
+          "template_type": "image_bg",
+          "bg_color_inner": "#ffffff",
+          "txt_color": "#5b5b5b"
+        }
+      },
+      "app-optimization": {
+        "type": "app-optimization",
+        "settings": {
+          "enable": true,
+          "debug_enable": false
+        }
+      },
+      "mobile-nav-drawer": {
+        "type": "mobile-nav-drawer",
+        "settings": {
+          "logo_width": 100,
+          "main_menu_linklist": "footer",
+          "secondary_menu_linklist": "main-menu",
+          "mobilemenu_style": "slide-submenu",
+          "mobile_nav_show_social_links": true,
+          "social_icon_facebook": true,
+          "social_icon_twitter": true,
+          "social_icon_instagram": true
+        }
+      },
+      "search-layer": {
+        "type": "search-layer",
+        "settings": {
+        }
+      },
+      "component-cart-drawer": {
+        "type": "component-cart-drawer",
+        "blocks": {
+          "875ff5d9-5297-457a-ac2e-2ea255b41914": {
+            "type": "upsell",
+            "settings": {
+              "section_bg_color": "",
+              "section_txt_color": "",
+              "heading": "Bought Together",
+              "upsell_collection": "flex-bag",
+              "products_to_show": 9
+            }
+          },
+          "fea0aab2-0aad-46bd-97e5-e763423faa46": {
+            "type": "note",
+            "settings": {
+            }
+          },
+          "0379fed3-fe51-42e5-8989-51bdbb3aaefb": {
+            "type": "checkout_btns",
+            "settings": {
+            }
+          }
+        },
+        "block_order": [
+          "875ff5d9-5297-457a-ac2e-2ea255b41914",
+          "fea0aab2-0aad-46bd-97e5-e763423faa46",
+          "0379fed3-fe51-42e5-8989-51bdbb3aaefb"
+        ],
+        "settings": {
+          "heading": "MY CART",
+          "show_count": true
+        }
+      }
+    },
+    "content_for_index": [
+
+    ],
+    "blocks": {
+      "7570552984445421165": {
+        "type": "shopify:\/\/apps\/yotpo-product-photo-reviews\/blocks\/settings\/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "14339172867238703359": {
+        "type": "shopify:\/\/apps\/yotpo-product-photo-reviews\/blocks\/reviews_tab\/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+        "disabled": true,
+        "settings": {
+          "product": ""
+        }
+      },
+      "6174324309569838175": {
+        "type": "shopify:\/\/apps\/smile-loyalty-rewards\/blocks\/smile-shopify-app\/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
+  }
+}

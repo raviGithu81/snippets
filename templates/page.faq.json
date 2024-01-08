@@ -1,0 +1,153 @@
+{
+  "wrapper": "div#faq-page",
+  "sections": {
+    "main": {
+      "type": "template-faq",
+      "blocks": {
+        "89a1a927-e2da-445f-9222-a52c5f09c61c": {
+          "type": "product_information",
+          "settings": {
+            "title": "<p>Are all products made with organic ingredients?</p>",
+            "answer": "<p>We use organic ingredients wherever possible and also have organic products in our line but not all of our products are 100% organic. We feel it is very important for us and all brands to let customers know exactly which products and ingredients are 100% organic or not. By being transparent and forthcoming on our website, our labels and in conversations with you and our retail partners, we hope that we can become your trust worthy and consistently reliable go-to brand for beautiful skin. Please see the INGREDIENTS tab under each product page to see details on our ingredients as well as learn about what ingredients we deem potentially harmful.</p>"
+          }
+        },
+        "b37331cc-661c-4ba1-b742-f4d77d288140": {
+          "type": "product_information",
+          "settings": {
+            "title": "<p>Are all products vegan?</p>",
+            "answer": "<p>All of our products are Vegan except for our Nocturne mascara which contains beeswax and shellac. The most desired effects of the perfect mascara, such as increasing the appearance of thickness, curl, and length are difficult to achieve without these types of ingredients. We have eliminated the use of other often relied upon ingredients that do not align with our company mission wherever we were able to find a viable alternative without compromising on the resulting look and efficacy.</p><p>However, please note that because we are cruelty-free and environmentally responsible, we ensure that the beeswax we employ is the excess byproduct of the bees and do not compromise the bee colony. If we could speak bee, we would love to ask them for their permission each time! Shellac originates from a resin found on trees in the forests of India and Thailand.</p>"
+          }
+        },
+        "2f6443ff-844b-4765-bce2-d7590a31fed1": {
+          "type": "product_information",
+          "settings": {
+            "title": "<p>Are there any ingredients that are potentially carcinogenic?</p>",
+            "answer": "<p>We do not use any ingredients that are known to be potentially carcinogenic. We are devoted to creating formulations that make you and your skin look and feel your healthiest. Our founder Meryl was driven to develop a line that offers skincare formulations using the highest quality and purest ingredients she can find, free from carcinogenic impurities. Our ingredients are hand selected for our formulations, rather than included for practical purposes.</p>"
+          }
+        },
+        "c7bf7370-e33d-4bec-825a-85a3861c811f": {
+          "type": "orders",
+          "settings": {
+            "title": "<p>Check Out Difficulties</p>",
+            "answer": "<p>Please contact us via our contact us page, email address or phone number listed above if you are having any trouble while shopping on our site or during check out.</p>"
+          }
+        },
+        "a2bba5ec-d34c-4e2e-8021-0527bb68ef1f": {
+          "type": "orders",
+          "settings": {
+            "title": "",
+            "answer": "<p>Click the <a href=\"/account/login\" title=\"/account/login\"><strong>“My Account / Order Status”</strong></a> link at the top right hand side of our site to view orders you have placed. Then click the <a href=\"/account/login\" title=\"/account/login\"><strong>“Change quantities / cancel orders”</strong></a> link to find and edit your order. Please note that once an order has begun processing or has shipped, the order is no longer editable</p>"
+          }
+        },
+        "f56f56a6-7321-4d5f-a1bd-c07cd4b7238d": {
+          "type": "orders",
+          "settings": {
+            "title": "<p>How do I change quantities or cancel an item in my order?</p>",
+            "answer": "<p>Click the <a href=\"/account/login\" title=\"/account/login\"><strong>“My Account / Order Status”</strong></a> link at the top right hand side of our site to track your order status. Be sure that all of the items in your order have shipped already. If you order displays your Package Tracking Numbers, check with the shipper to confirm that your packages were delivered. If your packages each show a status of “delivered”, please contact customer service for assistance.</p>"
+          }
+        },
+        "ac0a8993-7040-47cf-a4e1-4195b051c61b": {
+          "type": "orders",
+          "settings": {
+            "title": "<p>My order never arrived</p>",
+            "answer": "<p>If you feel that you have received the wrong product, please contact customer service within 72 hours of receiving the product.</p>"
+          }
+        },
+        "034164d3-8049-45f6-aee1-d3c710eb8678": {
+          "type": "orders",
+          "settings": {
+            "title": "<p>I received the wrong product</p>",
+            "answer": "<p>If some of the items in your order are temporarily out of stock, we will ship the available items only and will notify you of any products that cannot be fulfilled. We also offer “back orders” and “preorders” for products that are not available at the time of purchase.</p>"
+          }
+        },
+        "93cf08c5-da1c-404e-aa0c-6968be150a27": {
+          "type": "pricing_and_billing",
+          "settings": {
+            "title": "<p>Accepted Payment Methods</p>",
+            "answer": "<p>We accept American Express, Visa, MasterCard, Discover and PayPal. We do not accept checks or money orders.</p>"
+          }
+        },
+        "44f24608-c17a-4be3-9462-a0dc2982c0f8": {
+          "type": "pricing_and_billing",
+          "settings": {
+            "title": "<p>Sales Tax</p>",
+            "answer": "<p>HWe will abide by all laws pertaining to the collection of sales tax. Currently, we are required by law to collect sales tax on orders being shipped to NJ which will be calculated during the checkout process.</p>"
+          }
+        },
+        "ec5621bc-71ba-4dfa-b04a-fed224246ae3": {
+          "type": "shipping",
+          "settings": {
+            "title": "<p>Delivery Timeline</p>",
+            "answer": "<p>Depending on your location, your order should typically arrive in 2-6 business days from the time that we process your order using Ground shipping. The cut-off time for picking and shipping orders is 11am PST, Monday – Friday (excluding holidays), so please choose the appropriate shipping method in order to receive your order timely.</p>"
+          }
+        },
+        "2e8f56e1-293f-4736-95a7-d781847151b9": {
+          "type": "shipping",
+          "settings": {
+            "title": "<p>Shipping Cost</p>",
+            "answer": "<p>Domestic Orders (USA)Free Standard USPS Ground Shipping on all orders.Expedited shipping options are also available for an additional fee. These options are listed at check out.International OrdersFree Standard International shipping on orders $99USD or more Orders less than $99USD are subject to the standard shipping rates which will vary by country and total weight.Expedited shipping options are also available for an additional fee. These options are listed at check out. Please note that International orders may be subject to additional fees for duties and customs upon receipt. These fees are the responsibility of the recipient and are determined by the destination country.Your order will typically arrive approximately 7-10 business days from date of purchase, however, there are times when customs or other unforeseen circumstances will arise that are beyond our control. You may pay extra for expedited shipping.</p>"
+          }
+        },
+        "db8c93b0-b116-47b2-ab23-3af4b8f88bb2": {
+          "type": "return_and_exchange",
+          "settings": {
+            "title": "<p>Returns & Exchanges policy</p>",
+            "answer": "<p>We offers attentive customer service, personalized product guidance and guarantees small batch freshness and quality in every product we ship. We encourage you to contact us if you have any questions or concerns prior to purchase so that we can provide you with personalized recommendations and answers that will help you make the right choices with confidence. In the event that the product is damaged in transit to your address, we will work with you to arrange for replacement products. Please contact us before you return any item. For restrictions and guidelines on exchanges and returns, please refer to details on our Returns & Exchanges page.</p>"
+          }
+        },
+        "3dbc4e5e-dde4-4091-86d4-d6ff774b7adb": {
+          "type": "support",
+          "settings": {
+            "title": "<p>How do I contact you?</p>",
+            "answer": "<p>If you have customer service questions or want additional information on our line, please contact us through our contact us page or email <a href=\"mailto:devteam@praella.com\" target=\"_blank\" title=\"mailto:devteam@praella.com\"><strong>devteam@praella.com</strong></a> or call <a href=\"tel:012-345-6789.\" target=\"_blank\" title=\"tel:012-345-6789.\"><strong>012-345-6789.</strong></a> Customer service is available from Monday – Friday, 10AM to 5PM Eastern Time excluding Holidays but we always do our best to get back to you within 24 hours.</p>"
+          }
+        },
+        "c76d8eb6-cf8b-47dd-ba9c-864f0b261f82": {
+          "type": "support",
+          "settings": {
+            "title": "<p>Privacy Policy</p>",
+            "answer": "<p>We value your privacy. Please view our <a href=\"/pages/privacy-policy\" title=\"Privacy Policy\"><strong>Privacy Policy</strong></a> for complete details on how we use the information we collect.</p>"
+          }
+        },
+        "3d2b403e-5369-4941-a048-6843e5f8c902": {
+          "type": "support",
+          "settings": {
+            "title": "<p>Security</p>",
+            "answer": "<p>This website is protected with SSL (secure socket layer) encryption, the highest standard in Internet security.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "89a1a927-e2da-445f-9222-a52c5f09c61c",
+        "b37331cc-661c-4ba1-b742-f4d77d288140",
+        "2f6443ff-844b-4765-bce2-d7590a31fed1",
+        "c7bf7370-e33d-4bec-825a-85a3861c811f",
+        "a2bba5ec-d34c-4e2e-8021-0527bb68ef1f",
+        "f56f56a6-7321-4d5f-a1bd-c07cd4b7238d",
+        "ac0a8993-7040-47cf-a4e1-4195b051c61b",
+        "034164d3-8049-45f6-aee1-d3c710eb8678",
+        "93cf08c5-da1c-404e-aa0c-6968be150a27",
+        "44f24608-c17a-4be3-9462-a0dc2982c0f8",
+        "ec5621bc-71ba-4dfa-b04a-fed224246ae3",
+        "2e8f56e1-293f-4736-95a7-d781847151b9",
+        "db8c93b0-b116-47b2-ab23-3af4b8f88bb2",
+        "3dbc4e5e-dde4-4091-86d4-d6ff774b7adb",
+        "c76d8eb6-cf8b-47dd-ba9c-864f0b261f82",
+        "3d2b403e-5369-4941-a048-6843e5f8c902"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "image": "shopify://shop_images/fluid-banner-016.jpg",
+        "section_bg_color": "#f3f3f3",
+        "section_txt_color": "#000000",
+        "heading": "Frequently Asked Questions",
+        "txt": "",
+        "banner_height": 420,
+        "bg_color": "#f2f2f2"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

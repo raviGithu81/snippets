@@ -1,0 +1,705 @@
+{
+  "sections": {
+    "8d81db4b-0432-4d26-8cde-2c103a3cefd4": {
+      "type": "global-header-slider",
+      "blocks": {
+        "3335b5f5-c0ff-4b2d-9d66-b609b264d22a": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bag-desk2.jpg",
+            "image_mobile": "shopify://shop_images/tote-launch.jpg",
+            "slide_bg_color": "#ffffff",
+            "enable_overlay": true,
+            "overlay_bg_color": "#000000",
+            "overlay_opacity": 0.3,
+            "caption_alignment": "justify-content-center",
+            "alignment": "text-center",
+            "heading": "ENERGY 2-PIECE",
+            "sub_heading": "New Collections",
+            "caption": "",
+            "heading_txt_color": "#ffffff",
+            "caption_txt_color": "#ffffff",
+            "btn_txt": "Shop Now",
+            "btn_link": "shopify://collections/all",
+            "btn_type": "",
+            "btn_variant": "light",
+            "btn_size": ""
+          }
+        },
+        "9e4bc005-7ba8-4659-b4f7-e8a6352e821d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/hero-banner-02.jpg",
+            "image_mobile": "shopify://shop_images/273266755_1755187804676858_6529202496488287137_n.jpg",
+            "slide_bg_color": "#ffffff",
+            "enable_overlay": false,
+            "overlay_bg_color": "#000000",
+            "overlay_opacity": 0.5,
+            "caption_alignment": "justify-content-end",
+            "alignment": "text-end",
+            "heading": "ADVENTURE",
+            "sub_heading": "Make Wave",
+            "caption": "",
+            "heading_txt_color": "#121212",
+            "caption_txt_color": "#121212",
+            "btn_txt": "Shop Now",
+            "btn_link": "",
+            "btn_type": "",
+            "btn_variant": "primary",
+            "btn_size": ""
+          }
+        },
+        "41ccd58a-e2bc-489f-b550-2994a925992c": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/hero-banner-01.jpg",
+            "image_mobile": "shopify://shop_images/fluid-collections-2.webp",
+            "slide_bg_color": "#ffffff",
+            "enable_overlay": true,
+            "overlay_bg_color": "#000000",
+            "overlay_opacity": 0.3,
+            "caption_alignment": "justify-content-center",
+            "alignment": "text-center",
+            "heading": "HERO SLIDER",
+            "sub_heading": "AWESOME",
+            "caption": "",
+            "heading_txt_color": "#ffffff",
+            "caption_txt_color": "#ffffff",
+            "btn_txt": "Shop Now",
+            "btn_link": "shopify://collections/all",
+            "btn_type": "",
+            "btn_variant": "light",
+            "btn_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "3335b5f5-c0ff-4b2d-9d66-b609b264d22a",
+        "9e4bc005-7ba8-4659-b4f7-e8a6352e821d",
+        "41ccd58a-e2bc-489f-b550-2994a925992c"
+      ],
+      "settings": {
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": false,
+        "nav_arrows": true,
+        "nav_dots": true,
+        "height": "tallheight"
+      }
+    },
+    "169d8c71-e82b-44aa-8e84-4d16627dee53": {
+      "type": "global-featured-collection",
+      "blocks": {
+        "template--20517647974685__169d8c71-e82b-44aa-8e84-4d16627dee53-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>IN SEASON</p>",
+            "sub_heading_color": "#121212"
+          }
+        },
+        "template--20517647974685__169d8c71-e82b-44aa-8e84-4d16627dee53-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "BEST SELLERS",
+            "heading_color": "#121212"
+          }
+        }
+      },
+      "block_order": [
+        "template--20517647974685__169d8c71-e82b-44aa-8e84-4d16627dee53-subheading-1",
+        "template--20517647974685__169d8c71-e82b-44aa-8e84-4d16627dee53-heading-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": false,
+        "collection_grid_type": "grid",
+        "featured_collection": "crossbody",
+        "section_bg_color": "#ffffff"
+      }
+    },
+    "d5c13a52-40a7-4578-8bf6-4c71c101dd94": {
+      "type": "global-collections-list",
+      "blocks": {
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "crossbody",
+            "title": "Naomi Bag",
+            "show_text": "Shop Now",
+            "section_txt_color": "#ffffff"
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "flex-bag",
+            "title": "Flex Bag",
+            "show_text": "Shop Now",
+            "section_txt_color": "#ffffff"
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "handbag",
+            "title": "Handbag",
+            "show_text": "Shop Now",
+            "section_txt_color": "#ffffff"
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "shoe",
+            "title": "Helix Bag",
+            "show_text": "Shop Now",
+            "section_txt_color": "#ffffff"
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>LIST OF BESTSELLER COLLECTIONS</p>",
+            "sub_heading_color": ""
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "SHOP COLLECTIONS",
+            "heading_color": ""
+          }
+        },
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Customer favourite collections this week!</p>",
+            "txt_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-1",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-2",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-3",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-collection-4",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-subheading-1",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-heading-1",
+        "template--21204235813149__d5c13a52-40a7-4578-8bf6-4c71c101dd94-text-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": false,
+        "section_bg_color": "#ffffff",
+        "grid_size": "3",
+        "image_ratio": "portrait",
+        "enable_overlay": true,
+        "overlay_bg_color": "#000000",
+        "overlay_opacity": 0.4
+      }
+    },
+    "c4e43525-58f3-43f9-8d02-e6f56882ecba": {
+      "type": "global-logo-list",
+      "blocks": {
+        "61749433-afed-4145-8f6f-d8b89bc446d9": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>SHOP BRANDS</p>",
+            "sub_heading_color": "#121212"
+          }
+        },
+        "d2e5ee39-6290-497e-9158-2f6ab551417b": {
+          "type": "heading",
+          "settings": {
+            "heading": "MOST POPULAR BRANDS",
+            "heading_color": "#121212"
+          }
+        },
+        "cac86e1f-3ea1-4b9f-a279-b54469e717f1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Brands we recommends</p><p></p>",
+            "txt_color": "#121212"
+          }
+        },
+        "f76128bd-a1a6-45c1-aeb4-48d372fddaf4": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-4.svg",
+            "logo_url": ""
+          }
+        },
+        "804d0164-5b22-45b1-ac26-800127f6cf3a": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/delish.svg",
+            "logo_url": ""
+          }
+        },
+        "7b04fb88-6b2b-4786-b68d-8acdecfe76a6": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-3.svg",
+            "logo_url": ""
+          }
+        },
+        "1e9e0c71-1ade-4082-9fa6-e26b791cfa7e": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-2.svg",
+            "logo_url": ""
+          }
+        },
+        "4ae18fad-1c07-4940-965d-6af618221ff8": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-6.svg",
+            "logo_url": ""
+          }
+        },
+        "33816fcc-351d-44cf-941b-ec9acf365748": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-1.svg",
+            "logo_url": ""
+          }
+        },
+        "3e80b00c-1a55-4cef-9aa7-f3078eef316a": {
+          "type": "content",
+          "settings": {
+            "logo_img": "shopify://shop_images/logo-5.svg",
+            "logo_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "61749433-afed-4145-8f6f-d8b89bc446d9",
+        "d2e5ee39-6290-497e-9158-2f6ab551417b",
+        "cac86e1f-3ea1-4b9f-a279-b54469e717f1",
+        "f76128bd-a1a6-45c1-aeb4-48d372fddaf4",
+        "804d0164-5b22-45b1-ac26-800127f6cf3a",
+        "7b04fb88-6b2b-4786-b68d-8acdecfe76a6",
+        "1e9e0c71-1ade-4082-9fa6-e26b791cfa7e",
+        "4ae18fad-1c07-4940-965d-6af618221ff8",
+        "33816fcc-351d-44cf-941b-ec9acf365748",
+        "3e80b00c-1a55-4cef-9aa7-f3078eef316a"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "#ffffff",
+        "section_txt_color": "",
+        "nav_arrows": false,
+        "nav_dots": true
+      }
+    },
+    "4235eef8-1c1c-4057-bd9e-1ba6432bcd15": {
+      "type": "global-image-banner",
+      "blocks": {
+        "5231b32b-9be9-42f3-8c64-8ff3db1bb39c": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "JUST DROPPED",
+            "subheading_color": "#121212"
+          }
+        },
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "HAND BAG",
+            "heading_color": "#121212"
+          }
+        },
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Designed in a silhouette inspired by Art-Deco style, our Business Bag packs a ton of features in a slim, compact space so you can carry your office life in the bag — including a 16” Macbook Pro.<br/></p><p>Business Bag packs a ton of features in a slim, compact space so you can carry your office life in the bag.</p>",
+            "txt_color": "#121212"
+          }
+        },
+        "327e37e2-45d2-4a22-a3bd-26724e5bf0e5": {
+          "type": "countdown",
+          "settings": {
+            "countdown_enable": true,
+            "countdown_pretext": "Time Running Out",
+            "countdown_text": "Oct 20, 2024 23:59",
+            "countdown_bg_color": "#f5f5f5",
+            "countdown_text_color": "#111111"
+          }
+        },
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Now",
+            "button_link_1": "shopify://collections/handbag",
+            "btn_type_1": "",
+            "btn_variant_1": "primary",
+            "btn_size_1": "",
+            "button_label_2": "",
+            "button_link_2": "",
+            "btn_type_2": "",
+            "btn_variant_2": "primary",
+            "btn_size_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "5231b32b-9be9-42f3-8c64-8ff3db1bb39c",
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-heading-1",
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-text-1",
+        "327e37e2-45d2-4a22-a3bd-26724e5bf0e5",
+        "template--20517647974685__4235eef8-1c1c-4057-bd9e-1ba6432bcd15-buttons-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": false,
+        "image": "shopify://shop_images/fluid-banner-016.jpg",
+        "enable_overlay": false,
+        "overlay_bg_color": "#000000",
+        "overlay_opacity": 0.5,
+        "height": "tallheight",
+        "desktop_text_box_position": "center",
+        "text_caption_align": "justify-content-start",
+        "text_align": "text-start",
+        "txt-bg-color": ""
+      }
+    },
+    "9b7f75ea-e708-446e-8cd7-0ff7a5abea63": {
+      "type": "global-features-grid",
+      "blocks": {
+        "template--20517647974685__9b7f75ea-e708-446e-8cd7-0ff7a5abea63-content-1": {
+          "type": "content",
+          "settings": {
+            "icon": "shopify://shop_images/truck_100x_3534b419-17ff-4414-99c6-5573dd0229f1.svg",
+            "title": "FREE DELIVERY",
+            "txt": "<p>Free shipping on all US order<br/>or order above $100</p>"
+          }
+        },
+        "fb6b93f8-f159-4507-9c14-c2997a7672c6": {
+          "type": "content",
+          "settings": {
+            "icon": "shopify://shop_images/returns_100x_41f300e4-dff3-44c9-96a8-486b29e3da4e.svg",
+            "title": "14 DAYS RETURN",
+            "txt": "<p>Free returns within 14 days</p>"
+          }
+        },
+        "4bedb485-3b43-481f-ad59-42ceafcb3877": {
+          "type": "content",
+          "settings": {
+            "icon": "shopify://shop_images/secure_100x_d18a63dd-920b-4589-b54a-dedc2186f276.svg",
+            "title": "100% SECURE PAYMENTS",
+            "txt": "<p>Accept all payment methods</p>"
+          }
+        },
+        "fbb1fc27-ad4b-4da3-afed-6d58bafffb0a": {
+          "type": "content",
+          "settings": {
+            "icon": "shopify://shop_images/refund_100x_6d6d17b9-511c-4dd2-a49c-845593181de4.svg",
+            "title": "FLEXIBLE PAYMENT",
+            "txt": "<p>Help businesses get paid faster,<br/>reduce the risk</p>"
+          }
+        },
+        "df8214ac-3ba5-467d-810d-56f061e92236": {
+          "type": "heading",
+          "settings": {
+            "heading": "WHY FROM US",
+            "heading_color": "#121212"
+          }
+        }
+      },
+      "block_order": [
+        "template--20517647974685__9b7f75ea-e708-446e-8cd7-0ff7a5abea63-content-1",
+        "fb6b93f8-f159-4507-9c14-c2997a7672c6",
+        "4bedb485-3b43-481f-ad59-42ceafcb3877",
+        "fbb1fc27-ad4b-4da3-afed-6d58bafffb0a",
+        "df8214ac-3ba5-467d-810d-56f061e92236"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": true,
+        "background": "#ffffff",
+        "grid_size": "3",
+        "btn_txt": "",
+        "btn_url": "",
+        "btn_type": "outline",
+        "btn_variant": "primary",
+        "btn_size": ""
+      }
+    },
+    "e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee": {
+      "type": "global-image-with-text",
+      "blocks": {
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-image-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/fluid-all-products.jpg"
+          }
+        },
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "ABOUT US",
+            "sub_heading_color": "#121212"
+          }
+        },
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Proven. Trusted. Innovative.",
+            "heading_color": "#121212"
+          }
+        },
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Our products were developed to prevent periodontal disease before it starts and help pets on their journey towards better oral health. They are clinically proven to clean your pet’s teeth, freshen their breath, and reduce the buildup of plaque, tartar and gingivitis.</p>",
+            "txt_color": "#5b5b5b"
+          }
+        },
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-stepcaption-1": {
+          "type": "stepcaption",
+          "settings": {
+            "steps_captions": "On the other hand, we denounce with righteous indignation.\nDislike men who are so beguiled and demoralized.\nCharms of pleasure of the moment, so blinded by desire\nThey cannot foresee the pain and trouble that are bound",
+            "txt_color": "#5b5b5b"
+          }
+        },
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-button-1": {
+          "type": "button",
+          "settings": {
+            "btn_txt": "View All",
+            "btn_link": "",
+            "btn_type": "outline",
+            "btn_variant": "primary",
+            "btn_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-image-1",
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-subheading-1",
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-heading-1",
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-text-1",
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-stepcaption-1",
+        "template--20517647974685__e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee-button-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": true,
+        "section_bg_color": "rgba(0,0,0,0)",
+        "alignment": "text-start",
+        "image_alignment": "left"
+      }
+    },
+    "741eb9d7-e7e6-459e-9fe3-7e9137abe003": {
+      "type": "global-split-image-banner",
+      "blocks": {
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image banner"
+          }
+        },
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Give customers details about the banner image(s) or content on the template.</p>"
+          }
+        },
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Button label",
+            "button_link_1": "",
+            "btn_type_1": "",
+            "btn_variant_1": "primary",
+            "btn_size_1": "",
+            "button_label_2": "Button label",
+            "button_link_2": "",
+            "btn_type_2": "",
+            "btn_variant_2": "primary",
+            "btn_size_2": ""
+          }
+        },
+        "756e2a33-46df-4cd1-9f5f-bfdd4158c1c4": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/fluid_banner_3.jpg"
+          }
+        },
+        "6cc5dc17-8c4a-4827-8e72-db3f7c8b90f1": {
+          "type": "image",
+          "settings": {
+            "image_desktop": "shopify://shop_images/fluid-sprinkles-desk1.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-heading-1",
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-text-1",
+        "template--20566189801757__741eb9d7-e7e6-459e-9fe3-7e9137abe003-buttons-1",
+        "756e2a33-46df-4cd1-9f5f-bfdd4158c1c4",
+        "6cc5dc17-8c4a-4827-8e72-db3f7c8b90f1"
+      ],
+      "settings": {
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": false,
+        "enable_overlay": true,
+        "overlay_bg_color": "#000000",
+        "overlay_opacity": 0.5,
+        "height": "tallheight",
+        "show_text_box": true,
+        "text_caption_align": "justify-content-center",
+        "vertical_caption_align": "align-items-center",
+        "text_align": "text-center",
+        "color_scheme": "#ffffff",
+        "stack_images_on_mobile": true,
+        "show_text_below": true,
+        "mobile_enable_overlay": false
+      }
+    },
+    "c0a474f9-8765-48ab-b385-bdb66b1d726a": {
+      "type": "global-blog-posts",
+      "blocks": {
+        "template--20517647974685__c0a474f9-8765-48ab-b385-bdb66b1d726a-subheading-1": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "<p>OUR BLOG</p>",
+            "sub_heading_color": "#121212"
+          }
+        },
+        "template--20517647974685__c0a474f9-8765-48ab-b385-bdb66b1d726a-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "LATEST POST",
+            "heading_color": "#121212"
+          }
+        }
+      },
+      "block_order": [
+        "template--20517647974685__c0a474f9-8765-48ab-b385-bdb66b1d726a-subheading-1",
+        "template--20517647974685__c0a474f9-8765-48ab-b385-bdb66b1d726a-heading-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": true,
+        "section_bottom_spacing_enable": true,
+        "blog": "news",
+        "btn_txt": "More Posts",
+        "btn_link": "",
+        "btn_type": "outline",
+        "btn_variant": "primary",
+        "btn_size": "",
+        "section_bg_color": "#ffffff",
+        "nav_arrows": true,
+        "nav_dots": false
+      }
+    },
+    "0f974cc4-a842-41f8-944a-533401615679": {
+      "type": "global-video-banner",
+      "blocks": {
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image banner",
+            "heading_color": "#121212"
+          }
+        },
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Give customers details about the banner image(s) or content on the template.</p>",
+            "txt_color": "#5b5b5b"
+          }
+        },
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "play_button_label": "Play Video",
+            "play_btn_type": "",
+            "play_btn_variant": "primary",
+            "play_btn_size": "",
+            "button_label": "Button label",
+            "button_link": "",
+            "btn_type": "",
+            "btn_variant": "primary",
+            "btn_size": ""
+          }
+        }
+      },
+      "block_order": [
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-heading-1",
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-text-1",
+        "template--20566189801757__0f974cc4-a842-41f8-944a-533401615679-buttons-1"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "bg_color": "#ffffff",
+        "section_bottom_spacing_enable": true,
+        "video_muted": true,
+        "video_controls": true,
+        "video_loop": true,
+        "poster_type": "image",
+        "video_type": "local",
+        "placement": "grid",
+        "video_url": "https://www.youtube.com/watch?v=rgZU5pDf6mw",
+        "alignment": "text-center",
+        "video_alignment": "justify-content-center"
+      }
+    },
+    "6429285e-5644-43bc-876e-74e3041088f8": {
+      "type": "global-newsletter-banner",
+      "blocks": {
+        "template--21204235813149__6429285e-5644-43bc-876e-74e3041088f8-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "Sign up and save",
+            "heading_color": "#121212"
+          }
+        },
+        "template--21204235813149__6429285e-5644-43bc-876e-74e3041088f8-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get first access to special offers, free giveaways, and insider releases.</p>",
+            "txt_color": "#5b5b5b"
+          }
+        },
+        "fd9a8389-b156-4855-9a86-78fb5cb7eeb5": {
+          "type": "form",
+          "settings": {
+            "button_text": "Subscribe"
+          }
+        }
+      },
+      "block_order": [
+        "template--21204235813149__6429285e-5644-43bc-876e-74e3041088f8-heading-1",
+        "template--21204235813149__6429285e-5644-43bc-876e-74e3041088f8-text-1",
+        "fd9a8389-b156-4855-9a86-78fb5cb7eeb5"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "section_top_spacing_enable": false,
+        "section_bottom_spacing_enable": false,
+        "newsletter_bg__color": "#e5e5e5"
+      }
+    }
+  },
+  "order": [
+    "8d81db4b-0432-4d26-8cde-2c103a3cefd4",
+    "169d8c71-e82b-44aa-8e84-4d16627dee53",
+    "d5c13a52-40a7-4578-8bf6-4c71c101dd94",
+    "c4e43525-58f3-43f9-8d02-e6f56882ecba",
+    "4235eef8-1c1c-4057-bd9e-1ba6432bcd15",
+    "9b7f75ea-e708-446e-8cd7-0ff7a5abea63",
+    "e7e1e19b-eebf-4628-a2eb-1c4eb3a2f5ee",
+    "741eb9d7-e7e6-459e-9fe3-7e9137abe003",
+    "c0a474f9-8765-48ab-b385-bdb66b1d726a",
+    "0f974cc4-a842-41f8-944a-533401615679",
+    "6429285e-5644-43bc-876e-74e3041088f8"
+  ]
+}

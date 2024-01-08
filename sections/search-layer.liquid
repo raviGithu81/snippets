@@ -1,0 +1,84 @@
+{%- if section.settings.enable_search -%}
+
+{%- render 'search-modal' -%}
+
+  <script {% unless request.design_mode %}data-{% endunless %}src="{{ 'component-search.js' | asset_url }}" class="lazyload-asset" defer></script>
+  {%- if section.settings.search_type == 'predictive' -%}
+      <script {% unless request.design_mode %}data-{% endunless %}src="{{ 'predictive-search.js' | asset_url }}" class="lazyload-asset" defer></script>
+  {% endif %}
+
+  {% comment %} Search {% endcomment %}
+  {%- if request.page_type == 'index' -%}
+    {% assign potential_action_target = shop.url | append: routes.search_url | append: "?q={search_term_string}" %}
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": {{ shop.name | json }},
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {{ potential_action_target | json }},
+          "query-input": "required name=search_term_string"
+        },
+        "url": {{ shop.url | append: page.url | json }}
+      }
+    </script>
+  {%- endif -%}
+{%- endif -%}
+ 
+{% schema %}
+  {
+    "name": "Search Layer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search",
+        "default": true,
+        "label": "Enable Search",
+        "info": "Show Search Layer"
+      },
+      {
+        "type": "header",
+        "content": "Search Form"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search_product",
+        "default": true,
+        "label": "Enable Search by Product"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search_article",
+        "default": true,
+        "label": "Enable Search by Article"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_search_page",
+        "default": true,
+        "label": "Enable Search by Page"
+      },
+      {
+        "type": "select",
+        "id": "search_type",
+        "options": [
+          {
+            "value": "default",
+            "label": "Normal"
+          },
+          {
+            "value": "predictive",
+            "label": "Predictive"
+          }
+        ],
+        "default": "default",
+        "label": "Search Type"
+      }
+    ]
+  }
+{% endschema %}

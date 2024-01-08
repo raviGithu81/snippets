@@ -1,0 +1,291 @@
+<div class="content-header-banner py-3 d-flex" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};min-height:{{ section.settings.banner_height }}px;">
+    {%- if section.settings.image != blank -%}
+        <div class="header-banner-img">
+            <img
+                srcset="
+                {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                {%- if section.settings.image.width >= 520 -%}{{ section.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                {%- if section.settings.image.width >= 650 -%}{{ section.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                {%- if section.settings.image.width >= 780 -%}{{ section.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                {%- if section.settings.image.width >= 900 -%}{{ section.settings.image | image_url: width: 900 }} 990w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1700 }} 1700w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1920 }} 1920w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 2560 }} 2560w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3800 }} 3800w,{%- endif -%}"
+                src="{{ section.settings.image | image_url: width: 50 }}"
+                sizes="100vw"
+                alt="{{ section.settings.image.alt | escape }}"
+                class="w-100"
+                loading="lazy"
+                width="{{ section.settings.image.width | divided_by: 3 }}"
+                height="{{ section.settings.image.height | divided_by: 3 }}"
+            >
+        </div>
+    {%- endif -%}
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} position-relative min-h-100">
+        <div class="position-absolute">
+            {% render 'breadcrumbs' %}
+        </div>
+        <div class="d-flex align-items-center min-h-100">
+            <div class="py-5 py-lg-7 text-center w-100">
+                <h1 class="mb-3">{% if section.settings.heading != blank %}{{ section.settings.heading }}{% else %}{{ page.title }}{% endif %}</h1>
+                {% if section.settings.txt != blank %}<div class="col-xl-6 col-lg-8 mx-auto">{{ section.settings.txt }}</div>{% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="section-content">
+    <div class="container">
+        {% assign categories = section.blocks | map: 'type' | uniq %}
+
+        <div class="row mb-md-5">
+            <div class="col-lg-3 mb-6">
+                <div class="sticky-top pt-3">
+                    <div class="faq-sidebar" id="title-color" style="background:{{ section.settings.bg_color }};">
+                        <ul class="list-unstyled mb-0 py-2 ps-lg-4 pe-lg-4" id="faq-scrollspy-navs">
+                            {% for category in categories %}
+                                <li class="faq-listing category" >
+                                    <a href="#{{ category }}" data-id="{{ category }}" class="text-uppercase ls-sm lh-lg fs-sm mb-0 {% if forloop.first == true %}active{% endif %}" 
+                                        onclick="Array.from(document.querySelectorAll('.faq-listing a')).forEach((el) => el.classList.remove('active'));this.classList.add('active');">
+                                        {{ category | replace: '_', ' ' | replace: ' and ', ' & ' | capitalize }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 ps-lg-10" data-faqsParent>
+                <div class="row">
+                    {% for category in categories %}
+                        {% liquid
+                            assign faq_blocks = section.blocks | where: 'type', category
+                            assign block_title = category | replace: '_', ' ' | replace: ' and ', ' & ' | capitalize
+                        %}
+                        <div class="col-12 mb-5 mb-md-7" id="{{ category }}" data-individual-section>
+                            <div class="block-heading">
+                                <h4 class="fw-medium lh-base letter-spacing mb-0">{{ block_title }}</h4>
+                            </div>
+                            <div>
+                                <custom-accordion {{ block.shopify_attributes }} data-accordionType="single">
+                                    {% for block in faq_blocks %}
+                                        {% if block.settings.title != blank and block.settings.answer != blank %}
+                                            <div class="accordion__container border-bottom border-gray-100 py-md-5 py-4">
+                                                <a class="accordion__toggle d-flex align-items-center pe-2 justify-content-between" href="#" title="Open {{ block.settings.title | strip_html }}" rel="nofollow" aria-label="Open {{ block.settings.title | strip_html }}" role="button" aria-expanded="false" aria-controls="faq-{{ section.settings.heading | handleize }}-{{ forloop.index }}">
+                                                    <h6 class="fs-xl lh-base fw-normal font-family-base mb-0">{{ block.settings.title }}</h6>
+                                                    <span class="icon-arrow-down d-block"></span>
+                                                </a>
+                                                <div class="accordion__block toggle-content" id="faq-{{ section.settings.heading | handleize }}-{{ forloop.index }}" data-type="content">
+                                                    <div class="fw-light letter-spacing rpt-5 pt-4">{{ block.settings.answer }}</div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </custom-accordion>
+                            </div>
+                        </div>
+                    {% endfor %}                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>    
+
+
+{% schema %}
+  {
+    "name": "FAQs",
+    "class": "template-faq",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Layout"
+        },
+        {
+            "type": "checkbox",
+            "id": "fluid_layout",
+            "label": "Full Width Layout?",
+            "default": false
+        },
+        {
+            "type":"header",
+            "content":"Header Banner"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Banner Image"
+        },
+        {
+            "type":"paragraph",
+            "content":"styling"
+        },
+        {
+            "type": "color",
+            "id": "section_bg_color",
+            "label": "Background Color",
+            "default": "#f3f3f3"
+        },
+        {
+            "type": "color",
+            "id": "section_txt_color",
+            "label": "Text Color",
+            "default": "#121212"
+        },
+        {
+            "type":"paragraph",
+            "content":"content"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "Heading"
+        },
+        {
+            "type": "richtext",
+            "id": "txt",
+            "label": "Lead Text",
+            "default": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>"
+        },
+        {
+            "type": "range",
+            "id": "banner_height",
+            "min": 100,
+            "max": 750,
+            "step": 10,
+            "default": 350,
+            "unit": "px",
+            "label": "Content Header Banner Height"
+        },
+        {
+            "type":"header",
+            "content":"Sidebar Styling"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Sidebar Background Color",
+            "default": "#f2f2f2"
+        }
+	],
+    "blocks": [
+        {
+            "type": "product_information",
+            "name": "Product Information",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "orders",
+            "name": "Orders",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "pricing_and_billing",
+            "name": "Pricing & Billing",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "return_and_exchange",
+            "name": "Return & Exchange",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "shipping",
+            "name": "Shipping",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "my_account",
+            "name": "My Account",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        },
+        {
+            "type": "support",
+            "name": "Additional Support",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "title",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

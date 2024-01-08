@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "main": {
+      "type": "template-article",
+      "blocks": {
+        "716dcb53-5576-4c09-81ce-72b7ede03b7b": {
+          "type": "search",
+          "settings": {
+          }
+        },
+        "recent-articles": {
+          "type": "recent-articles",
+          "settings": {
+            "heading": "Recent Articles",
+            "total_recent_articles": 5
+          }
+        },
+        "tags": {
+          "type": "tags",
+          "settings": {
+            "heading": "Tags"
+          }
+        },
+        "social_sharing": {
+          "type": "socials",
+          "settings": {
+            "socials_title": "Connect with Us",
+            "social_icon_facebook": true,
+            "social_icon_twitter": true,
+            "social_icon_googleplus": true,
+            "social_icon_instagram": true
+          }
+        }
+      },
+      "block_order": [
+        "716dcb53-5576-4c09-81ce-72b7ede03b7b",
+        "recent-articles",
+        "tags",
+        "social_sharing"
+      ],
+      "settings": {
+        "fluid_layout": false,
+        "enable_sidebar": true,
+        "sidebar_is_sticky": true,
+        "enable_social_sharing": true,
+        "enable_article_navigation": true,
+        "nav_bg_color": "",
+        "nav_txt_color": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

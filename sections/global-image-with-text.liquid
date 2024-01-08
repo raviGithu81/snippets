@@ -1,0 +1,347 @@
+{% style %}
+    .inside-block ul li::before{
+        content: "\e902";
+        display: inline-block;
+        font-family: 'fluid-icon';
+        color:inherit;
+        text-rendering: auto;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 1rem;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+{% endstyle %}
+
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %} image-with-text"  data-section-id="{{ section.id }}" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }}">
+    <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-7 {% if section.settings.image_alignment == 'left' %}order-md-1{% else %}order-md-2{% endif %}">
+                <div class="banner-img {{ section.settings.height }}">
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                        {%- when 'image' -%}
+                            {%- if block.settings.image != blank -%}
+                                <img
+                                    srcset="
+                                    {%- if block.settings.image.width >= 360 -%}{{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                                    {%- if block.settings.image.width >= 520 -%}{{ block.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                                    {%- if block.settings.image.width >= 650 -%}{{ block.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                                    {%- if block.settings.image.width >= 780 -%}{{ block.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                                    {%- if block.settings.image.width >= 900 -%}{{ block.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+                                    {%- if block.settings.image.width >= 1000 -%}{{ block.settings.image | image_url: width: 1000 }} 1000w,{%- endif -%}"
+                                    src="{{ block.settings.image | image_url: width: 50 }}"
+                                    sizes="(min-width: {{ settings.container_width }}) {{ settings.container_width | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), 100vw"
+                                    alt="{{ block.settings.image.alt | escape }}"
+                                    class="w-100"
+                                    loading="lazy"
+                                    width="{{ block.settings.image.width | divided_by: 3 }}"
+                                    height="{{ block.settings.image.height | divided_by: 3 }}"
+                                >
+                            {%- else -%}
+                                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+                            {%- endif -%}
+                        {%- endcase -%}    
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 col-lg-5 mt-4 mt-md-5 mt-lg-0 {% if section.settings.image_alignment == 'left' %}order-md-2{% else %}order-md-1{% endif %}">
+                <div class="inside-block {{ section.settings.alignment }}">
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                            {%- when 'heading' -%}
+                            <h2 class="mb-3 h3 text-uppercase" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                            {%- when 'subheading' -%}
+                            <h4 class="fs-lg mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.sub_heading_color }};">{{ block.settings.subheading }}</h4> 
+                            {%- when 'text' -%}
+                            <div class="mb-3 mb-lg-5" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                            {% when 'stepcaption' %}
+                            {% if block.settings.steps_captions != blank %}
+                                {% assign caption = block.settings.steps_captions | newline_to_br | strip_newlines | split: '<br />' %}
+                                <ul class="list-unstyled mb-5" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color:{{ block.settings.txt_color }};">
+                                    {% for cap in caption %}
+                                        <li class="mb-2 mb-md-3">{{ cap }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% when 'button' %}
+                            <a {{ block.shopify_attributes }} data-block-id="{{ block.id }}" {% if block.settings.btn_link %} href="{{ block.settings.btn_link }}" {% endif %}class="btn btn{% if block.settings.btn_type == 'outline' %}-{% endif %}{{ block.settings.btn_type }}-{{ block.settings.btn_variant }} {{ block.settings.btn_size }}">{{ block.settings.btn_txt }}</a>
+                        {%- endcase -%}    
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+ 
+
+{% schema %}
+    {
+        "name": "Image With Text",
+        "class": "image-with-text",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            },
+            {
+                "type":"header",
+                "content":"styling"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#f3f3f3"
+            },
+            {
+                "type": "select",
+                "id": "alignment",
+                "label": "Text Alignment",
+                "options": [
+                    {
+                        "value": "text-start",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "text-center",
+                        "label": "Center"
+                    },
+                    {
+                        "value": "text-end",
+                        "label": "Right"
+                    }
+                ],
+                "default": "text-start"
+            },
+            {
+                "type": "select",
+                "id": "image_alignment",
+                "label": "Image Alignment",
+                "options": [
+                    {
+                        "value": "left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "right",
+                        "label": "Right"
+                    }
+                ],
+                "default": "left"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Image",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Select Image",
+                        "info": "For Better Viewing Use Example dimensions: 775*735 / Aspect Ratio: 1.05"
+                    }
+                ]
+            },
+            {
+                "type": "heading",
+                "name": "Heading",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Image With Text"
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color"
+                    }
+                ]
+            },
+            {
+                "type": "subheading",
+                "name": "Sub Heading",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "subheading",
+                        "label": "Sub Heading",
+                        "default": "Image with text short description"
+                    },
+                    {
+                        "type":"color",
+                        "id":"sub_heading_color",
+                        "label":"Sub Heading Color"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "name": "Text",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "Lead Text",
+                        "default": "<p>Give customers details about the image.</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color"
+                    }
+                ]
+            },
+            {
+                "type": "stepcaption",
+                "name": "Step Caption",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "textarea",
+                        "id": "steps_captions",
+                        "label": "Details List",
+                        "default": "Some Details <br> Some Details <br/> Some Details <br>",
+                        "info": "Add new entry on a next line."
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "button",
+                "name": "Button",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "btn_txt",
+                        "label": "Button Text",
+                        "default": "View More"
+                    },  
+                    {
+                        "type": "url",
+                        "id": "btn_link",
+                        "label": "Button Link"
+                    },      
+                    {
+                        "type": "select",
+                        "id": "btn_type",
+                        "label": "Button Type",
+                        "options": [
+                            {
+                                "value": "outline",
+                                "label": "Outline"
+                            },
+                            {
+                                "value": "",
+                                "label": "Solid"
+                            }
+                        ],
+                        "default": ""
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_variant",
+                        "label": "Button Variant",
+                        "options": [
+                            {
+                                "value": "primary",
+                                "label": "Primary"
+                            },
+                            {
+                                "value": "secondary",
+                                "label": "Secondary"
+                            },
+                            {
+                                "value": "light",
+                                "label": "Light"
+                            },
+                            {
+                                "value": "dark",
+                                "label": "Dark"
+                            }
+                        ],
+                        "default": "primary"
+                    },
+                    {
+                        "type": "select",
+                        "id": "btn_size",
+                        "label": "Button Size",
+                        "options": [
+                            {
+                                "value": "",
+                                "label": "Default"
+                            },
+                            {
+                                "value": "btn-sm",
+                                "label": "Small"
+                            },
+                            {
+                                "value": "btn-lg",
+                                "label": "Large"
+                            }
+                        ],
+                        "default": ""
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Image With Text",
+                "category": "Image with Text",
+                "blocks": [
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "heading"
+                    },
+                    {
+                        "type": "subheading"
+                    },
+                    {
+                        "type": "text"
+                    },
+                    {
+                        "type": "stepcaption"
+                    },
+                    {
+                        "type": "button"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

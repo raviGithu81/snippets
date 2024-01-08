@@ -1,0 +1,17 @@
+.article-card .card-img{
+    padding-top: 80%;
+    position: relative;
+}
+.article-card .card-img img, .article-card .card-img svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blog-post-slider .swiper-button-next.swiper-button-disabled,
+.blog-post-slider .swiper-button-prev.swiper-button-disabled{
+    display: none !important;
+}

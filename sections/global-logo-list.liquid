@@ -1,0 +1,255 @@
+{{ 'global-logo-list.css' | asset_url | stylesheet_tag: preload: true }}
+
+<section class="{% if section.settings.section_top_spacing_enable %}section-spacing-top{% endif %} {% if section.settings.section_bottom_spacing_enable %}section-spacing-bottom{% endif %}" style="background: {{ section.settings.section_bg_color }}; color: {{ section.settings.section_txt_color }};" data-section-id="{{ section.id }}">
+    <div data-type="slider">
+            <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %}">
+                <div class="row justify-content-center text-center">
+                    <div class="col-xl-6 col-lg-7 col-md-8 px-xl-4"> 
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                            {%- when 'heading' -%}
+                            <h2 class="mb-3 section-title" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.heading_color }};">{{ block.settings.heading }}</h2> 
+                            {%- when 'subheading' -%}
+                            <div class="fs-lg fw-bold mb-3" {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.sub_heading_color }};">{{ block.settings.subheading }}</div> 
+                            {%- when 'text' -%}
+                            <div {{ block.shopify_attributes }} data-block-id="{{ block.id }}" style="color: {{ block.settings.txt_color }};">{{ block.settings.text }}</div>
+                        {%- endcase -%}    
+                    {% endfor %}
+                    </div>
+                </div>
+                
+                {% assign content_blocks = section.blocks | where: 'type', 'content' %}
+                {% if content_blocks.size > 0 %}
+                    <slider-element class="swiper-container carousel d-block position-relative arrow-outside">
+                        <div class="swiper swiper-slider logo-list  pt-4 pb-4" data-slider='{
+                            "loop": false,
+                            "slidesPerView": 2,
+                            "spaceBetween": 30,
+                            "grabCursor": true,
+                            "navigation": {
+                                "nextEl": ".logo-button-next",
+                                "prevEl": ".logo-button-prev"
+                            },
+                            "pagination": {
+                                "el": ".swiper-pagination",
+                                "clickable": true
+                            },
+                            "breakpoints": {
+                                "560": {
+                                    "slidesPerView": 3,
+                                    "spaceBetween": 20
+                                },
+                                "768": {
+                                    "slidesPerView": 4,
+                                    "spaceBetween": 30
+                                },
+                                "992": {
+                                    "slidesPerView": 5,
+                                    "spaceBetween": 30
+                                },
+                                "1200": {
+                                    "slidesPerView": 6,
+                                    "spaceBetween": 30
+                                }
+                            }
+                        }'>
+                            <div class="swiper-wrapper">
+                                {% for block in content_blocks %}
+                                    <div class="text-center swiper-slide"  {{ block.shopify_attributes }} data-block-id="{{ block.id }}"> 
+                                        <a {% if block.settings.logo_url %}href="{{ block.settings.logo_url }}"{% endif %} class="logo-list-img"> 
+                                            {% if block.settings.logo_img != blank %}                                                
+                                                <img src="{{ block.settings.logo_img | image_url }}"
+                                                    loading="lazy" 
+                                                    class="mw-100"
+                                                    alt="{{ block.settings.logo_img.alt | default: 'shop by brands' | escape }}"
+                                                    width="350"
+                                                    height="150" />
+                                            {% else %}
+                                                {%- liquid 
+                                                    capture current
+                                                        cycle 1, 2, 3, 4
+                                                    endcapture
+                                                -%}
+                                                {{ 'hero-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                            {% endif %} 
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if section.settings.nav_dots %}
+                                <div class="swiper-pagination"></div>
+                            {% endif %}
+                        </div>
+                        {% if section.settings.nav_arrows %}
+                            <div class="swiper-button-next logo-button-next icon-arrow-right"></div>
+                            <div class="swiper-button-prev logo-button-prev icon-arrow-left"></div>
+                        {% endif %}
+                    </slider-element>
+                {% endif %}
+            </div>
+    </div>
+</section>
+
+{% schema %}
+    {
+        "name": "Logo List",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_top_spacing_enable",
+                "label": "Enable Top Spacing",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "section_bottom_spacing_enable",
+                "label": "Enable bottom Spacing",
+                "default": true
+            }, 
+            {
+                "type": "header",
+                "content": "Content"
+            },
+            {
+                "type": "color_background",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#ffffff"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Option"
+            },
+            {
+                "type": "checkbox", 
+                "id": "nav_arrows",
+                "label": "Arrows Navigation",
+                "default": true 
+            },
+            {
+                "type": "checkbox",
+                "id": "nav_dots",
+                "label": "Dots Navigation",
+                "default": true
+            }
+        ],
+        "blocks": [
+            {
+                "type": "content",
+                "name": "Logo Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "logo_img",
+                        "label": "Add Image url"
+                    },
+                    {
+                        "type": "url",
+                        "id": "logo_url",
+                        "label": "url"
+                    }
+                ]
+            },
+            {
+                "type": "heading",
+                "limit": 1,
+                "name": "Heading",
+                "settings": [
+                    {
+                        "type": "textarea",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Heading"
+                    },
+                    {
+                        "type":"color",
+                        "id":"heading_color",
+                        "label":"Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "subheading",
+                "limit": 1,
+                "name": "Sub Heading",
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "subheading",
+                        "label": "Sub Heading",
+                        "default": "<p>Sub Heading</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"sub_heading_color",
+                        "label":"Sub Heading Color",
+                        "default": "#121212"
+                    }
+                ]
+            },
+            {
+                "type": "text",
+                "name": "Text",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "Lead Text",
+                        "default": "<p>Lead Text</p>"
+                    },
+                    {
+                        "type":"color",
+                        "id":"txt_color",
+                        "label":"Text Color",
+                        "default": "#ffffff"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Logo List",
+                "category": "Content",
+                "blocks": [
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "content"
+                    },
+                    {
+                        "type": "heading"
+                    },
+                    {
+                        "type": "subheading"
+                    },
+                    {
+                        "type": "text"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}
+    

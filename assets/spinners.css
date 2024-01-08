@@ -1,0 +1,58 @@
+.spinner-border {
+	display: none;
+	width: var(--bs-spinner-width);
+	height: var(--bs-spinner-height);
+	vertical-align: var(--bs-spinner-vertical-align);
+	border-radius: 50%;
+	-webkit-animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+	animation: var(--bs-spinner-animation-speed) linear infinite var(--bs-spinner-animation-name);
+}
+
+@-webkit-keyframes spinner-border {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner-border {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+.spinner-border {
+	--bs-spinner-width: 1.25rem;
+	--bs-spinner-height: 1.25rem;
+	--bs-spinner-vertical-align: -0.35em;
+	--bs-spinner-border-width: 0.25em;
+	--bs-spinner-animation-speed: 0.75s;
+	--bs-spinner-animation-name: spinner-border;
+	border: var(--bs-spinner-border-width) solid currentcolor;
+	border-right-color: transparent;
+}
+
+.spinner-border-sm {
+	--bs-spinner-width: 1rem;
+	--bs-spinner-height: 1rem;
+	--bs-spinner-border-width: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.spinner-border{
+		--bs-spinner-animation-speed: 1.5s;
+	}
+}
+
+.btn .add-text{
+	display: inline-block;
+}
+
+.btn.loading .spinner-border{
+	display: inline-block;
+}
+
+.btn.loading .add-text{
+	display: none;
+}

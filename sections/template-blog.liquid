@@ -1,0 +1,325 @@
+{%- liquid 
+  assign fluid_layout = section.settings.fluid_layout
+  assign items_per_page = section.settings.items_per_page
+  assign sidebar_enabled = section.settings.enable_sidebar
+  assign blog_title = blog.title
+  if current_tags != blank
+    assign blog_title = blog_title | append: ' &mdash; ' | append: current_tags.first
+  endif
+-%}
+
+<div data-section-id="{{ section.id }}">
+    <div class="content-header-banner py-3 d-flex" style="background:{{ section.settings.section_bg_color }}; color:{{ section.settings.section_txt_color }};min-height:{{ section.settings.banner_height }}px;">
+        {%- if section.settings.image != blank -%}
+            <div class="header-banner-img">
+                <img
+                    srcset="
+                    {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if section.settings.image.width >= 520 -%}{{ section.settings.image | image_url: width: 520 }} 520w,{%- endif -%}
+                    {%- if section.settings.image.width >= 650 -%}{{ section.settings.image | image_url: width: 650 }} 650w,{%- endif -%}
+                    {%- if section.settings.image.width >= 780 -%}{{ section.settings.image | image_url: width: 780 }} 780w,{%- endif -%}
+                    {%- if section.settings.image.width >= 900 -%}{{ section.settings.image | image_url: width: 900 }} 990w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1200 }} 1200w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1700 }} 1700w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 1920 }} 1920w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 2560 }} 2560w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3000 }} 3000w,{%- endif -%}
+                    {%- if section.settings.image.width >= 1000 -%}{{ section.settings.image | image_url: width: 3800 }} 3800w,{%- endif -%}"
+                    src="{{ section.settings.image | image_url: width: 50 }}"
+                    sizes="100vw"
+                    alt="{{ section.settings.image.alt | escape }}"
+                    class="w-100"
+                    loading="lazy"
+                    width="{{ section.settings.image.width | divided_by: 3 }}"
+                    height="{{ section.settings.image.height | divided_by: 3 }}"
+                >
+            </div>
+        {%- endif -%}
+        <div class="{% if section.settings.fluid_layout %}container-fluid{% else %}container{% endif %} position-relative min-h-100">
+            <div class="position-absolute">
+                {% render 'breadcrumbs' %}
+            </div>
+            <div class="d-flex align-items-center min-h-100">
+                <div class="py-5 py-lg-7 text-center w-100">
+                    {% if section.settings.heading != blank %}<h1 class="mb-3">{{ section.settings.heading }}</h1>{% else %}<h1 class="mb-3">{{ blog_title }}</h1>{% endif %}
+                    {% if section.settings.txt != blank %}<div class="col-xl-7 col-lg-8 mx-auto">{{ section.settings.txt }}</div>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% paginate blog.articles by items_per_page %}
+    <section class="section-content">
+        <div class="{% if fluid_layout %}container-fluid{% else %}container{% endif %}">
+            <div class="row">
+                <div class="{% if sidebar_enabled %}col-lg-8 pb-lg-0 pb-8{% else %}col-12{% endif %}">
+                    {% if section.settings.enable_featured %}
+                        {% liquid 
+                            assign featured_article = blog.articles | first
+                            if section.settings.featured_preference == 'custom' and section.settings.featured_article != blank
+                                assign featured_article = section.settings.featured_article
+                            endif
+                        %}
+                        <div class="row">
+                            <div class="col-12 col-sm-6 {% if sidebar_enabled %}col-md-12{% else %}col-md-4 {% endif %} mb-5 d-flex align-items-stretch">
+                                {% render 'card-article-generic', article: featured_article %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="row">
+                        {% for article in blog.articles %}
+                            {% unless article.handle == featured_article.handle %}
+                                <div class="col-12 col-sm-6 {% if sidebar_enabled %}col-md-6{% else %}col-md-4 {% endif %} mb-5 d-flex align-items-stretch">
+                                    {% render 'card-article-generic', article: article %}
+                                </div>
+                            {% endunless %}
+                        {% endfor %}
+                    </div>
+
+                    {% if paginate.pages > 1 %}
+                        <div class="row">
+                            <div class="col-12 text-center mt-5">
+                                {% render 'pagination', paginate: paginate %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% if sidebar_enabled %}
+                    <div class="col-lg-4 ps-lg-5">
+                        {% render 'sidebar-blog' %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+  {% endpaginate %}
+</div>
+
+{% schema %}
+    {
+        "name": "Blog Template",
+        "settings": [
+            {
+                "type": "header",
+                "content": "Layout"
+            },
+            {
+                "type": "checkbox",
+                "id": "fluid_layout",
+                "label": "Full Width Layout",
+                "default": false
+            },
+            {
+                "type": "range",
+                "id": "items_per_page",
+                "label": "Articles Per Page",
+                "min": 1,
+                "max": 50,
+                "step": 1,
+                "default": 12
+            },
+            {
+                "type":"header",
+                "content":"Header Banner"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Banner Image"
+            },
+            {
+                "type":"paragraph",
+                "content":"styling"
+            },
+            {
+                "type": "color",
+                "id": "section_bg_color",
+                "label": "Background Color",
+                "default": "#f3f3f3"
+            },
+            {
+                "type": "color",
+                "id": "section_txt_color",
+                "label": "Text Color",
+                "default": "#121212"
+            },
+            {
+                "type":"paragraph",
+                "content":"content"
+            },
+            {
+                "type": "inline_richtext",
+                "id": "heading",
+                "label": "Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "txt",
+                "label": "Lead Text",
+                "default": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>"
+            },
+            {
+                "type": "range",
+                "id": "banner_height",
+                "min": 100,
+                "max": 750,
+                "step": 10,
+                "default": 420,
+                "unit": "px",
+                "label": "Header Banner Height"
+            },
+            {
+                "type": "header",
+                "content": "Featured Article"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_featured",
+                "label": "Enable",
+                "default": false
+            },
+            {
+                "type": "select",
+                "id": "featured_preference",
+                "label": "Preference",
+                "options": [
+                    {
+                        "value": "default",
+                        "label": "First Article of blog"
+                    },
+                    {
+                        "value": "custom",
+                        "label": "Custom Selection"
+                    }
+                ],
+                "default": "default"
+            },
+            {
+                "type": "article",
+                "id": "featured_article",
+                "label": "Featured Article"
+            },
+            {
+                "type": "header",
+                "content": "Sidebar"
+            },
+            {
+                "type": "checkbox",
+                "id": "enable_sidebar",
+                "label": "Enable Sidebar",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "sidebar_is_sticky",
+                "label": "Sticky Sidebar",
+                "default": false
+            }
+        ],
+        "blocks": [
+            {
+                "type": "socials",
+                "name": "Socials",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "socials_title",
+                        "label": "Heading",
+                        "default": "Connect with Us"
+                    },
+                    {
+                        "type": "paragraph",
+                        "content": "Select Networks"
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "social_icon_facebook",
+                        "label": "Facebook",
+                        "default": true
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "social_icon_twitter",
+                        "label": "Twitter",
+                        "default": true
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "social_icon_googleplus",
+                        "label": "Google+",
+                        "default": true
+                    },
+                    {
+                        "type": "checkbox",
+                        "id": "social_icon_instagram",
+                        "label": "Instagram",
+                        "default": true
+                    }
+                ]
+            },
+            {
+                "type": "recent-articles",
+                "name": "Recent Articles",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Recent Articles"
+                    },
+                    {
+                        "type": "range",
+                        "id": "total_recent_articles",
+                        "label": "Articles Limit",
+                        "min": 1,
+                        "max": 10,
+                        "step": 1,
+                        "default": 5
+                    }
+                ]
+            },
+            {
+                "type": "tags",
+                "name": "Tags",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "inline_richtext",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Tags"
+                    }
+                ]
+            },
+            {
+                "type": "search",
+                "name": "Search",
+                "limit": 1,
+                "settings": [
+                ]
+            }
+        ],
+        "default": 
+            {
+                "blocks": [
+                    {
+                        "type": "search"
+                    },
+                    {
+                        "type": "recent-articles"
+                    },
+                    {
+                        "type": "tags"
+                    },
+                    {
+                        "type": "socials"
+                    }
+                ]
+            }
+    }
+{% endschema %}

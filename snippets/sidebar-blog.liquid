@@ -1,0 +1,77 @@
+<div class="sidebar-blog {% if section.settings.sidebar_is_sticky %}sticky-top{% endif %}">
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when 'search' -%}
+                <div class="card card-search mb-5 mb-md-7 mb-lg-8 border-0" {{ block.shopify_attributes }}>
+                    <form action="/search" method="get" role="search">
+                        <input type="hidden" name="type" value="article">
+                        <div class="input-group mb-0">
+                          <input type="search" name="q" id="Search" aria-label="search" value="{{ search.terms | escape }}" placeholder="Search Articles" class="form-control">
+                            <button type="submit" class="btn btn-primary border-0 py-1 px-3 min-h-100 d-flex align-items-center">
+                                <i class="icon-search icon-size-20"></i>
+                                <span class="visually-hidden-skip">{{ 'general.search.submit' | t }}</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {%- when 'recent-articles' -%}
+                <div class="card card-recent-articles mb-5 mb-md-7 mb-lg-8 border-0">
+                    {% if block.settings.recent_articles_title != blank %}
+                        <div class="card-header border-0 p-0 h6 mb-3 text-uppercase">{{ block.settings.recent_articles_title }}</div>
+                    {% endif %}
+                    <div class="card-body p-0">
+                        <ul class="list-unstyled">
+                            {% assign limit_articles = block.settings.total_recent_articles %}
+                            {% assign recent_articles = blog.articles | reverse %}
+                            {% for article in recent_articles limit: limit_articles %}
+                                <li class="list-group-item{% unless forloop.last == true %} mb-3{% endunless %}">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0">
+                                            <a href="{{ article.url }}" class="d-block recent-article" title="{{ article.title }}" aria-label="{{ article.title }}">
+                                                {% if article.image != blank %}
+                                                    <img src="{{ article.image | image_url: width: 120, height: 120, crop: 'center' }}" class="img-fluid" alt="{{ article.title }}" loading="lazy"
+                                                    width="{{ article.image.width }}"
+                                                    height="{{ article.image.width | divided_by: article.image.aspect_ratio | round }}">
+                                                {% else %}
+                                                    {{ 'blog-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                        <div class="flex-grow-1 ms-3">
+                                            <p class="mt-0 mb-2 fw-bold"><a href="{{ article.url }}">{{ article.title }}</a></p>
+                                            <p class="mb-0">{{ article.content | strip_html | truncatewords: 8 }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {%- when 'tags' -%} 
+                <div class="card card-tags mb-5 mb-md-7 mb-lg-8 border-0">
+                    {% if block.settings.heading != blank %}
+                        <div class="card-header border-0 p-0 h6 mb-3 text-uppercase">{{ block.settings.heading }}</div>
+                    {% endif %}
+                    <div class="card-body p-0">
+                        {% for tag in blog.all_tags %}
+                            {% if current_tags contains tag %}
+                                <span class="badge badge-tags badge-tags-active">{{ tag | link_to_remove_tag: tag }}</span>
+                            {% else %}
+                                <span class="badge badge-tags">{{ tag | link_to_tag: tag }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {%- when 'socials' -%}  
+                <div class="card card-socials mb-5 mb-md-7 mb-lg-8 border-0" {{ block.shopify_attributes }}>
+                    {% if block.settings.socials_title != blank %}
+                        <div class="card-header border-0 p-0 h6 mb-3 text-uppercase">{{ block.settings.socials_title }}</div>
+                    {% endif %}
+                    <div class="card-body p-0">
+                        {% render 'social-media-links', section: block %}
+                    </div>
+                </div>
+        {%- endcase -%}    
+    {% endfor %}
+</div>
+    

@@ -1,0 +1,27 @@
+{% liquid
+    assign paginateValues = section.settings.products_per_page_values | strip | newline_to_br | strip_newlines | split: "<br />"
+    assign products_per_page = section.settings.products_per_page | plus: 0
+    if cart.attributes['products_per_page'] != blank
+        assign products_per_page = cart.attributes['products_per_page'] | plus: 0
+    endif
+%}
+<span class="fw-medium">{{ 'templates.collection.product_per_page' | t }} </span> 
+<custom-select class="sortby-dropdown custom-pagination-dropdown ms-2 radio-out">
+    <fieldset>
+        <div class="filter__wrapper d-flex default border bg-white justify-content-between py-2 px-3 align-items-center position-relative">
+            <span class="option_txt text-black">{{ products_per_page }}</span>
+            <i class="icon-arrow-down ms-auto fs-sm lh-1"></i>
+        </div>
+        <div class="custom--select">
+            <ul class="list-unstyled m-0 toggle-content" data-custom-pagination data-type="content">
+                {% for value in paginateValues %}
+                    {% assign productsCount = value | plus: 0 %}
+                    <li class="form-check py-1 {% if productsCount == products_per_page %}selected{% endif %}">
+                        <input type="radio" name="paginateBy" value="{{ value }}" class="pagination_value form-check-input sortby_options" id="paginate-by-{{ value }}" {% if productsCount == products_per_page %}checked{% endif %}/>
+                        <label for="paginate-by-{{ value }}" class="option_txt form-check-label w-100" title="Paginate products by {{ value }}">{{ value }}</label>
+                    </li>
+                {%- endfor -%}
+            </ul>
+        </div>
+    </fieldset>
+</custom-select>
