@@ -15,38 +15,36 @@
     },
     "header": {
       "type": "header",
-      "class": "test",
       "blocks": {
-        "5f1e41a7-b8fe-460b-a63e-25715cc8ff62": {
+        "b4b5b00f-eb83-4f32-b766-f382bd331e8f": {
           "type": "megamenu",
           "settings": {
-            "title": "Sections",
-            "image": "shopify://shop_images/fluid-collections-2.webp",
-            "link_text": "New Collections",
-            "link_url": "shopify://collections"
+            "title": "Car Hauler",
+            "column": "count_4",
+            "image": "shopify:\/\/shop_images\/Rectangle_5.jpg",
+            "link_text": "Link Title",
+            "link_url": "shopify:\/\/collections\/hydrogen"
           }
         }
       },
       "block_order": [
-        "5f1e41a7-b8fe-460b-a63e-25715cc8ff62"
+        "b4b5b00f-eb83-4f32-b766-f382bd331e8f"
       ],
       "settings": {
         "fluid_header": false,
-        "enable_sticky_header": true,
+        "sticky_header_type": "on-scroll-up",
         "header_bg_color": "#ffffff",
         "show_line_separator": false,
-        "logo": "shopify://shop_images/fluid-logo-v-0.2.svg",
         "logo_width": 150,
-        "menu": "fluid-nav"
+        "menu": "main-menu"
       }
     },
     "mobile-nav-drawer": {
       "type": "mobile-nav-drawer",
       "settings": {
-        "logo": "shopify://shop_images/fluid-logo-v-0.2.svg",
         "logo_width": 100,
         "main_menu_linklist": "main-menu",
-        "secondary_menu_linklist": "company",
+        "secondary_menu_linklist": "",
         "mobilemenu_style": "slide-submenu",
         "mobile_nav_show_social_links": true,
         "social_icon_facebook": true,

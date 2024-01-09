@@ -15,7 +15,7 @@
           }
         },
         "382f30a5-55c7-4fb8-8789-19c803a04b04": {
-          "type": "shopify://apps/yotpo-product-photo-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "type": "shopify:\/\/apps\/yotpo-product-photo-reviews\/blocks\/star-rating\/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
           "settings": {
             "product": "{{product}}"
           }
@@ -56,23 +56,23 @@
           "settings": {
             "icon_width": 50,
             "enable_highlight_1": true,
-            "icon_1": "shopify://shop_images/credit-card.png",
+            "icon_1": "shopify:\/\/shop_images\/credit-card.png",
             "text_1": "100% Secure Checkout",
             "enable_highlight_2": true,
-            "icon_2": "shopify://shop_images/fast-delivery.png",
+            "icon_2": "shopify:\/\/shop_images\/fast-delivery.png",
             "text_2": "Same Day Shipping",
             "enable_highlight_3": true,
-            "icon_3": "shopify://shop_images/guarantee.png",
+            "icon_3": "shopify:\/\/shop_images\/guarantee.png",
             "text_3": "Authenticity Guaranteed",
             "enable_highlight_4": true,
-            "icon_4": "shopify://shop_images/like.png",
+            "icon_4": "shopify:\/\/shop_images\/like.png",
             "text_4": "60-Day Warranty"
           }
         },
         "e81a6fb9-38d8-4152-83e8-de4a40847187": {
           "type": "complementary",
           "settings": {
-            "block_heading": "Pairs well with",
+            "heading": "Pairs well with",
             "make_collapsible_row": true,
             "product_list_limit": 5
           }
@@ -81,7 +81,7 @@
           "type": "collaspible_tab",
           "settings": {
             "heading": "Collapsible row 1",
-            "content": "<p>Row Content</p>",
+            "content": "<p>Row Content<\/p>",
             "page": ""
           }
         },
@@ -89,7 +89,7 @@
           "type": "collaspible_tab",
           "settings": {
             "heading": "Collapsible row 2",
-            "content": "<p>Row Content</p>",
+            "content": "<p>Row Content<\/p>",
             "page": ""
           }
         },
@@ -135,7 +135,7 @@
           "type": "content",
           "settings": {
             "title": "Extra Care",
-            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>"
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum<\/p>"
           }
         },
         "template--20566151692573__78a93886-419f-471a-a0ed-b4a5f7215973-page-1": {
@@ -163,7 +163,7 @@
       "type": "apps",
       "blocks": {
         "f34edc30-eebc-4b21-8938-2bdc18c4b7c3": {
-          "type": "shopify://apps/yotpo-product-photo-reviews/blocks/reviews/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+          "type": "shopify:\/\/apps\/yotpo-product-photo-reviews\/blocks\/reviews\/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
           "settings": {
             "product": "{{product}}"
           }
@@ -189,15 +189,15 @@
         "products_to_show": 9
       }
     },
-    "6633b1ec-c2b3-4e8f-949c-c38dcde13755": {
-      "type": "template-product-recently-viewed",
+    "6aaea2e6-6337-4d6a-a8c7-1539da620eeb": {
+      "type": "global-recently-viewed",
       "settings": {
         "fluid_layout": false,
         "section_top_spacing_enable": true,
         "section_bottom_spacing_enable": true,
         "section_bg_color": "",
         "section_txt_color": "",
-        "heading": "RECENTLY VIEWED"
+        "heading": "Recently Viewed"
       }
     }
   },
@@ -206,6 +206,6 @@
     "78a93886-419f-471a-a0ed-b4a5f7215973",
     "169908505953152fe7",
     "9a3952a6-85e5-4eda-914e-4da9e8d116a3",
-    "6633b1ec-c2b3-4e8f-949c-c38dcde13755"
+    "6aaea2e6-6337-4d6a-a8c7-1539da620eeb"
   ]
 }

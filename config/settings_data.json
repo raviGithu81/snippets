@@ -64,16 +64,7 @@
               "social_icon_facebook": true,
               "social_icon_twitter": true,
               "social_icon_instagram": true,
-              "social_icon_youtube": true,
-              "bottom_footer_linklist": "",
-              "show_payment_icons": true,
-              "payment_icon_visa": true,
-              "payment_icon_mastercard": true,
-              "payment_icon_ae": true,
-              "payment_icon_diners": true,
-              "payment_icon_paypal": true,
-              "payment_icon_applepay": true,
-              "payment_icon_amazonpay": true
+              "social_icon_youtube": true
             }
           }
         },
@@ -181,12 +172,6 @@
         "disabled": true,
         "settings": {
           "product": ""
-        }
-      },
-      "6174324309569838175": {
-        "type": "shopify:\/\/apps\/smile-loyalty-rewards\/blocks\/smile-shopify-app\/2fae4e25-1841-4ea2-bc02-bd548478c4f6",
-        "disabled": false,
-        "settings": {
         }
       }
     }
