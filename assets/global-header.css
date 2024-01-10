@@ -330,17 +330,11 @@
     }
     .random_columns{
         column-gap: 20px;
+        column-count: 5;
         & *{
             word-break: break-word;
             white-space: normal;
         }
-    }
-    .count_2{
-        column-count: 2;
-    }
-    .banner_style_2 .banner_style_row,
-    .banner_style_3 .banner_style_row {
-        flex-direction: column;
     }
     .random_columns > li{
         vertical-align: top;

@@ -1,0 +1,12 @@
+/*=============================================
+=                   Megamenu                  =
+=============================================*/
+.random_columns{
+    column-gap: 20px;
+    column-count: 5;
+    & *{
+        word-break: break-word;
+        white-space: normal;
+    }
+}
+/*=====  End of Megamenu  ======*/

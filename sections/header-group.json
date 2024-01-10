@@ -19,7 +19,7 @@
         "b4b5b00f-eb83-4f32-b766-f382bd331e8f": {
           "type": "megamenu",
           "settings": {
-            "title": "Megamenu 1",
+            "title": "Car Hauler",
             "enable_overlay": true,
             "overlay_bg_color": "#000000",
             "overlay_opacity": 0.3,
@@ -42,7 +42,7 @@
         "header_bg_color": "#ffffff",
         "show_line_separator": false,
         "logo_width": 150,
-        "menu": "menu"
+        "menu": "main-menu"
       }
     },
     "mobile-nav-drawer": {
