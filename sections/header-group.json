@@ -20,18 +20,16 @@
           "type": "megamenu",
           "settings": {
             "title": "Megamenu 1",
+            "enable_overlay": true,
+            "overlay_bg_color": "#000000",
+            "overlay_opacity": 0.3,
+            "banner_style": "banner_style_1",
             "image_1": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text_1": "link title 1",
-            "link_url_1": "shopify:\/\/products\/the-3p-fulfilled-snowboard",
-            "image_2": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text_2": "link tite",
-            "link_url_2": "shopify:\/\/collections\/frontpage",
-            "image_3": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text_3": "",
-            "link_url_3": "",
-            "image_4": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text_4": "",
-            "link_url_4": ""
+            "link_text_1": "link 1",
+            "link_url_1": "shopify:\/\/collections",
+            "image_2": "shopify:\/\/shop_images\/Rectangle_4.jpg",
+            "link_text_2": "link 2",
+            "link_url_2": "shopify:\/\/pages\/about-us"
           }
         }
       },

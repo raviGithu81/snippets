@@ -312,6 +312,9 @@
         left: 0;
         right: 0;
         padding: 24px 0;
+
+        opacity: 1;
+        visibility: visible;
     }
     .megamenu .dropdown-menu .nav-item .nav-link{
         padding: 0.25rem 0;
@@ -325,9 +328,6 @@
     .megamenu-img{
         margin-bottom: 1rem;
     }
-    .megamenu-img img{
-        aspect-ratio: 1/1;
-    }
     .random_columns{
         column-gap: 20px;
         & *{
@@ -335,8 +335,12 @@
             white-space: normal;
         }
     }
-    .count_4{
-        column-count: 4;
+    .count_2{
+        column-count: 2;
+    }
+    .banner_style_2 .banner_style_row,
+    .banner_style_3 .banner_style_row {
+        flex-direction: column;
     }
     .random_columns > li{
         vertical-align: top;
