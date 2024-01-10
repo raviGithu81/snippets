@@ -19,11 +19,19 @@
         "b4b5b00f-eb83-4f32-b766-f382bd331e8f": {
           "type": "megamenu",
           "settings": {
-            "title": "Car Hauler",
-            "column": "count_4",
-            "image": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text": "Link Title",
-            "link_url": "shopify:\/\/collections\/hydrogen"
+            "title": "Megamenu 1",
+            "image_1": "shopify:\/\/shop_images\/Rectangle_5.jpg",
+            "link_text_1": "link title 1",
+            "link_url_1": "shopify:\/\/products\/the-3p-fulfilled-snowboard",
+            "image_2": "shopify:\/\/shop_images\/Rectangle_5.jpg",
+            "link_text_2": "link tite",
+            "link_url_2": "shopify:\/\/collections\/frontpage",
+            "image_3": "shopify:\/\/shop_images\/Rectangle_5.jpg",
+            "link_text_3": "",
+            "link_url_3": "",
+            "image_4": "shopify:\/\/shop_images\/Rectangle_5.jpg",
+            "link_text_4": "",
+            "link_url_4": ""
           }
         }
       },
@@ -36,7 +44,7 @@
         "header_bg_color": "#ffffff",
         "show_line_separator": false,
         "logo_width": 150,
-        "menu": "main-menu"
+        "menu": "menu"
       }
     },
     "mobile-nav-drawer": {

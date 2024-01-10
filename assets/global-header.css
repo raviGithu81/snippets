@@ -325,24 +325,18 @@
     .megamenu-img{
         margin-bottom: 1rem;
     }
+    .megamenu-img img{
+        aspect-ratio: 1/1;
+    }
     .random_columns{
         column-gap: 20px;
-        &*{
+        & *{
             word-break: break-word;
             white-space: normal;
         }
     }
-    .count_2{
-        column-count: 2;
-    }
-    .count_3{
-        column-count: 3;
-    }
     .count_4{
         column-count: 4;
-    }
-    .count_5{
-        column-count: 5;
     }
     .random_columns > li{
         vertical-align: top;
