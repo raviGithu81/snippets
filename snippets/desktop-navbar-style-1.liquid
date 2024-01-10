@@ -1,5 +1,4 @@
-{% comment %} {% assign megamenuBlocks = section.blocks | where: 'type', 'megamenu' %} {% endcomment %}
-
+{% comment %}Start the Mega menu code {% endcomment %}
 <ul class="navbar-nav align-items-center me-auto">
   {% for link in linklists[section.settings.menu].links %}
     {%- liquid
@@ -39,6 +38,7 @@
                 <ul class="list-unstyled random_columns {{ megaMenuBlock.settings.column }}">
                   {%- for child_link in link.links -%}
                     <li>
+                      {% comment %} if you want to display link with the title, you can add a tag the below code {% endcomment %}
                       <a
                         href="{{ child_link.url }}"
                         class="fw-bold"
@@ -47,7 +47,10 @@
                       >
                         {{- child_link.title -}}
                       </a>
-                      {% comment %} <div class="text-uppercase fw-bold fs-xl">{{ childlink.title }}</div> {% endcomment %}
+                      {% comment %} 
+                        if you want to display only the title, you can uncomment on the below code
+                        <div class="text-uppercase fw-bold fs-xl">{{ childlink.title }}</div> 
+                      {% endcomment %}
                       {% if child_link.links.size > 0 %}
                         <ul class="list-unstyled">
                           {%- for grandchild_link in child_link.links -%}
@@ -100,6 +103,10 @@
           </div>
         </ul>
       </li>
+      {% comment %}
+        Note:- If you want to add a different type of mega menu, First, Add this elsif condition and add the different megamenu code here. Make sure you add the schema on header.liquid file for different megamenu.
+         {% elsif megaMenuBlock.type == 'megamenu2' %}
+      {% endcomment %}
     {% elsif link.links != blank %}
       <li class="nav-item dropdown default-submenu{% if link.active %} active{% endif %}">
         <a
@@ -163,47 +170,4 @@
     {% endif %}
   {% endfor %}
 </ul>
-<ul class="navbar-nav navbar-icon-links">
-  <li class="nav-item">
-    <a
-      href="{{ routes.search_url }}"
-      class="nav-link modal__toggle open-searchform"
-      aria-haspopup="dialog"
-      aria-label="{{ 'general.search.title' | t }}"
-    >
-      <span class="icon-search"></span>
-    </a>
-  </li>
-  {% if shop.customer_accounts_enabled %}
-    <li class="nav-item">
-      <a
-        class="nav-link"
-        href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-        title="account"
-        rel="nofollow"
-        aria-label="Account"
-      >
-        <span class="icon-user"></span>
-      </a>
-    </li>
-  {% endif %}
-  <li class="nav-item">
-    <a
-      href="{{ routes.cart_url }}"
-      class="nav-link header__icon--cart position-relative"
-      id="cart-icon-desktop"
-      rel="nofollow"
-      title="cart"
-      rel="nofollow"
-      aria-label="Cart"
-    >
-      <span class="icon-cart"></span>
-      <span class="visually-hidden">{{ 'templates.cart.title' | t }}</span>
-      {%- if cart != empty -%}
-        {%- if cart.item_count < 100 -%}
-          <span aria-hidden="true" class="cart-count">{{ cart.item_count }}</span>
-        {%- endif -%}
-      {%- endif -%}
-    </a>
-  </li>
-</ul>
+{% comment %}End the Mega menu code {% endcomment %}
