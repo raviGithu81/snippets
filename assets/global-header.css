@@ -343,6 +343,10 @@
         break-inside: avoid;
         margin-bottom: 1rem;
     }
+
+    .brand-logo-menu .brand-logo-list img{
+        height: 100px;
+    }
     
     /*=====  End of Megamenu  ======*/
     

@@ -33,48 +33,105 @@
         </a>
         <ul class="dropdown-menu">
           <div class="container">
-              <ul class="list-unstyled random_columns">
-                {%- for child_link in link.links -%}
-                  <li>
-                    {% comment %} if you want to display link with the title, you can add the below code {% endcomment %}
-                    <a
-                      href="{{ child_link.url }}"
-                      class="fw-bold"
-                      title="{{ child_link.title }}"
-                      aria-label="{{ child_link.title }}"
-                    >
-                      {{- child_link.title -}}
-                    </a>
-                    {% comment %} 
-                      if you want to display only the title, you can add the below code
-                    {% endcomment %}
-                      {% comment %} <div class="fw-bold fs-xl">{{ child_link.title }}</div>  {% endcomment %}
-                    {% if child_link.links.size > 0 %}
-                      <ul class="list-unstyled {% if grandchild_link_size > 12 %}count_2{% endif %}">
-                        {%- for grandchild_link in child_link.links -%}
-                          <li class="nav-item">
-                            <a
-                              href="{{ grandchild_link.url }}"
-                              class="nav-link"
-                              title="{{ grandchild_link.title }}"
-                              aria-label="{{ grandchild_link.title }}"
-                            >
-                              {{- grandchild_link.title -}}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {% endif %}
-                  </li>
-                {%- endfor -%}
-              </ul>
+            <ul class="list-unstyled random_columns">
+              {%- for child_link in link.links -%}
+                <li>
+                  {% comment %} if you want to display link with the title, you can add the below code {% endcomment %}
+                  <a
+                    href="{{ child_link.url }}"
+                    class="fw-bold"
+                    title="{{ child_link.title }}"
+                    aria-label="{{ child_link.title }}"
+                  >
+                    {{- child_link.title -}}
+                  </a>
+                  {% comment %}
+                    if you want to display only the title, you can add the below code
+                  {% endcomment %}
+                  {% comment %} <div class="fw-bold fs-xl">{{ child_link.title }}</div>  {% endcomment %}
+                  {% if child_link.links.size > 0 %}
+                    <ul class="list-unstyled {% if grandchild_link_size > 12 %}count_2{% endif %}">
+                      {%- for grandchild_link in child_link.links -%}
+                        <li class="nav-item">
+                          <a
+                            href="{{ grandchild_link.url }}"
+                            class="nav-link"
+                            title="{{ grandchild_link.title }}"
+                            aria-label="{{ grandchild_link.title }}"
+                          >
+                            {{- grandchild_link.title -}}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {% endif %}
+                </li>
+              {%- endfor -%}
+            </ul>
           </div>
         </ul>
       </li>
-      {% comment %}
-        Note:- If you want to add a different type of mega menu, First, Add this elsif condition and add the different megamenu code here. Make sure you add the schema on header.liquid file for different megamenu.
-         {% elsif megaMenuBlock.type == 'megamenu2' %}
-      {% endcomment %}
+
+    {% elsif megaMenuBlock.type == 'brandlogo' %}
+      <li
+        class="nav-item dropdown {% if megaMenuBlock %}megamenu{% endif %} {% if link.active %}active{% endif %}"
+      >
+        <a
+          data-href="{{ link.url }}"
+          {% if megaMenuBlock %}
+            is="drop-down"
+          {%- endif -%}
+          role="button"
+          class="nav-link d-flex align-items-center justify-content-between text-capitalize {{ link.handle }}"
+          tabindex="0"
+          role="button"
+          data-toggle="dropdown"
+          aria-expanded="false"
+          aria-haspopup="menu"
+          title="{{ link.title }}"
+          aria-label="{{ link.title }}"
+        >
+          <span>{{ link.title }}</span> <span class="icon-arrow-down ms-1 fs-xs test"></span>
+        </a>
+        {% if megaMenuBlock.settings.image_1 != null %}
+          <ul class="dropdown-menu brand-logo-menu">
+            <div class="container">
+              <div class="row">
+                {% for i in (1..7) %}
+                  {% liquid
+                    assign imageId = 'image_' | append: i
+                    assign linkUrlId = 'link_url_' | append: i
+                  %}
+                  {% if megaMenuBlock.settings[imageId] %}
+                    <div class="col brand-logo-list w-auto">
+                        {% if megaMenuBlock.settings[linkUrlId] != blank %}
+                          <a href="{{ megaMenuBlock.settings[linkUrlId] }}" class="d-block">
+                        {% endif %}
+                        <img
+                          srcset="
+                            {%- if megaMenuBlock.settings[imageId].width >= 450 -%}{{ megaMenuBlock.settings[imageId] | image_url: width: 450 }} 450w,{%- endif -%}
+                            {{ megaMenuBlock.settings[imageId] | image_url }} {{ megaMenuBlock.settings[imageId].width }}w
+                          "
+                          src="{{ megaMenuBlock.settings[imageId] | image_url: width: 50 }}"
+                          loading="lazy"
+                          sizes="450px"
+                          alt="Megamenu for {{ link.title }}"
+                          class="object-fit-contain w-m-auto d-block mx-auto"
+                          width="{{ megaMenuBlock.settings[imageId].width }}"
+                          height="{{ megaMenuBlock.settings[imageId].height }}"
+                        >
+                        {% if megaMenuBlock.settings[linkUrlId] != blank %}
+                          </a>
+                        {% endif %}
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </ul>
+        {% endif %}
+      </li>
+
     {% elsif link.links != blank %}
       <li class="nav-item dropdown default-submenu{% if link.active %} active{% endif %}">
         <a
@@ -139,7 +196,6 @@
   {% endfor %}
 </ul>
 {% comment %}End the Mega menu code {% endcomment %}
-
 
 <ul class="navbar-nav navbar-icon-links">
   <li class="nav-item">

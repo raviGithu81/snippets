@@ -16,25 +16,23 @@
     "header": {
       "type": "header",
       "blocks": {
-        "b4b5b00f-eb83-4f32-b766-f382bd331e8f": {
-          "type": "megamenu",
+        "brandlogo_8DTTdW": {
+          "type": "brandlogo",
           "settings": {
             "title": "Car Hauler",
-            "enable_overlay": true,
-            "overlay_bg_color": "#000000",
-            "overlay_opacity": 0.3,
-            "banner_style": "banner_style_1",
-            "image_1": "shopify:\/\/shop_images\/Rectangle_5.jpg",
-            "link_text_1": "link 1",
-            "link_url_1": "shopify:\/\/collections",
-            "image_2": "shopify:\/\/shop_images\/Rectangle_4.jpg",
-            "link_text_2": "link 2",
-            "link_url_2": "shopify:\/\/pages\/about-us"
+            "image_1": "shopify:\/\/shop_images\/path4814.svg",
+            "link_url_1": "shopify:\/\/blogs\/news",
+            "link_url_2": "",
+            "link_url_3": "",
+            "link_url_4": "",
+            "link_url_5": "",
+            "link_url_6": "",
+            "link_url_7": ""
           }
         }
       },
       "block_order": [
-        "b4b5b00f-eb83-4f32-b766-f382bd331e8f"
+        "brandlogo_8DTTdW"
       ],
       "settings": {
         "fluid_header": false,
